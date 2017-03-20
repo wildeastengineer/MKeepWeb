@@ -1,4 +1,17 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const envNames = {
+    prod: 'production',
+    dex: 'development'
+};
+const isProduction = process.env.NODE_ENV === envNames.prod;
+
+const outputCSSFileName = isProduction ? 'styles-[hash].css' : 'styles.css';
+
+const plugins = [
+    new ExtractTextPlugin(outputCSSFileName)
+];
 
 module.exports = {
     entry: './client/App.jsx',
@@ -9,6 +22,16 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         port: 9000
+    },
+    resolve: {
+        extensions: [
+            '.js',
+            '.jsx'
+        ],
+        modules: [
+            path.resolve(__dirname, './client'),
+            'node_modules'
+        ]
     },
     module: {
         rules: [
@@ -26,8 +49,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: 'css-loader'
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
             }
         ]
-    }
+    },
+    plugins
 };

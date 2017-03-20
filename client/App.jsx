@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+
+import Layout from 'components/layout';
+
+if (process.env.BROWSER) {
+    require('./app.css');
+}
+
+const propTypes = {
+    children: PropTypes.node
+};
 
 class App extends Component {
     render() {
         return (
-            <div>
-                MK
-            </div>
+            <Layout>
+                {this.props.children}
+            </Layout>
         );
     }
 }
+
+App.propTypes = propTypes;
 
 export default App;

@@ -1,24 +1,23 @@
 import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
 
 import React    from 'react';
 import ReactDom from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import appRoutes from '../client/routes/routes';
 
-const path = require('path');
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 const isProduction = process.env.NODE_ENV === 'production';
 
+process.env.BROWSER = false;
+
 app.set('views', path.join(__dirname, '/templates/'));
 app.set('view engine', 'ejs');
 
-console.log('---- match', match);
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use((req, res) => {
-    console.log('match 2', match);
-
     renderApp(appRoutes, req.url).then(
         (renderedApp) => {
             res.render('index', {
@@ -42,8 +41,6 @@ function renderApp(routes, location) {
             routes,
             location
         }, (error, redirectLocation, renderProps) => {
-            console.log('dsfsdfsdfsdf');
-
             if (redirectLocation) { // Если необходимо сделать redirect
                 return reject({
                     status: 301,
@@ -64,8 +61,6 @@ function renderApp(routes, location) {
                     message: 'Not found'
                 });
             }
-
-            console.log('RouterContext', RouterContext);
 
             resolve(ReactDom.renderToString(
                 <RouterContext {...renderProps} />
