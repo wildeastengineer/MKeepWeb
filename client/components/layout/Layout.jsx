@@ -1,36 +1,33 @@
 import React, { Component, PropTypes } from 'react';
+import { NavigationMenu } from '../layout';
 
 if (process.env.BROWSER) {
-    require('./layout.css');
+    require('./layout.scss');
 }
 
 const propTypes = {
     children: PropTypes.node
 };
 
-class App extends Component {
+class Layout extends Component {
     render() {
         return (
             <div className='app-layout'>
-                <div className='app-layout__header'>
-                    header
-                </div>
+                <div className='app-layout__header'></div>
                 <div className='app-layout__body'>
                     <div className='app-layout__side-bar'>
-                        side bar
+                        <NavigationMenu />
                     </div>
                     <div className='app-layout__content'>
                         {this.props.children}
                     </div>
                 </div>
-                <div className='app-layout__footer'>
-                    footer
-                </div>
+                <div className='app-layout__footer'></div>
             </div>
         );
     }
 }
 
-App.propTypes = propTypes;
+Layout.propTypes = propTypes;
 
-export default App;
+export default Layout;

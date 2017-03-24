@@ -26,7 +26,9 @@ app.use((req, res) => {
             });
         },
         (error) => {
-            console.log('Render Error:', error);
+            console.log('Render Error');
+            console.log('url:', req.url);
+            console.log('error:', error);
         }
     );
 });

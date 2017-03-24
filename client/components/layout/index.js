@@ -1,3 +1,7 @@
 import Layout from './Layout';
+import { NavigationMenu } from './NavigationMenu';
 
-export default Layout;
+export {
+    Layout,
+    NavigationMenu
+};

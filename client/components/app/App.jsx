@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
-import Layout from 'components/layout';
+import { Layout } from 'components/layout';
 
 if (process.env.BROWSER) {
-    require('./app.css');
+    require('./app.scss');
 }
 
 const propTypes = {
