@@ -1,0 +1,45 @@
+$block-width: 300px;
+
+.auth-menu {
+    background: #eeeeee;
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 6px;
+    position: absolute;
+    right: 0;
+    width: $block-width;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 6px;
+
+    .auth-menu__by-pass-form {
+        width: 100%;
+
+        input, button {
+            float: none;
+            width: 100%;
+        }
+
+        input {
+            margin-bottom: 6px ;
+        }
+    }
+
+    .auth-menu__wait-message,
+    .auth-menu__error-message {
+        cursor: help;
+        font-size: 13px;
+        line-height: 16px;
+        white-space: nowrap;
+        margin-top: 10px;
+        display: inline-block;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        padding: 0 5px 0 0;
+        box-sizing: border-box;
+    }
+
+    .auth-menu__error-message {
+        color: #c11212;
+    }
+}

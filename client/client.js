@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { browserHistory, Router } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 import routes from 'routes';
+import Store from 'store';
+
+const store = Store(window.REDUX_INITIAL_STATE || {});
+const history = syncHistoryWithStore(browserHistory, store);
 
 const app = (
-    <Router history={browserHistory}>
-        {routes}
-    </Router>
+    <Provider store={store}>
+        <Router history={history}>
+            {routes}
+        </Router>
+    </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('MK-app'));

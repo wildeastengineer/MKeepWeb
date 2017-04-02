@@ -33,6 +33,7 @@ module.exports = {
         path: outputFolderFullPath,
         publicPath: 'http://localhost:9000/'
     },
+    devtool: 'inline-source-map',
     devServer: {
         port: 9000,
         contentBase: path.resolve(__dirname, 'dist'),
