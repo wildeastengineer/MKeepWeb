@@ -4,11 +4,11 @@ import {
     AUTH_LOG_IN_EMAIL_FAILED,
     AUTH_LOG_IN_COOKIE_STARTED,
     AUTH_LOG_IN_COOKIE_FINISHED,
-    AUTH_LOG_IN_COOKIE_FAILED
+    AUTH_LOG_IN_COOKIE_FAILED,
     // AUTH_LOG_OUT,
-    // GET_USER_PROFILE_STARTED,
-    // GET_USER_PROFILE_FINISHED,
-    // GET_USER_PROFILE_FAILED,
+    GET_USER_PROFILE_STARTED,
+    GET_USER_PROFILE_FINISHED,
+    GET_USER_PROFILE_FAILED
     // CREATE_NEW_ACCOUNT_STARTED,
     // CREATE_NEW_ACCOUNT_FINISHED,
     // CREATE_NEW_ACCOUNT_FAILED
@@ -20,16 +20,24 @@ import {
     authLogInEmailFailedHandler,
     authLogInCookieStartedHandler,
     authLogInCookieFinishedHandler,
-    authLogInCookieFailedHandler
+    authLogInCookieFailedHandler,
+    getUserProfileStartedHandler,
+    getUserProfileFinishedHandler,
+    getUserProfileFailedHandler
 } from './authReducerMethods';
 
 const initialState = {
-    isAuthorized: false,
-    fetching: {
+    authorized: false,
+    authorization: {
         inProgress: false,
         error: ''
     },
-    data: {}
+    profileFetched: false,
+    profileFetching: {
+        inProgress: false,
+        error: ''
+    },
+    profile: {}
 };
 
 export default function (state = initialState, action) {
@@ -46,22 +54,15 @@ export default function (state = initialState, action) {
             return authLogInCookieFinishedHandler(state);
         case AUTH_LOG_IN_COOKIE_FAILED:
             return authLogInCookieFailedHandler(state);
-
+        case GET_USER_PROFILE_STARTED:
+            return getUserProfileStartedHandler(state);
+        case GET_USER_PROFILE_FINISHED:
+            return getUserProfileFinishedHandler(state, action.data);
+        case GET_USER_PROFILE_FAILED:
+            return getUserProfileFailedHandler(state, action.error);
         // case AUTH_LOG_OUT:
         //     return Object.assign({}, state, {
         //         isAuthorized: false,
-        //         data: {}
-        //     });
-        // case GET_USER_PROFILE_STARTED:
-        //     return Object.assign({}, state, {
-        //         data: {}
-        //     });
-        // case GET_USER_PROFILE_FINISHED:
-        //     return Object.assign({}, state, {
-        //         data: action.data
-        //     });
-        // case GET_USER_PROFILE_FAILED:
-        //     return Object.assign({}, state, {
         //         data: {}
         //     });
         // case CREATE_NEW_ACCOUNT_STARTED:

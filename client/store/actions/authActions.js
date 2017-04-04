@@ -1,4 +1,4 @@
-import { authRepository } from 'repositories';
+import { authRepository, profileRepository } from 'repositories';
 //import { getProjectsList } from 'redux/actions/projectsActions';
 
 
@@ -16,22 +16,27 @@ export const AUTH_LOG_IN_COOKIE_FAILED = 'AUTH_LOG_IN_COOKIE_FAILED';
 // export const CREATE_NEW_ACCOUNT_STARTED = 'CREATE_NEW_ACCOUNT_STARTED';
 // export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
 // export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
-// export const GET_USER_PROFILE_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
-// export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
-// export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
+
+export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
+export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
+export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
 
 /* Log in by email */
 export function logInByEmail(email, password) {
     return (dispatch) => {
-        dispatch(logInByEmailStarted(email, password));
+        return new Promise((resolve, reject) => {
+            dispatch(logInByEmailStarted(email, password));
 
-        authRepository.logInByEmail(email, password)
-            .then(() => {
-                dispatch(logInByEmailFinished());
-            })
-            .catch((error) => {
-                dispatch(logInByEmailFailed(error));
-            });
+            authRepository.logInByEmail(email, password)
+                .then(() => {
+                    dispatch(logInByEmailFinished());
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(logInByEmailFailed(error.message));
+                    reject();
+                });
+        });
     };
 }
 
@@ -103,40 +108,54 @@ function logInByCookieFailed(error) {
 }
 
 /* Get user profile */
-// export function getUserProfile() {
-//     return (dispatch) => {
-//         dispatch(getUserProfileStart());
-//
-//         profileRep.getProfile()
-//             .then((data) => {
-//                 dispatch(getUserProfileFinished(data));
-//                 dispatch(getProjectsList());
-//             })
-//             .catch((error) => {
-//                 dispatch(getUserProfileFailed(error));
-//             });
-//     };
-// }
-//
-// function getUserProfileStart() {
-//     return {
-//         type: GET_USER_PROFILE_STARTED
-//     };
-// }
-//
-// function getUserProfileFinished(data) {
-//     return {
-//         type: GET_USER_PROFILE_FINISHED,
-//         data
-//     };
-// }
-//
-// function getUserProfileFailed(error) {
-//     return {
-//         type: GET_USER_PROFILE_FAILED,
-//         error
-//     };
-// }
+export function getUserProfile() {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(getUserProfileStart());
+
+            profileRepository.getProfile()
+                .then((data) => {
+                    dispatch(getUserProfileFinished(data));
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(getUserProfileFailed(error.message));
+                    reject();
+                });
+        });
+    };
+}
+
+function getUserProfileStart() {
+    return {
+        type: GET_USER_PROFILE_STARTED
+    };
+}
+
+function getUserProfileFinished(data) {
+    return {
+        type: GET_USER_PROFILE_FINISHED,
+        data
+    };
+}
+
+function getUserProfileFailed(error) {
+    return {
+        type: GET_USER_PROFILE_FAILED,
+        error
+    };
+}
+
+export function runClientAuthFlow(email, password) {
+    return (dispatch) => {
+        dispatch(logInByEmail(email, password))
+            .then(() => {
+                dispatch(getUserProfile());
+            });
+    };
+}
+
+// ToDo: Write runServerAuthFlow
 
 /* Create new account */
 // export function createNewAccount(email, password) {

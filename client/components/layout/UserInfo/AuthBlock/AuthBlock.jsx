@@ -1,66 +1,46 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { logInByEmail } from 'store/actions/authActions';
+import { runClientAuthFlow } from 'store/actions/authActions';
 
-import AuthButton from './AuthButton';
+import { Button, PopupMenu } from 'components/common';
 import AuthMenu from './AuthMenu';
 
-if (process.env.BROWSER) {
-    require('./authBlock.scss');
-}
-
-const propTypes = {
-    authInProgress: PropTypes.bool,
-    authError: PropTypes.string,
-    dispatch: PropTypes.func.isRequired
-};
-
-const defaultProps = {
-    authInProgress: false,
-    authError: ''
-};
-
 class AuthBlock extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        email: '',
+        password: ''
+    };
 
-        this.state = {
-            email: '',
-            password: '',
-            showMenu: false
-        };
+    static propTypes = {
+        authInProgress: PropTypes.bool,
+        authError: PropTypes.string,
+        dispatch: PropTypes.func.isRequired
+    };
 
-        this.handleAuthButtonClick = this.handleAuthButtonClick.bind(this);
-        this.handleCredentialsChange = this.handleCredentialsChange.bind(this);
-        this.handleLogInByPassClick = this.handleLogInByPassClick.bind(this);
-    }
+    static defaultProps = {
+        authInProgress: false,
+        authError: ''
+    };
 
-    handleAuthButtonClick() {
-        this.setState({
-            showMenu: !this.state.showMenu
-        });
-    }
-
-    handleCredentialsChange(param, event) {
+    handleCredentialsChange = (param, event) => {
         this.setState({
             [param]: event.target.value
         });
-    }
+    };
 
-    handleLogInByPassClick(event) {
+    handleLogInByPassClick = (event) => {
         event.preventDefault();
 
-        this.props.dispatch(logInByEmail(this.state.email, this.state.password));
-    }
+        this.props.dispatch(runClientAuthFlow(this.state.email, this.state.password));
+    };
 
     render() {
         return (
             <div className='auth-block'>
-                <AuthButton
-                    onClick={this.handleAuthButtonClick}
-                />
-                {this.state.showMenu && (
+                <PopupMenu
+                    button={<Button>Log In</Button>}
+                >
                     <AuthMenu
                         email={this.state.email}
                         password={this.state.password}
@@ -69,19 +49,16 @@ class AuthBlock extends Component {
                         onCredentialsChange={this.handleCredentialsChange}
                         onLogInByPassClick={this.handleLogInByPassClick}
                     />
-                )}
+                </PopupMenu>
             </div>
         );
     }
 }
 
-AuthBlock.propTypes = propTypes;
-AuthBlock.defaultProps = defaultProps;
-
 function mapStateToProps(state) {
     return {
-        authInProgress: state.user.fetching.inProgress,
-        authError: state.user.fetching.error
+        authInProgress: state.user.authorization.inProgress,
+        authError: state.user.authorization.error
     };
 }
 

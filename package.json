@@ -9,13 +9,14 @@
         "babel-jest": "^19.0.0",
         "babel-loader": "^6.4.0",
         "babel-preset-es2015": "^6.24.0",
-        "babel-preset-stage-2": "^6.22.0",
+        "babel-preset-stage-0": "^6.22.0",
         "clean-webpack-plugin": "^0.1.16",
         "css-loader": "^0.27.3",
         "extract-text-webpack-plugin": "^2.1.0",
         "jest-cli": "^19.0.2",
         "redux-devtools-extension": "^2.13.0",
         "style-loader": "^0.14.1",
+        "url-loader": "^0.5.8",
         "webpack": "^2.2.1",
         "webpack-dev-server": "^2.4.2"
     },
@@ -24,7 +25,7 @@
         "build": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js",
         "build-help": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js --display-error-details",
         "test": "jest",
-        "nodemon": "NODE_PATH=./client nodemon server/server.js --exec babel-node --presets es2015,stage-2,react"
+        "nodemon": "NODE_PATH=./client nodemon server/server.js --exec babel-node --presets es2015,react,stage-0"
     },
     "repository": {
         "type": "git",

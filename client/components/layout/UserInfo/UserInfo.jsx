@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import AuthBlock from './AuthBlock';
+import UserInfoBlock from './UserInfoBlock';
 
 if (process.env.BROWSER) {
     require('./userInfo.scss');
@@ -22,7 +23,7 @@ class AuthorizationBlock extends Component {
             <div className='user-info'>
                 {this.props.isAuthorized ?
                     (
-                        <span>Hello, {this.props.userName}</span>
+                        <UserInfoBlock />
                     ) : (
                         <AuthBlock />
                     )
@@ -35,12 +36,11 @@ class AuthorizationBlock extends Component {
 AuthorizationBlock.propTypes = propTypes;
 
 function mapStateToProps(state) {
-    const { isAuthorized } = state.user;
-    const userName = isAuthorized ? state.user.data.name : '';
+    const user = state.user;
 
     return {
-        isAuthorized,
-        userName
+        isAuthorized: user.authorized,
+        userName: user.profileFetched ? user.profile.name : null
     };
 }
 

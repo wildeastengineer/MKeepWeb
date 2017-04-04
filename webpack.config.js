@@ -60,7 +60,8 @@ module.exports = {
                     options: {
                         presets: [
                             'es2015',
-                            'react'
+                            'react',
+                            'stage-0'
                         ],
                         plugins: [
                             'react-hot-loader/babel'
@@ -88,6 +89,12 @@ module.exports = {
                         }
                     ]
                 })
+            },
+            {
+                test: /\.png$/,
+                use: [
+                    'url-loader?limit=10000'
+                ]
             }
         ]
     },

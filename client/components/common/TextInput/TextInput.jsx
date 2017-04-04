@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 if (process.env.BROWSER) {
     require('./textInput.scss');
@@ -20,7 +20,7 @@ const defaultProps = {
     disabled: false
 };
 
-const TextInput = (props) => {
+function TextInput(props) {
     const properties = Object.assign({}, props, {
         className: `mk-input ${props.className}`.trim()
     });
@@ -28,7 +28,7 @@ const TextInput = (props) => {
     return (
         <input {...properties}/>
     );
-};
+}
 
 TextInput.propTypes = propTypes;
 TextInput.defaultProps = defaultProps;

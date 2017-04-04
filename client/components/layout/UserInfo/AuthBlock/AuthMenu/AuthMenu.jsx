@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { TextInput, Button } from 'components/common';
 
 if (process.env.BROWSER) {
@@ -14,7 +14,7 @@ const propTypes = {
     onLogInByPassClick: PropTypes.func.isRequired
 };
 
-const AuthMenu = (props) => {
+function AuthMenu(props) {
     return (
         <div className='auth-menu'>
             <form className='auth-menu__by-pass-form'>
@@ -56,7 +56,7 @@ const AuthMenu = (props) => {
             </form>
         </div>
     );
-};
+}
 
 AuthMenu.propTypes = propTypes;
 

@@ -1,56 +1,101 @@
 export const authLogInEmailStartedHandler = (state) => {
-    return Object.assign({}, state, {
-        fetching: Object.assign({}, state.fetching, {
-            inProgress: true
-        })
-    });
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: true,
+            error: ''
+        }
+    };
 };
 
 export const authLogInEmailFinishedHandler = (state) => {
-    return Object.assign({}, state, {
-        isAuthorized: true,
-        fetching: Object.assign({}, state.fetching, {
+    return {
+        ...state,
+        authorized: true,
+        authorization: {
             inProgress: false,
-            error: ""
-        })
-    });
+            error: ''
+        }
+    };
 };
 
 export const authLogInEmailFailedHandler = (state, error) => {
-    return Object.assign({}, state, {
-        isAuthorized: false,
-        fetching: Object.assign({}, state.fetching, {
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
             inProgress: false,
-            error: error
-        }),
-        data: {}
-    });
+            error
+        }
+    };
 };
 
 export const authLogInCookieStartedHandler = (state) => {
-    return Object.assign({}, state, {
-        fetching: Object.assign({}, state.fetching, {
-            inProgress: true
-        })
-    });
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: true,
+            error: ''
+        }
+    };
 };
 
 export const authLogInCookieFinishedHandler = (state) => {
-    return Object.assign({}, state, {
-        isAuthorized: true,
-        fetching: Object.assign({}, state.fetching, {
+    return {
+        ...state,
+        authorized: true,
+        authorization: {
             inProgress: false,
-            error: ""
-        })
-    });
+            error: ''
+        }
+    };
 };
 
 export const authLogInCookieFailedHandler = (state) => {
-    return Object.assign({}, state, {
-        isAuthorized: false,
-        fetching: Object.assign({}, state.fetching, {
-            inProgress: false
-        }),
-        data: {}
-    });
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: false,
+            error: ''
+        }
+    };
+};
+
+export const getUserProfileStartedHandler = (state) => {
+    return {
+        ...state,
+        profileFetched: false,
+        profileFetching: {
+            inProgress: true,
+            error: ''
+        },
+        profile: {}
+    };
+};
+
+export const getUserProfileFinishedHandler = (state, data) => {
+    return {
+        ...state,
+        profileFetched: true,
+        profileFetching: {
+            inProgress: false,
+            error: ''
+        },
+        profile: data
+    };
+};
+
+export const getUserProfileFailedHandler = (state, error) => {
+    return {
+        ...state,
+        profileFetched: false,
+        profileFetching: {
+            inProgress: false,
+            error
+        },
+        profile: {}
+    };
 };

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 if (process.env.BROWSER) {
     require('./button.scss');
@@ -19,7 +19,7 @@ const defaultProps = {
     disabled: false
 };
 
-const Input = (props) => {
+function Button(props) {
     const properties = Object.assign({}, props, {
         className: `mk-button ${props.className}`.trim()
     });
@@ -31,10 +31,10 @@ const Input = (props) => {
             </span>
         </button>
     );
-};
+}
 
-Input.propTypes = propTypes;
-Input.defaultProps = defaultProps;
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
-export default Input;
+export default Button;
 
