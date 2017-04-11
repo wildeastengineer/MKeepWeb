@@ -8,6 +8,11 @@ import { getErrorMessage } from './repositoryHelper';
 const { clientId, clientSecret } = config.auth;
 
 class AuthRepository {
+    constructor() {
+        this.accessToken = null;
+        this.refreshToken = null;
+    }
+
     getUrl(action) {
         const { protocol, url } = config.api;
         const apiUrl = `${protocol}://${url}`;
@@ -39,19 +44,23 @@ class AuthRepository {
                         return reject(getErrorMessage(error, response));
                     }
 
-                    const tokenMaxAge = response.body.expires_in;
+                    const data = {
+                        accessToken: response.body.access_token,
+                        refreshToken: response.body.refresh_token,
+                        tokenMaxAge: response.body.expires_in * 1000
+                    };
 
-                    cookie.save('accessToken', response.body.access_token, {
-                        maxAge: tokenMaxAge
-                    });
+                    this.saveAccessToken(data.accessToken, data.tokenMaxAge);
+                    this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
 
-                    cookie.save('refreshToken', response.body.refresh_token, {
-                        maxAge: tokenMaxAge
-                    });
-
-                    resolve(response.body);
+                    resolve(data);
                 });
         });
+    }
+
+    logOut() {
+        this.removeAccessToken();
+        this.removeRefreshToken();
     }
 
     refreshTokens(refreshToken) {
@@ -75,44 +84,69 @@ class AuthRepository {
                         tokenMaxAge: response.body.expires_in * 1000
                     };
 
-                    cookie.save('accessToken', data.accessToken, {
-                        maxAge: data.tokenMaxAge
-                    });
-
-                    cookie.save('refreshToken', data.refreshToken, {
-                        maxAge: data.tokenMaxAge
-                    });
+                    this.saveAccessToken(data.accessToken, data.tokenMaxAge);
+                    this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
 
                     resolve(data);
                 });
         });
     }
 
-    createNewAccount(email, password) {
-        return new Promise((resolve, reject) => {
-            request
-                .post(this.getUrl('createAccount'))
-                .send({
-                    'username': email,
-                    password
-                })
-                .set('Accept', 'application/json')
-                .end((error, response) => {
-                    if (error) {
-                        return reject(getErrorMessage(error, response));
-                    }
+    // createNewAccount(email, password) {
+    //     return new Promise((resolve, reject) => {
+    //         request
+    //             .post(this.getUrl('createAccount'))
+    //             .send({
+    //                 'username': email,
+    //                 password
+    //             })
+    //             .set('Accept', 'application/json')
+    //             .end((error, response) => {
+    //                 if (error) {
+    //                     return reject(getErrorMessage(error, response));
+    //                 }
+    //
+    //                 resolve(response.body);
+    //             });
+    //     });
+    // }
 
-                    resolve(response.body);
-                });
+    getAccessToken() {
+        return new Promise((resolve, reject) => {
+            if (this.accessToken) {
+                return resolve(this.accessToken);
+            }
+
+            if (cookie.load('accessToken')) {
+                return resolve(cookie.load('accessToken'));
+            }
+
+            reject('Access token is not defined');
         });
     }
 
-    getAccessToken() {
-        return new Promise((resolve) => {
-            const accessToken = cookie.load('accessToken');
-
-            resolve(accessToken);
+    saveAccessToken(token, maxAge) {
+        this.accessToken = token;
+        cookie.save('accessToken', token, {
+            maxAge
         });
+    }
+
+    saveRefreshToken(token, maxAge) {
+        this.refreshToken = token;
+        cookie.save('refreshToken', token, {
+            maxAge
+        });
+    }
+
+    removeAccessToken() {
+        this.accessToken = null;
+        cookie.remove('accessToken');
+    }
+
+    removeRefreshToken() {
+        this.refreshToken = null;
+        cookie.remove('refreshToken');
     }
 }
 

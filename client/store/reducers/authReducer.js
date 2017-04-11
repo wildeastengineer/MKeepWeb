@@ -5,7 +5,7 @@ import {
     AUTH_LOG_IN_COOKIE_STARTED,
     AUTH_LOG_IN_COOKIE_FINISHED,
     AUTH_LOG_IN_COOKIE_FAILED,
-    // AUTH_LOG_OUT,
+    AUTH_LOG_OUT,
     GET_USER_PROFILE_STARTED,
     GET_USER_PROFILE_FINISHED,
     GET_USER_PROFILE_FAILED
@@ -21,6 +21,7 @@ import {
     authLogInCookieStartedHandler,
     authLogInCookieFinishedHandler,
     authLogInCookieFailedHandler,
+    logOutHandler,
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
     getUserProfileFailedHandler
@@ -54,17 +55,15 @@ export default function (state = initialState, action) {
             return authLogInCookieFinishedHandler(state);
         case AUTH_LOG_IN_COOKIE_FAILED:
             return authLogInCookieFailedHandler(state);
+        case AUTH_LOG_OUT:
+            return logOutHandler();
         case GET_USER_PROFILE_STARTED:
             return getUserProfileStartedHandler(state);
         case GET_USER_PROFILE_FINISHED:
             return getUserProfileFinishedHandler(state, action.data);
         case GET_USER_PROFILE_FAILED:
             return getUserProfileFailedHandler(state, action.error);
-        // case AUTH_LOG_OUT:
-        //     return Object.assign({}, state, {
-        //         isAuthorized: false,
-        //         data: {}
-        //     });
+
         // case CREATE_NEW_ACCOUNT_STARTED:
         //     return Object.assign({}, state, {
         //         fetching: Object.assign({}, state.fetching, {

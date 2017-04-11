@@ -9,7 +9,7 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from 'store';
 import appRoutes from '../client/routes/routes';
-import { logInByCookie } from '../client/store/actions/authActions';
+import { runServerAuthFlow } from '../client/store/actions/authActions';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,34 +25,29 @@ app.use(cookieParser());
 app.use((req, res) => {
     const store = Store();
 
-    store.dispatch(logInByCookie(req.cookies))
-        .then((data) => {
-            if (data) {
-                res.cookie('accessToken', data.accessToken, {
-                    maxAge: data.tokenMaxAge
-                });
-                res.cookie('refreshToken', data.refreshToken, {
-                    maxAge: data.tokenMaxAge
-                });
-            }
+    store.dispatch(runServerAuthFlow(req, res))
+        .catch((error) => {
+            console.log('Auth Error', error);
 
+            return Promise.resolve();
+        })
+        .then(() => {
             return renderApp(appRoutes, store, req.url);
         })
         .then((renderedApp) => {
-                const state = store.getState();
+            const state = store.getState();
 
-                res.render('index', {
-                    assetsUrl: isProduction ? '/' : 'http://localhost:9000/',
-                    app: renderedApp,
-                    initialState: JSON.stringify(state)
-                });
-            },
-            (error) => {
-                console.log('Render Error');
-                console.log('url:', req.url);
-                console.log('error:', error);
-            }
-        );
+            res.render('index', {
+                assetsUrl: isProduction ? '/' : 'http://localhost:9000/',
+                app: renderedApp,
+                initialState: JSON.stringify(state)
+            });
+        })
+        .catch((error) => {
+            console.log('Render Error');
+            console.log('url:', req.url);
+            console.log('error:', error);
+        });
 });
 
 app.listen(PORT, () => {

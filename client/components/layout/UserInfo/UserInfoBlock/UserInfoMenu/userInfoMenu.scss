@@ -2,4 +2,26 @@ $block-width: 300px;
 
 .user-info-menu {
     width: $block-width;
+
+    .user-info-menu__contacts {
+        align-items: center;
+        background-color: #dcdcdc;
+        display: flex;
+        justify-content: flex-end;
+        height: 80px;
+
+        .user-info-menu__user-name {
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+    }
+
+    .user-info-menu__actions {
+        margin-top: 6px;
+
+        button {
+            font-size: 15px;
+            width: 100%;
+        }
+    }
 }

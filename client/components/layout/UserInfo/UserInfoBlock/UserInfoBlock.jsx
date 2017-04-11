@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-import { logInByEmail } from 'store/actions/authActions';
+import { logOut } from 'store/actions/authActions';
 
 import { FlatButton, Icon, PopupMenu } from 'components/common';
 import UserInfoMenu from './UserInfoMenu';
 
 class UserInfoBlock extends Component {
+    static propTypes = {
+        userName: PropTypes.string,
+        dispatch: PropTypes.func.isRequired
+    };
+
+    static defaultProps = {
+        userName: ''
+    };
+
+    handleLogoutClick = () => {
+        this.props.dispatch(logOut());
+    };
+
     render() {
         return (
             <div className='user-info-block'>
@@ -16,12 +30,20 @@ class UserInfoBlock extends Component {
                         </FlatButton>
                     )}
                 >
-                    <UserInfoMenu />
+                    <UserInfoMenu
+                        userName={this.props.userName}
+                        onLogoutClick={this.handleLogoutClick}
+                    />
                 </PopupMenu>
             </div>
         );
     }
 }
 
-export default UserInfoBlock;
+function mapStateToProps(state) {
+    return {
+        userName: state.user.profile.name
+    };
+}
 
+export default connect(mapStateToProps)(UserInfoBlock);

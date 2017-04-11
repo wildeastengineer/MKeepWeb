@@ -64,6 +64,22 @@ export const authLogInCookieFailedHandler = (state) => {
     };
 };
 
+export const logOutHandler = () => {
+    return {
+        authorized: false,
+        authorization: {
+            inProgress: false,
+            error: ''
+        },
+        profileFetched: false,
+        profileFetching: {
+            inProgress: false,
+            error: ''
+        },
+        profile: {}
+    };
+};
+
 export const getUserProfileStartedHandler = (state) => {
     return {
         ...state,

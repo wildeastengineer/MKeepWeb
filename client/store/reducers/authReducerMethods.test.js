@@ -5,6 +5,7 @@ import {
     authLogInCookieStartedHandler,
     authLogInCookieFinishedHandler,
     authLogInCookieFailedHandler,
+    logOutHandler,
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
     getUserProfileFailedHandler
@@ -437,7 +438,82 @@ describe('reducers', () => {
         });
     });
 
-    // -------------
+    describe('"logOutHandler" method', () => {
+        test('it should be defined', () => {
+            expect(typeof logOutHandler).toBe('function');
+        });
+
+        test('it should return correct new state', () => {
+            let newState;
+            let state = {
+                authorized: true,
+                authorization: {
+                    inProgress: false,
+                    error: ''
+                },
+                profileFetched: true,
+                profileFetching: {
+                    inProgress: false,
+                    error: ''
+                },
+                profile: {
+                    name: 'User Name'
+                }
+            };
+
+            newState = logOutHandler(state);
+
+            expect(newState).toEqual({
+                authorized: false,
+                authorization: {
+                    inProgress: false,
+                    error: ''
+                },
+                profileFetched: false,
+                profileFetching: {
+                    inProgress: false,
+                    error: ''
+                },
+                profile: {}
+            });
+        });
+
+        test('it should not mutate original state', () => {
+            let state = {
+                authorized: true,
+                authorization: {
+                    inProgress: false,
+                    error: ''
+                },
+                profileFetched: true,
+                profileFetching: {
+                    inProgress: false,
+                    error: ''
+                },
+                profile: {
+                    name: 'User Name'
+                }
+            };
+
+            logOutHandler(state);
+
+            expect(state).toEqual({
+                authorized: true,
+                authorization: {
+                    inProgress: false,
+                    error: ''
+                },
+                profileFetched: true,
+                profileFetching: {
+                    inProgress: false,
+                    error: ''
+                },
+                profile: {
+                    name: 'User Name'
+                }
+            });
+        });
+    });
 
     describe('"getUserProfileStartedHandler" method', () => {
         test('it should be defined', () => {

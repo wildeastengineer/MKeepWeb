@@ -1,9 +1,6 @@
 import { authRepository, profileRepository } from 'repositories';
 //import { getProjectsList } from 'redux/actions/projectsActions';
 
-
-//const profileRep = new ProfileRepository();
-
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
 export const AUTH_LOG_IN_EMAIL_FINISHED = 'AUTH_LOG_IN_EMAIL_FINISHED';
 export const AUTH_LOG_IN_EMAIL_FAILED = 'AUTH_LOG_IN_EMAIL_FAILED';
@@ -12,7 +9,8 @@ export const AUTH_LOG_IN_COOKIE_STARTED = 'AUTH_LOG_IN_COOKIE_STARTED';
 export const AUTH_LOG_IN_COOKIE_FINISHED = 'AUTH_LOG_IN_COOKIE_FINISHED';
 export const AUTH_LOG_IN_COOKIE_FAILED = 'AUTH_LOG_IN_COOKIE_FAILED';
 
-// export const AUTH_LOG_OUT = 'AUTH_LOG_OUT';
+export const AUTH_LOG_OUT = 'AUTH_LOG_OUT';
+
 // export const CREATE_NEW_ACCOUNT_STARTED = 'CREATE_NEW_ACCOUNT_STARTED';
 // export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
 // export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
@@ -60,19 +58,20 @@ function logInByEmailFailed(error) {
     };
 }
 
+/* Log in by cookie */
 export function logInByCookie(cookie) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            dispatch(logInByCookieStarted());
-
             const refreshToken = cookie.refreshToken;
+
+            dispatch(logInByCookieStarted());
 
             if (!refreshToken) {
                 const errorMessage = 'Refresh token is not defined';
 
                 dispatch(logInByCookieFailed(errorMessage));
 
-                return resolve();
+                return reject(errorMessage);
             }
 
             authRepository.refreshTokens(refreshToken)
@@ -82,7 +81,7 @@ export function logInByCookie(cookie) {
                 })
                 .catch((error) => {
                     dispatch(logInByCookieFailed(error));
-                    resolve()
+                    reject(error)
                 });
         });
     };
@@ -107,6 +106,20 @@ function logInByCookieFailed(error) {
     };
 }
 
+/* Log out */
+export function logOut() {
+    return (dispatch) => {
+        authRepository.logOut();
+        dispatch(logOutStart());
+    };
+}
+
+function logOutStart() {
+    return {
+        type: AUTH_LOG_OUT
+    };
+}
+
 /* Get user profile */
 export function getUserProfile() {
     return (dispatch) => {
@@ -120,7 +133,7 @@ export function getUserProfile() {
                 })
                 .catch((error) => {
                     dispatch(getUserProfileFailed(error.message));
-                    reject();
+                    reject(error);
                 });
         });
     };
@@ -146,6 +159,7 @@ function getUserProfileFailed(error) {
     };
 }
 
+// ToDo: move "runClientAuthFlow" and "runServerAuthFlow" to another file
 export function runClientAuthFlow(email, password) {
     return (dispatch) => {
         dispatch(logInByEmail(email, password))
@@ -155,7 +169,31 @@ export function runClientAuthFlow(email, password) {
     };
 }
 
-// ToDo: Write runServerAuthFlow
+export function runServerAuthFlow(req, res) {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(logInByCookie(req.cookies))
+                .then((data) => {
+                    if (data) {
+                        res.cookie('accessToken', data.accessToken, {
+                            maxAge: data.tokenMaxAge
+                        });
+                        res.cookie('refreshToken', data.refreshToken, {
+                            maxAge: data.tokenMaxAge
+                        });
+                    }
+
+                    return dispatch(getUserProfile());
+                })
+                .then(() => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    };
+}
 
 /* Create new account */
 // export function createNewAccount(email, password) {
@@ -190,12 +228,5 @@ export function runClientAuthFlow(email, password) {
 //     return {
 //         type: CREATE_NEW_ACCOUNT_FAILED,
 //         error
-//     };
-// }
-
-/* Log out */
-// export function logOut() {
-//     return {
-//         type: AUTH_LOG_OUT
 //     };
 // }
