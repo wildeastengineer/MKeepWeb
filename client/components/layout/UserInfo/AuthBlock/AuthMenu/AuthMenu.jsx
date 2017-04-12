@@ -11,7 +11,8 @@ const propTypes = {
     isLoading: PropTypes.bool,
     error: PropTypes.string,
     onCredentialsChange: PropTypes.func.isRequired,
-    onLogInByPassClick: PropTypes.func.isRequired
+    onLogInByPassClick: PropTypes.func.isRequired,
+    onCreateNewAccountClick: PropTypes.func.isRequired
 };
 
 function AuthMenu(props) {
@@ -37,6 +38,14 @@ function AuthMenu(props) {
                     onClick={props.onLogInByPassClick}
                 >
                     Log In
+                </Button>
+                <span className='auth-menu__divider' />
+                <Button
+                    type='submit'
+                    disabled={props.isLoading}
+                    onClick={props.onCreateNewAccountClick}
+                >
+                    Create New Account
                 </Button>
                 {!!props.error && (
                     <span

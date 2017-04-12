@@ -92,24 +92,27 @@ class AuthRepository {
         });
     }
 
-    // createNewAccount(email, password) {
-    //     return new Promise((resolve, reject) => {
-    //         request
-    //             .post(this.getUrl('createAccount'))
-    //             .send({
-    //                 'username': email,
-    //                 password
-    //             })
-    //             .set('Accept', 'application/json')
-    //             .end((error, response) => {
-    //                 if (error) {
-    //                     return reject(getErrorMessage(error, response));
-    //                 }
-    //
-    //                 resolve(response.body);
-    //             });
-    //     });
-    // }
+    createNewAccount(email, password) {
+        return new Promise((resolve, reject) => {
+            request
+                .post(this.getUrl('createAccount'))
+                .send({
+                    'username': email,
+                    password
+                })
+                .set('Accept', 'application/json')
+                .end((error, response) => {
+                    if (error) {
+                        return reject(getErrorMessage(error, response));
+                    }
+
+                    resolve({
+                        name: response.body.username,
+                        created: response.body.created
+                    });
+                });
+        });
+    }
 
     getAccessToken() {
         return new Promise((resolve, reject) => {

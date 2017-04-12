@@ -115,3 +115,36 @@ export const getUserProfileFailedHandler = (state, error) => {
         profile: {}
     };
 };
+
+export const createNewAccountStartedHandler = (state) => {
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: true,
+            error: ''
+        }
+    };
+};
+
+export const createNewAccountFinishedHandler = (state, data) => {
+    return {
+        ...state,
+        authorized: true,
+        authorization: {
+            inProgress: false,
+            error: ''
+        }
+    };
+};
+
+export const createNewAccountFailedHandler = (state, error) => {
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: false,
+            error
+        }
+    };
+};

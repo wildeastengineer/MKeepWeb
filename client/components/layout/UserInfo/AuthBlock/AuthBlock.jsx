@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { runClientAuthFlow } from 'store/actions/authActions';
+import { runClientAuthFlow, runRegistrationFlow } from 'store/actions/authActions';
 
 import { Button, PopupMenu } from 'components/common';
 import AuthMenu from './AuthMenu';
@@ -35,6 +35,12 @@ class AuthBlock extends Component {
         this.props.dispatch(runClientAuthFlow(this.state.email, this.state.password));
     };
 
+    handleCreateNewAccountClick = (event) => {
+        event.preventDefault();
+
+        this.props.dispatch(runRegistrationFlow(this.state.email, this.state.password));
+    };
+
     render() {
         return (
             <div className='auth-block'>
@@ -48,6 +54,7 @@ class AuthBlock extends Component {
                         error={this.props.authError}
                         onCredentialsChange={this.handleCredentialsChange}
                         onLogInByPassClick={this.handleLogInByPassClick}
+                        onCreateNewAccountClick={this.handleCreateNewAccountClick}
                     />
                 </PopupMenu>
             </div>

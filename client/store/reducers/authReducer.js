@@ -8,10 +8,10 @@ import {
     AUTH_LOG_OUT,
     GET_USER_PROFILE_STARTED,
     GET_USER_PROFILE_FINISHED,
-    GET_USER_PROFILE_FAILED
-    // CREATE_NEW_ACCOUNT_STARTED,
-    // CREATE_NEW_ACCOUNT_FINISHED,
-    // CREATE_NEW_ACCOUNT_FAILED
+    GET_USER_PROFILE_FAILED,
+    CREATE_NEW_ACCOUNT_STARTED,
+    CREATE_NEW_ACCOUNT_FINISHED,
+    CREATE_NEW_ACCOUNT_FAILED
 } from 'store/actions/authActions';
 
 import {
@@ -24,7 +24,10 @@ import {
     logOutHandler,
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
-    getUserProfileFailedHandler
+    getUserProfileFailedHandler,
+    createNewAccountStartedHandler,
+    createNewAccountFinishedHandler,
+    createNewAccountFailedHandler
 } from './authReducerMethods';
 
 const initialState = {
@@ -63,30 +66,12 @@ export default function (state = initialState, action) {
             return getUserProfileFinishedHandler(state, action.data);
         case GET_USER_PROFILE_FAILED:
             return getUserProfileFailedHandler(state, action.error);
-
-        // case CREATE_NEW_ACCOUNT_STARTED:
-        //     return Object.assign({}, state, {
-        //         fetching: Object.assign({}, state.fetching, {
-        //             inProgress: true
-        //         })
-        //     });
-        // case CREATE_NEW_ACCOUNT_FINISHED:
-        //     return Object.assign({}, state, {
-        //         isAuthorized: true,
-        //         fetching: Object.assign({}, state.fetching, {
-        //             inProgress: false,
-        //             error: null
-        //         })
-        //     });
-        // case CREATE_NEW_ACCOUNT_FAILED:
-        //     return Object.assign({}, state, {
-        //         isAuthorized: false,
-        //         fetching: Object.assign({}, state.fetching, {
-        //             inProgress: false,
-        //             error: action.error
-        //         }),
-        //         data: {}
-        //     });
+        case CREATE_NEW_ACCOUNT_STARTED:
+            return createNewAccountStartedHandler(state);
+        case CREATE_NEW_ACCOUNT_FINISHED:
+            return createNewAccountFinishedHandler(state, action.data);
+        case CREATE_NEW_ACCOUNT_FAILED:
+            return createNewAccountFailedHandler(state, action.error);
         default:
             return state;
     }

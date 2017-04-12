@@ -1,5 +1,4 @@
 import { authRepository, profileRepository } from 'repositories';
-//import { getProjectsList } from 'redux/actions/projectsActions';
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
 export const AUTH_LOG_IN_EMAIL_FINISHED = 'AUTH_LOG_IN_EMAIL_FINISHED';
@@ -11,9 +10,9 @@ export const AUTH_LOG_IN_COOKIE_FAILED = 'AUTH_LOG_IN_COOKIE_FAILED';
 
 export const AUTH_LOG_OUT = 'AUTH_LOG_OUT';
 
-// export const CREATE_NEW_ACCOUNT_STARTED = 'CREATE_NEW_ACCOUNT_STARTED';
-// export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
-// export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
+export const CREATE_NEW_ACCOUNT_STARTED = 'CREATE_NEW_ACCOUNT_STARTED';
+export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
+export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
 
 export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
 export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
@@ -31,8 +30,8 @@ export function logInByEmail(email, password) {
                     resolve();
                 })
                 .catch((error) => {
-                    dispatch(logInByEmailFailed(error.message));
-                    reject();
+                    dispatch(logInByEmailFailed(error));
+                    reject(error);
                 });
         });
     };
@@ -159,13 +158,53 @@ function getUserProfileFailed(error) {
     };
 }
 
-// ToDo: move "runClientAuthFlow" and "runServerAuthFlow" to another file
+/* Create new account */
+export function createNewAccount(email, password) {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(createNewAccountStart(email, password));
+
+            authRepository.createNewAccount(email, password)
+                .then((data) => {
+                    dispatch(createNewAccountFinished(data));
+                    resolve(data);
+                })
+                .catch((error) => {
+                    dispatch(createNewAccountFailed(error));
+                    reject(error);
+                });
+        });
+    };
+}
+
+function createNewAccountStart() {
+    return {
+        type: CREATE_NEW_ACCOUNT_STARTED
+    };
+}
+
+function createNewAccountFinished(data) {
+    return {
+        type: CREATE_NEW_ACCOUNT_FINISHED,
+        data
+    };
+}
+
+function createNewAccountFailed(error) {
+    return {
+        type: CREATE_NEW_ACCOUNT_FAILED,
+        error
+    };
+}
+
+// ToDo: move "runClientAuthFlow" and "runServerAuthFlow" and "runRegistrationFlow" to another file
 export function runClientAuthFlow(email, password) {
     return (dispatch) => {
         dispatch(logInByEmail(email, password))
             .then(() => {
                 dispatch(getUserProfile());
-            });
+            })
+            .catch(() => {});
     };
 }
 
@@ -195,38 +234,22 @@ export function runServerAuthFlow(req, res) {
     };
 }
 
-/* Create new account */
-// export function createNewAccount(email, password) {
-//     return (dispatch) => {
-//         dispatch(createNewAccountStart(email, password));
-//
-//         auth.createNewAccount(email, password)
-//             .then(() => {
-//                 dispatch(createNewAccountFinished());
-//                 logInByEmail(email, password);
-//             })
-//             .catch((error) => {
-//                 dispatch(createNewAccountFailed(error));
-//             });
-//     };
-// }
-//
-// function createNewAccountStart() {
-//     return {
-//         type: CREATE_NEW_ACCOUNT_STARTED
-//     };
-// }
-//
-// function createNewAccountFinished(data) {
-//     return {
-//         type: CREATE_NEW_ACCOUNT_FINISHED,
-//         data
-//     };
-// }
-//
-// function createNewAccountFailed(error) {
-//     return {
-//         type: CREATE_NEW_ACCOUNT_FAILED,
-//         error
-//     };
-// }
+export function runRegistrationFlow(email, password) {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(createNewAccount(email, password))
+                .then(() => {
+                    return dispatch(logInByEmail(email, password))
+                })
+                .then(() => {
+                    return dispatch(getUserProfile());
+                })
+                .then(() => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    };
+}
