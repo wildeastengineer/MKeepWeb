@@ -25,8 +25,8 @@ export function logInByEmail(email, password) {
             dispatch(logInByEmailStarted(email, password));
 
             authRepository.logInByEmail(email, password)
-                .then(() => {
-                    dispatch(logInByEmailFinished());
+                .then((data) => {
+                    dispatch(logInByEmailFinished(data));
                     resolve();
                 })
                 .catch((error) => {
@@ -197,16 +197,7 @@ function createNewAccountFailed(error) {
     };
 }
 
-// ToDo: move "runClientAuthFlow" and "runServerAuthFlow" and "runRegistrationFlow" to another file
-export function runClientAuthFlow(email, password) {
-    return (dispatch) => {
-        dispatch(logInByEmail(email, password))
-            .then(() => {
-                dispatch(getUserProfile());
-            })
-            .catch(() => {});
-    };
-}
+// ToDo: move and "runServerAuthFlow" and "runRegistrationFlow" to another file
 
 export function runServerAuthFlow(req, res) {
     return (dispatch) => {

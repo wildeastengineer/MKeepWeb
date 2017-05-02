@@ -93,6 +93,11 @@ describe('reducers', () => {
             });
 
             test('it should return correct new state', () => {
+                let actionData = {
+                    userProfile: {
+                        name: 'User Name'
+                    }
+                };
                 let newState;
                 let state = {
                     authorized: false,
@@ -108,7 +113,7 @@ describe('reducers', () => {
                     profile: {}
                 };
 
-                newState = authLogInEmailFinishedHandler(state);
+                newState = authLogInEmailFinishedHandler(state, actionData);
 
                 expect(newState).toEqual({
                     authorized: true,
@@ -116,16 +121,23 @@ describe('reducers', () => {
                         inProgress: false,
                         error: ''
                     },
-                    profileFetched: false,
+                    profileFetched: true,
                     profileFetching: {
                         inProgress: false,
                         error: ''
                     },
-                    profile: {}
+                    profile: {
+                        name: 'User Name'
+                    }
                 });
             });
 
             test('it should not mutate original state', () => {
+                let actionData = {
+                    userProfile: {
+                        name: 'User Name'
+                    }
+                };
                 let state = {
                     authorized: false,
                     authorization: {
@@ -140,7 +152,7 @@ describe('reducers', () => {
                     profile: {}
                 };
 
-                authLogInEmailFinishedHandler(state);
+                authLogInEmailFinishedHandler(state, actionData);
 
                 expect(state).toEqual({
                     authorized: false,
