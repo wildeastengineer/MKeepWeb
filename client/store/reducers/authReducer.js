@@ -55,7 +55,7 @@ export default function (state = initialState, action) {
         case AUTH_LOG_IN_COOKIE_STARTED:
             return authLogInCookieStartedHandler(state);
         case AUTH_LOG_IN_COOKIE_FINISHED:
-            return authLogInCookieFinishedHandler(state);
+            return authLogInCookieFinishedHandler(state, action.data);
         case AUTH_LOG_IN_COOKIE_FAILED:
             return authLogInCookieFailedHandler(state);
         case AUTH_LOG_OUT:

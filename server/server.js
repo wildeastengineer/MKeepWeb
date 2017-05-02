@@ -9,7 +9,7 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from 'store';
 import appRoutes from '../client/routes/routes';
-import { runServerAuthFlow } from '../client/store/actions/authActions';
+import { logInByCookie } from '../client/store/actions/authActions';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -26,13 +26,22 @@ app.use(cookieParser());
 app.use((req, res) => {
     const store = Store();
 
-    store.dispatch(runServerAuthFlow(req, res))
+    store.dispatch(logInByCookie(req.cookies))
         .catch((error) => {
             console.log('Auth Error', error);
 
             return Promise.resolve();
         })
-        .then(() => {
+        .then((data) => {
+            if (data) {
+                res.cookie('accessToken', data.accessToken, {
+                    maxAge: data.tokenMaxAge
+                });
+                res.cookie('refreshToken', data.refreshToken, {
+                    maxAge: data.tokenMaxAge
+                });
+            }
+
             return renderApp(appRoutes, store, req.url);
         })
         .then((renderedApp) => {
