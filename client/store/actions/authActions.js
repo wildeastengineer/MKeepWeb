@@ -75,7 +75,7 @@ export function logInByCookie(cookie) {
 
             authRepository.refreshTokens(refreshToken)
                 .then((data) => {
-                    dispatch(logInByCookieFinished());
+                    dispatch(logInByCookieFinished(data));
                     resolve(data);
                 })
                 .catch((error) => {
@@ -92,9 +92,10 @@ function logInByCookieStarted() {
     };
 }
 
-function logInByCookieFinished() {
+function logInByCookieFinished(data) {
     return {
-        type: AUTH_LOG_IN_COOKIE_FINISHED
+        type: AUTH_LOG_IN_COOKIE_FINISHED,
+        data
     };
 }
 
@@ -197,33 +198,7 @@ function createNewAccountFailed(error) {
     };
 }
 
-// ToDo: move and "runServerAuthFlow" and "runRegistrationFlow" to another file
-
-export function runServerAuthFlow(req, res) {
-    return (dispatch) => {
-        return new Promise((resolve, reject) => {
-            dispatch(logInByCookie(req.cookies))
-                .then((data) => {
-                    if (data) {
-                        res.cookie('accessToken', data.accessToken, {
-                            maxAge: data.tokenMaxAge
-                        });
-                        res.cookie('refreshToken', data.refreshToken, {
-                            maxAge: data.tokenMaxAge
-                        });
-                    }
-
-                    return dispatch(getUserProfile());
-                })
-                .then(() => {
-                    resolve();
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
-    };
-}
+// ToDo: move and "runRegistrationFlow" to another file
 
 export function runRegistrationFlow(email, password) {
     return (dispatch) => {

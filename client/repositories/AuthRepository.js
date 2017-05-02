@@ -82,7 +82,8 @@ class AuthRepository {
                     const data = {
                         accessToken: response.body.access_token,
                         refreshToken: response.body.refresh_token,
-                        tokenMaxAge: response.body.expires_in * 1000
+                        tokenMaxAge: response.body.expires_in * 1000,
+                        userProfile: response.body.userProfile
                     };
 
                     this.saveAccessToken(data.accessToken, data.tokenMaxAge);

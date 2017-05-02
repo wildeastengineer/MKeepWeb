@@ -49,13 +49,20 @@ export const authLogInCookieStartedHandler = (state) => {
     };
 };
 
-export const authLogInCookieFinishedHandler = (state) => {
+export const authLogInCookieFinishedHandler = (state, data) => {
     return {
-        ...state,
         authorized: true,
         authorization: {
             inProgress: false,
             error: ''
+        },
+        profileFetched: true,
+        profileFetching: {
+            inProgress: false,
+            error: ''
+        },
+        profile: {
+            ...data.userProfile
         }
     };
 };
