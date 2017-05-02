@@ -42,7 +42,7 @@ class UserInfoBlock extends Component {
 
 function mapStateToProps(state) {
     return {
-        userName: state.user.profile.name
+        userName: state.user.profile.username
     };
 }
 

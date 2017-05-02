@@ -9,13 +9,20 @@ export const authLogInEmailStartedHandler = (state) => {
     };
 };
 
-export const authLogInEmailFinishedHandler = (state) => {
+export const authLogInEmailFinishedHandler = (state, data) => {
     return {
-        ...state,
         authorized: true,
         authorization: {
             inProgress: false,
             error: ''
+        },
+        profileFetched: true,
+        profileFetching: {
+            inProgress: false,
+            error: ''
+        },
+        profile: {
+            ...data.userProfile
         }
     };
 };

@@ -49,7 +49,7 @@ export default function (state = initialState, action) {
         case AUTH_LOG_IN_EMAIL_STARTED:
             return authLogInEmailStartedHandler(state);
         case AUTH_LOG_IN_EMAIL_FINISHED:
-            return authLogInEmailFinishedHandler(state);
+            return authLogInEmailFinishedHandler(state, action.data);
         case AUTH_LOG_IN_EMAIL_FAILED:
             return authLogInEmailFailedHandler(state, action.error);
         case AUTH_LOG_IN_COOKIE_STARTED:
