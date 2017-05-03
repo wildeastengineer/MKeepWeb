@@ -1,0 +1,13 @@
+$background-color: #f0f8ff;
+$border-color: #b1b1b1;
+$margin: 5px;
+$size: 70px;
+
+.mk-avatar-icon {
+    background-color: $background-color;
+    border: solid 1px $border-color;
+    border-radius: 5px;
+    height: $size;
+    margin: $margin;
+    width: $size;
+}

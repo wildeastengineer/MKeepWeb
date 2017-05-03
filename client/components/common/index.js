@@ -1,3 +1,4 @@
+import Avatar from './Avatar/Avatar';
 import Button from './Button/Button';
 import FlatButton from './FlatButton/FlatButton';
 import Icon from './Icon/Icon';
@@ -5,6 +6,7 @@ import PopupMenu from './PopupMenu/PopupMenu';
 import TextInput from './TextInput/TextInput';
 
 export {
+    Avatar,
     Button,
     FlatButton,
     Icon,

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { FlatButton } from 'components/common';
+import { Avatar, FlatButton } from 'components/common';
 
 if (process.env.BROWSER) {
     require('./userInfoMenu.scss');
@@ -14,6 +14,7 @@ function UserInfoMenu({userName, onLogoutClick}) {
     return (
         <div className='user-info-menu'>
             <div className='user-info-menu__contacts'>
+                <Avatar/>
                 <span className='user-info-menu__user-name'>
                     {userName}
                 </span>
