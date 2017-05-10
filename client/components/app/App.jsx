@@ -1,25 +1,38 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
+import { isAuthenticated } from 'components/auth';
 import { Layout } from 'components/layout';
 
 if (process.env.BROWSER) {
     require('./app.scss');
 }
 
-const propTypes = {
-    children: PropTypes.node
-};
-
 class App extends Component {
+    static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        children: PropTypes.node
+    };
+
+    static defaultProps = {
+        isAuthenticated: false
+    };
+
     render() {
+        const { isAuthenticated } = this.props;
+
         return (
-            <Layout>
+            <Layout isAuthenticated={isAuthenticated}>
                 {this.props.children}
             </Layout>
         );
     }
 }
 
-App.propTypes = propTypes;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: isAuthenticated(state)
+    };
+}
 
-export default App;
+export default connect(mapStateToProps)(App);
