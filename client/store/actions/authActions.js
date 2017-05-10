@@ -107,6 +107,8 @@ function logInByCookieFailed(error) {
 
 /* Log out */
 export function logOut() {
+    console.log('call logOut');
+
     return (dispatch) => {
         authRepository.logOut();
         dispatch(logOutStart());

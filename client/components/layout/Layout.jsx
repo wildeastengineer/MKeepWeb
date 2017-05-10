@@ -6,28 +6,29 @@ if (process.env.BROWSER) {
 }
 
 const propTypes = {
+    isAuthenticated: PropTypes.bool,
     children: PropTypes.node
 };
 
-class Layout extends Component {
-    render() {
-        return (
-            <div className='app-layout'>
-                <div className='app-layout__header'>
-                    <UserInfo />
-                </div>
-                <div className='app-layout__body'>
+function Layout ({ children, isAuthenticated }) {
+    return (
+        <div className='app-layout'>
+            <div className='app-layout__header'>
+                <UserInfo />
+            </div>
+            <div className='app-layout__body'>
+                {isAuthenticated && (
                     <div className='app-layout__side-bar'>
                         <NavigationMenu />
                     </div>
-                    <div className='app-layout__content'>
-                        {this.props.children}
-                    </div>
+                )}
+                <div className='app-layout__content'>
+                    { children }
                 </div>
-                <div className='app-layout__footer'></div>
             </div>
-        );
-    }
+            <div className='app-layout__footer'/>
+        </div>
+    );
 }
 
 Layout.propTypes = propTypes;

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import { logOut } from 'store/actions/authActions';
+import { push } from 'react-router-redux';
 
 import { FlatButton, Icon, PopupMenu } from 'components/common';
 import UserInfoMenu from './UserInfoMenu';
@@ -17,7 +16,7 @@ class UserInfoBlock extends Component {
     };
 
     handleLogoutClick = () => {
-        this.props.dispatch(logOut());
+        this.props.dispatch(push('/logOut'));
     };
 
     render() {

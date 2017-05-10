@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import { isAuthenticated } from 'components/auth';
 import AuthBlock from './AuthBlock';
 import UserInfoBlock from './UserInfoBlock';
 
@@ -8,12 +9,17 @@ if (process.env.BROWSER) {
     require('./userInfo.scss');
 }
 
-const propTypes = {
-    isAuthorized: PropTypes.bool,
-    userName: PropTypes.string
-};
-
 class AuthorizationBlock extends Component {
+    static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        userName: PropTypes.string
+    };
+
+    static defaultProps = {
+        isAuthenticated: false,
+        userName: ''
+    };
+
     constructor(props) {
         super(props);
     }
@@ -21,7 +27,7 @@ class AuthorizationBlock extends Component {
     render() {
         return (
             <div className='user-info'>
-                {this.props.isAuthorized ?
+                {this.props.isAuthenticated ?
                     (
                         <UserInfoBlock />
                     ) : (
@@ -33,13 +39,11 @@ class AuthorizationBlock extends Component {
     }
 }
 
-AuthorizationBlock.propTypes = propTypes;
-
 function mapStateToProps(state) {
     const user = state.user;
 
     return {
-        isAuthorized: user.authorized,
+        isAuthenticated: isAuthenticated(state),
         userName: user.profileFetched ? user.profile.name : null
     };
 }

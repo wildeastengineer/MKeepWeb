@@ -65,6 +65,8 @@ export const authLogInCookieFailedHandler = (state) => {
 };
 
 export const logOutHandler = () => {
+    console.log('logOutHandler');
+
     return {
         authorized: false,
         authorization: {
