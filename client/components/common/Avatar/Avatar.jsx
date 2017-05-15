@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    id: 'default-m-1'
+    id: 'default-unisex'
 };
 
 function Avatar({ id }) {
