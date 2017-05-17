@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { isAuthenticated } from 'components/auth';
+import { isAuthenticated } from 'utils/auth';
 
 class Home extends Component {
     componentWillReceiveProps(nextProps) {

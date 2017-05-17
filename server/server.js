@@ -8,7 +8,7 @@ import ReactDom from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from 'store';
-import appRoutes from '../client/routes/routes';
+import getRoutes from '../client/routes/routes';
 import { logInByCookie } from '../client/store/actions/authActions';
 
 const app = express();
@@ -42,7 +42,14 @@ app.use((req, res) => {
                 });
             }
 
-            return renderApp(appRoutes, store, req.url);
+            return renderApp(getRoutes(store), store, req.url);
+        })
+        .catch((error) => {
+            if (error.status === 301) {
+                res.redirect(error.location);
+
+                return Promise.reject('Redirect');
+            }
         })
         .then((renderedApp) => {
             const state = store.getState();
