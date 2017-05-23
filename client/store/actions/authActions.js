@@ -1,4 +1,4 @@
-import { authRepository, profileRepository } from 'repositories';
+import { AuthRepository, profileRepository } from 'repositories';
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
 export const AUTH_LOG_IN_EMAIL_FINISHED = 'AUTH_LOG_IN_EMAIL_FINISHED';
@@ -23,6 +23,10 @@ export function logInByEmail(email, password) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(logInByEmailStarted(email, password));
+
+            const authRepository = new AuthRepository({
+                type: 'client'
+            });
 
             authRepository.logInByEmail(email, password)
                 .then((data) => {
@@ -58,22 +62,18 @@ function logInByEmailFailed(error) {
 }
 
 /* Log in by cookie */
-export function logInByCookie(cookie) {
+export function logInByCookie(req, res) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            const refreshToken = cookie.refreshToken;
-
             dispatch(logInByCookieStarted());
 
-            if (!refreshToken) {
-                const errorMessage = 'Refresh token is not defined';
+            const authRepository = new AuthRepository({
+                type: 'server',
+                req,
+                res
+            });
 
-                dispatch(logInByCookieFailed(errorMessage));
-
-                return reject(errorMessage);
-            }
-
-            authRepository.refreshTokens(refreshToken)
+            authRepository.refreshTokens()
                 .then((data) => {
                     dispatch(logInByCookieFinished(data));
                     resolve(data);
@@ -108,7 +108,9 @@ function logInByCookieFailed(error) {
 
 /* Log out */
 export function logOut() {
-    console.log('call logOut');
+    const authRepository = new AuthRepository({
+        type: 'client'
+    });
 
     return (dispatch) => {
         authRepository.logOut();
@@ -166,6 +168,10 @@ export function createNewAccount(email, password) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(createNewAccountStart(email, password));
+
+            const authRepository = new AuthRepository({
+                type: 'client'
+            });
 
             authRepository.createNewAccount(email, password)
                 .then((data) => {
