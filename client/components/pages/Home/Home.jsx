@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { paths } from 'routes';
 
 import { isAuthenticated } from 'utils/auth';
+import Landing from './Landing';
 
 class Home extends Component {
     componentWillReceiveProps(nextProps) {
@@ -12,6 +14,10 @@ class Home extends Component {
     }
 
     render() {
+        if (!this.props.isAuthenticated ) {
+            return <Landing/>;
+        }
+
         return (
             <div>
                 Home

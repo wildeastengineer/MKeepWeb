@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 
+import { paths } from 'routes';
+
 class NavigationMenu extends Component {
     render() {
         return (
@@ -8,17 +10,17 @@ class NavigationMenu extends Component {
                 Navigation Menu
                 <ul>
                     <li>
-                        <Link to="/">
+                        <Link to={paths.home}>
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link to="/project">
+                        <Link to={paths.projects.list}>
                             Project
                         </Link>
                     </li>
                     <li>
-                        <Link to="/project/currencies">
+                        <Link to={paths.projects.currencies}>
                             Currencies
                         </Link>
                     </li>

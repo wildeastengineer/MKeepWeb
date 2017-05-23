@@ -1,3 +1,7 @@
-import routes from './routes';
+import getRoutes from './routes';
+import paths from './paths';
 
-export default routes;
+export {
+    getRoutes,
+    paths
+};
