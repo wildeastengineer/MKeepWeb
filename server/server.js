@@ -8,7 +8,7 @@ import ReactDom from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from 'store';
-import getRoutes from '../client/routes/routes';
+import { getRoutes } from '../client/routes';
 import { logInByCookie } from '../client/store/actions/authActions';
 
 const app = express();
