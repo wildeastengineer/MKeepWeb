@@ -1,7 +1,7 @@
-import authRepository from './AuthRepository';
+import AuthRepository from './AuthRepository';
 import profileRepository from './ProfileRepository';
 
 export {
-    authRepository,
+    AuthRepository,
     profileRepository
 };

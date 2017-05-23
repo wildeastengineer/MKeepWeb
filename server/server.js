@@ -23,33 +23,28 @@ app.set('view engine', 'ejs');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use((req, res) => {
+app.use((req, res, next) => {
     const store = Store();
 
-    store.dispatch(logInByCookie(req.cookies))
+    store.dispatch(logInByCookie(req, res))
         .catch((error) => {
-            console.log('Auth Error', error);
-
+            console.log('Log in by Cookie error:', error);
             return Promise.resolve();
         })
-        .then((data) => {
-            if (data) {
-                res.cookie('accessToken', data.accessToken, {
-                    maxAge: data.tokenMaxAge
-                });
-                res.cookie('refreshToken', data.refreshToken, {
-                    maxAge: data.tokenMaxAge
-                });
-            }
-
+        .then(() => {
             return renderApp(getRoutes(store), store, req.url);
         })
         .catch((error) => {
             if (error.status === 301) {
+                console.log('Redirect to', error.location);
                 res.redirect(error.location);
 
                 return Promise.reject('Redirect');
+            } else {
+                console.log('Unhandled render error (!)');
             }
+
+            return Promise.resolve();
         })
         .then((renderedApp) => {
             const state = store.getState();
@@ -59,11 +54,15 @@ app.use((req, res) => {
                 app: renderedApp,
                 initialState: JSON.stringify(state)
             });
+
+            next();
         })
         .catch((error) => {
-            console.log('Render Error');
+            console.log('Render Error:');
             console.log('url:', req.url);
             console.log('error:', error);
+
+            next();
         });
 });
 

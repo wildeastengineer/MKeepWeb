@@ -1,16 +1,16 @@
 // Libs
 import request from 'superagent';
-import cookie from 'react-cookie';
+import Cookie from './cookie';
 // App modules
+import {tokens} from 'dictionaries';
 import config from '../config';
 import { getErrorMessage } from './repositoryHelper';
 
 const { clientId, clientSecret } = config.auth;
 
 class AuthRepository {
-    constructor() {
-        this.accessToken = null;
-        this.refreshToken = null;
+    constructor(params) {
+        this.cookie = new Cookie(params);
     }
 
     getUrl(action) {
@@ -64,8 +64,14 @@ class AuthRepository {
         this.removeRefreshToken();
     }
 
-    refreshTokens(refreshToken) {
+    refreshTokens() {
         return new Promise((resolve, reject) => {
+            const refreshToken = this.getRefreshToken();
+
+            if (!refreshToken) {
+                return reject('Refresh token is not defined');
+            }
+
             request
                 .post(this.getUrl('logIn'))
                 .send({
@@ -118,41 +124,39 @@ class AuthRepository {
 
     getAccessToken() {
         return new Promise((resolve, reject) => {
-            if (this.accessToken) {
-                return resolve(this.accessToken);
-            }
+            const accessToken = this.cookie.load(tokens.accessToken);
 
-            if (cookie.load('accessToken')) {
-                return resolve(cookie.load('accessToken'));
+            if (accessToken) {
+                return resolve(accessToken);
             }
 
             reject('Access token is not defined');
         });
     }
 
+    getRefreshToken() {
+        return this.cookie.load(tokens.refreshToken);
+    }
+
     saveAccessToken(token, maxAge) {
-        this.accessToken = token;
-        cookie.save('accessToken', token, {
+        this.cookie.save(tokens.accessToken, token, {
             maxAge
         });
     }
 
     saveRefreshToken(token, maxAge) {
-        this.refreshToken = token;
-        cookie.save('refreshToken', token, {
+        this.cookie.save(tokens.refreshToken, token, {
             maxAge
         });
     }
 
     removeAccessToken() {
-        this.accessToken = null;
-        cookie.remove('accessToken');
+        this.cookie.remove(tokens.accessToken);
     }
 
     removeRefreshToken() {
-        this.refreshToken = null;
-        cookie.remove('refreshToken');
+        this.cookie.remove(tokens.refreshToken);
     }
 }
 
-export default new AuthRepository();
+export default AuthRepository;
