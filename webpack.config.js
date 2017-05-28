@@ -9,9 +9,9 @@ const envNames = {
 };
 const isProduction = process.env.NODE_ENV === envNames.prod;
 
-const outputFolder = 'dist';
+const outputFolder = 'server/public/dist';
 const outputFolderFullPath = path.resolve(__dirname, outputFolder);
-const outputCSSFileName = isProduction ? 'styles-[hash].css' : 'styles.css';
+const outputCSSFileName = isProduction ? 'styles.css' : 'styles.css';
 
 const plugins = [
     new ExtractTextPlugin(outputCSSFileName),
