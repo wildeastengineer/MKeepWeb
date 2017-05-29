@@ -1,7 +1,7 @@
 export default {
     api: {
-        protocol: 'http',
-        url: 'localhost:8080/api'
+        protocol: 'https',
+        url: 'money-keeper-api.herokuapp.com/api'
     },
     auth: {
         clientId: 'MKWebAppV1',
