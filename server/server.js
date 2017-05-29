@@ -50,7 +50,7 @@ app.use((req, res, next) => {
             const state = store.getState();
 
             res.render('index', {
-                assetsUrl: isProduction ? '/' : 'http://localhost:9000/',
+                assetsUrl: isProduction ? '/dist/' : 'http://localhost:9000/',
                 app: renderedApp,
                 initialState: JSON.stringify(state)
             });

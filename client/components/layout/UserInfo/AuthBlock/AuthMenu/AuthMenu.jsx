@@ -70,4 +70,3 @@ function AuthMenu(props) {
 AuthMenu.propTypes = propTypes;
 
 export default AuthMenu;
-

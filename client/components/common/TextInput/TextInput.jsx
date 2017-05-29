@@ -34,4 +34,3 @@ TextInput.propTypes = propTypes;
 TextInput.defaultProps = defaultProps;
 
 export default TextInput;
-
