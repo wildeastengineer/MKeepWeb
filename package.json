@@ -4,7 +4,7 @@
     "description": "Web client for MoneyKeeper",
     "main": "index.js",
     "scripts": {
-        "start": "npm run build && NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
+        "start": "NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
         "dev": "NODE_ENV='development' BROWSER='true' webpack-dev-server --config webpack.config.js --progress --watch --hot",
         "build": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js",
         "build-help": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js --display-error-details",
