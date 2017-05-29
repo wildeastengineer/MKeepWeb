@@ -24,4 +24,3 @@ Icon.propTypes = propTypes;
 Icon.defaultProps = defaultProps;
 
 export default Icon;
-

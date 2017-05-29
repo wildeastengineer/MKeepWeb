@@ -16,4 +16,3 @@ function FlatButton(props) {
 }
 
 export default FlatButton;
-

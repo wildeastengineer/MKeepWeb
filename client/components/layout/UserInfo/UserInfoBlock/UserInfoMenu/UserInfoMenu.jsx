@@ -31,4 +31,3 @@ function UserInfoMenu({userName, onLogoutClick}) {
 UserInfoMenu.propTypes = propTypes;
 
 export default UserInfoMenu;
-
