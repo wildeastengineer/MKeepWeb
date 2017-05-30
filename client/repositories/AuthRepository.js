@@ -3,7 +3,7 @@ import request from 'superagent';
 import Cookie from './cookie';
 // App modules
 import {tokens} from 'dictionaries';
-import config from '../config';
+import config from 'config';
 import { getErrorMessage } from './repositoryHelper';
 
 const { clientId, clientSecret } = config.auth;

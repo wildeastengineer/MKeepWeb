@@ -1,7 +1,7 @@
 // App modules
 import authRepository from './AuthRepository';
 // Config
-import config from '../config';
+import config from 'config';
 
 class Repository {
     constructor() {
