@@ -1,5 +1,8 @@
 import CookieClient from './CookieClient';
 import CookieServer from './CookieServer';
+import getLogger from 'logger';
+
+const logger = getLogger('Cookie');
 
 export default class Cookie {
     constructor(params) {
@@ -11,7 +14,7 @@ export default class Cookie {
                 this.cookie = new CookieServer(params);
                 break;
             default:
-                console.error('Cookie type is not specified.');
+                logger.error('Cookie type is not specified.');
         }
     }
 
