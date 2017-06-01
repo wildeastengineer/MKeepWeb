@@ -10,7 +10,9 @@ import { Provider } from 'react-redux';
 import Store from 'store';
 import { getRoutes } from '../client/routes';
 import { logInByCookie } from '../client/store/actions/authActions';
+import getLogger from '../client/logger';
 
+const logger = getLogger('Server');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const isProduction = process.env.NODE_ENV === 'production';
@@ -28,7 +30,7 @@ app.use((req, res, next) => {
 
     store.dispatch(logInByCookie(req, res))
         .catch((error) => {
-            console.log('Log in by Cookie error:', error);
+            logger.trace('Log in by Cookie error:', error);
             return Promise.resolve();
         })
         .then(() => {
@@ -36,12 +38,12 @@ app.use((req, res, next) => {
         })
         .catch((error) => {
             if (error.status === 301) {
-                console.log('Redirect to', error.location);
+                logger.trace('Redirect to', error.location);
                 res.redirect(error.location);
 
                 return Promise.reject('Redirect');
             } else {
-                console.log('Unhandled render error (!)');
+                logger.error('Unhandled render error (!)');
             }
 
             return Promise.resolve();
@@ -58,16 +60,16 @@ app.use((req, res, next) => {
             next();
         })
         .catch((error) => {
-            console.log('Render Error:');
-            console.log('url:', req.url);
-            console.log('error:', error);
+            logger.error('Render Error:');
+            logger.error('url:', req.url);
+            logger.error('error:', error);
 
             next();
         });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on: ${PORT}`);
+    logger.info(`Server listening on: ${PORT}`);
 });
 
 function renderApp(routes, store, location) {

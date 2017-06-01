@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getLogger from 'logger';
 
 import { logInByEmail } from 'store/actions/authActions';
+
+const logger = getLogger('PopupMenu');
 
 if (process.env.BROWSER) {
     require('./popupMenu.scss');
@@ -44,7 +47,7 @@ class PopupMenu extends Component {
                 menuStyle.right = 0;
                 break;
             default:
-                console.error(`Unknown horizontal alignment "${align.horizontal}" for "PopupMenu" component`);
+                logger.error(`Unknown horizontal alignment "${align.horizontal}" for "PopupMenu" component`);
         }
 
         return (
