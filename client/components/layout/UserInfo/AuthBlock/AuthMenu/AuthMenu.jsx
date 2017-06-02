@@ -13,23 +13,42 @@ const propTypes = {
     error: PropTypes.string,
     onCredentialsChange: PropTypes.func.isRequired,
     onLogInByPassClick: PropTypes.func.isRequired,
-    onCreateNewAccountClick: PropTypes.func.isRequired
+    onCreateNewAccountClick: PropTypes.func.isRequired,
+    translations: PropTypes.object
+};
+
+const defaultProps = {
+    translations: {
+        placeholder: {
+            email: 'E-mail',
+            password: 'Password'
+        },
+        button: {
+            logIn: 'Log In',
+            createNew: 'Create New Account'
+        },
+        title: {
+            wait: 'Please, wait...'
+        }
+    }
 };
 
 function AuthMenu(props) {
+    const translations = props.translations;
+
     return (
         <div className='auth-menu'>
             <form className='auth-menu__by-pass-form'>
                 <TextInput
                     value={props.email}
-                    placeholder='E-mail'
+                    placeholder={translations.placeholder.email}
                     disabled={props.isLoading}
                     onChange={props.onCredentialsChange.bind(null, 'email')}
                 />
                 <TextInput
                     type='password'
                     value={props.password}
-                    placeholder='Password'
+                    placeholder={translations.placeholder.password}
                     disabled={props.isLoading}
                     onChange={props.onCredentialsChange.bind(null, 'password')}
                 />
@@ -38,7 +57,7 @@ function AuthMenu(props) {
                     disabled={props.isLoading}
                     onClick={props.onLogInByPassClick}
                 >
-                    Log In
+                    {translations.button.logIn}
                 </Button>
                 <span className='auth-menu__divider' />
                 <Button
@@ -46,7 +65,7 @@ function AuthMenu(props) {
                     disabled={props.isLoading}
                     onClick={props.onCreateNewAccountClick}
                 >
-                    Create New Account
+                    {translations.button.createNew}
                 </Button>
                 {!!props.error && (
                     <span
@@ -60,7 +79,7 @@ function AuthMenu(props) {
                     <span
                         className='auth-menu__wait-message'
                     >
-                        Please, wait...
+                        {translations.title.wait}
                     </span>
                 )}
             </form>
@@ -69,5 +88,6 @@ function AuthMenu(props) {
 }
 
 AuthMenu.propTypes = propTypes;
+AuthMenu.defaultProps = defaultProps;
 
 export default AuthMenu;

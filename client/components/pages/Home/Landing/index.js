@@ -2,9 +2,9 @@ import translate from 'translate';
 import en from './translations.en';
 import ru from './translations.ru';
 
-import Currencies from './Currencies';
+import Landing from './Landing';
 
 export default translate({
     en,
     ru
-})(Currencies);
+})(Landing);

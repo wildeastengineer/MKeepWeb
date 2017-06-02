@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React  from 'react';
+import PropTypes from 'prop-types';
 
-class Currencies extends Component {
-    render() {
-        return (
-            <div>
-                Currencies
-            </div>
-        );
+const propTypes = {
+    translations: PropTypes.object
+};
+
+const defaultProps = {
+    translations: {
+        title: 'Currencies'
     }
+};
+
+function Currencies({ translations }) {
+    return (
+        <div>
+            {translations.title}
+        </div>
+    );
 }
+
+Currencies.propTypes = propTypes;
+Currencies.defaultProps = defaultProps;
 
 export default Currencies;
