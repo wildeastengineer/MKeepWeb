@@ -16,12 +16,16 @@ class AuthBlock extends Component {
     static propTypes = {
         authInProgress: PropTypes.bool,
         authError: PropTypes.string,
+        translations: PropTypes.object,
         dispatch: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         authInProgress: false,
-        authError: ''
+        authError: '',
+        translations: {
+            logIn: 'Log In'
+        }
     };
 
     handleCredentialsChange = (param, event) => {
@@ -46,7 +50,11 @@ class AuthBlock extends Component {
         return (
             <div className='auth-block'>
                 <PopupMenu
-                    button={<Button>Log In</Button>}
+                    button={(
+                        <Button>
+                            { this.props.translations.logIn }
+                        </Button>
+                    )}
                 >
                     <AuthMenu
                         email={this.state.email}

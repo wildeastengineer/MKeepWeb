@@ -8,10 +8,19 @@ if (process.env.BROWSER) {
 
 const propTypes = {
     userName: PropTypes.string,
-    onLogoutClick: PropTypes.func.isRequired
+    onLogoutClick: PropTypes.func.isRequired,
+    translations: PropTypes.object
 };
 
-function UserInfoMenu({userName, onLogoutClick}) {
+const defaultProps = {
+    translations: {
+        button: {
+            logOut: 'Log Out'
+        }
+    }
+};
+
+function UserInfoMenu({userName, onLogoutClick, translations}) {
     return (
         <div className='user-info-menu'>
             <div className='user-info-menu__contacts'>
@@ -22,7 +31,7 @@ function UserInfoMenu({userName, onLogoutClick}) {
             </div>
             <div className='user-info-menu__actions'>
                 <FlatButton onClick={onLogoutClick}>
-                    Logout
+                    {translations.button.logOut}
                 </FlatButton>
             </div>
         </div>

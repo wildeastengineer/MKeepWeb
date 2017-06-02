@@ -1,33 +1,49 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router'
+import { paths } from 'routes'
 
-import { paths } from 'routes';
+const propTypes = {
+    translations: PropTypes.object
+};
 
-class NavigationMenu extends Component {
-    render() {
-        return (
-            <div>
-                Navigation Menu
-                <ul>
-                    <li>
-                        <Link to={paths.home}>
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={paths.projects.list}>
-                            Project
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={paths.projects.currencies}>
-                            Currencies
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        );
+const defaultProps = {
+    translations: {
+        title: 'Navigation Menu',
+        link: {
+            home: 'Home',
+            project: 'Project',
+            currencies: 'Currencies',
+        }
     }
+};
+
+function NavigationMenu({ translations }) {
+    return (
+        <div>
+            {translations.title}
+            <ul>
+                <li>
+                    <Link to={paths.home}>
+                        {translations.link.home}
+                    </Link>
+                </li>
+                <li>
+                    <Link to={paths.projects.list}>
+                        {translations.link.project}
+                    </Link>
+                </li>
+                <li>
+                    <Link to={paths.projects.currencies}>
+                        {translations.link.currencies}
+                    </Link>
+                </li>
+            </ul>
+        </div>
+    );
 }
+
+NavigationMenu.propTypes = propTypes;
+NavigationMenu.defaultProps = defaultProps;
 
 export default NavigationMenu;
