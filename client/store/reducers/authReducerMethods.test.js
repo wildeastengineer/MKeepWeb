@@ -9,6 +9,7 @@ import {
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
     getUserProfileFailedHandler,
+    changeProfileLanguage,
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
@@ -622,9 +623,11 @@ describe('reducers', () => {
             test('it should return correct new state', () => {
                 let newState;
                 let profileData = {
-                    name: 'User Name'
+                    name: 'User Name',
+                    lang: 'ru'
                 };
                 let state = {
+                    language: 'en',
                     authorized: true,
                     authorization: {
                         inProgress: false,
@@ -641,6 +644,7 @@ describe('reducers', () => {
                 newState = getUserProfileFinishedHandler(state, profileData);
 
                 expect(newState).toEqual({
+                    language: 'ru',
                     authorized: true,
                     authorization: {
                         inProgress: false,
@@ -652,6 +656,7 @@ describe('reducers', () => {
                         error: ''
                     },
                     profile: {
+                        lang: 'ru',
                         name: 'User Name'
                     }
                 });
@@ -662,6 +667,7 @@ describe('reducers', () => {
                     name: 'User Name'
                 };
                 let state = {
+                    language: 'en',
                     authorized: true,
                     authorization: {
                         inProgress: false,
@@ -678,6 +684,7 @@ describe('reducers', () => {
                 getUserProfileFinishedHandler(state, profileData);
 
                 expect(state).toEqual({
+                    language: 'en',
                     authorized: true,
                     authorization: {
                         inProgress: false,
@@ -760,6 +767,93 @@ describe('reducers', () => {
                         error: ''
                     },
                     profile: {}
+                });
+            });
+        });
+
+        describe('"changeProfileLanguage" method', () => {
+            test('it should be defined', () => {
+                expect(typeof changeProfileLanguage).toBe('function');
+            });
+
+            test('it should return correct new state', () => {
+                let newState;
+                let state = {
+                    language: 'en',
+                    authorized: true,
+                    authorization: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profileFetched: true,
+                    profileFetching: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profile: {
+                        username: 'username',
+                        activeProject: null
+                    }
+                };
+
+                newState = changeProfileLanguage(state, 'ru');
+
+                expect(newState).toEqual({
+                    language: 'ru',
+                    authorized: true,
+                    authorization: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profileFetched: true,
+                    profileFetching: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profile: {
+                        username: 'username',
+                        activeProject: null
+                    }
+                });
+            });
+
+            test('it should not mutate original state', () => {
+                let state = {
+                    language: 'en',
+                    authorized: true,
+                    authorization: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profileFetched: true,
+                    profileFetching: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profile: {
+                        username: 'username',
+                        activeProject: null
+                    }
+                };
+
+                changeProfileLanguage(state, 'ru');
+
+                expect(state).toEqual({
+                    language: 'en',
+                    authorized: true,
+                    authorization: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profileFetched: true,
+                    profileFetching: {
+                        inProgress: false,
+                        error: ''
+                    },
+                    profile: {
+                        username: 'username',
+                        activeProject: null
+                    }
                 });
             });
         });

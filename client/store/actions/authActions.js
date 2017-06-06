@@ -18,6 +18,8 @@ export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
 export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
 export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
 
+export const CHANGE_PROFILE_LANGUAGE = 'CHANGE_PROFILE_LANGUAGE';
+
 /* Log in by email */
 export function logInByEmail(email, password) {
     return (dispatch) => {
@@ -160,6 +162,13 @@ function getUserProfileFailed(error) {
     return {
         type: GET_USER_PROFILE_FAILED,
         error
+    };
+}
+
+export function changeProfileLanguage(language) {
+    return {
+        type: CHANGE_PROFILE_LANGUAGE,
+        language
     };
 }
 

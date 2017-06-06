@@ -11,6 +11,8 @@ export const authLogInEmailStartedHandler = (state) => {
 
 export const authLogInEmailFinishedHandler = (state, data) => {
     return {
+        ...state,
+        language: data.userProfile.lang,
         authorized: true,
         authorization: {
             inProgress: false,
@@ -51,6 +53,8 @@ export const authLogInCookieStartedHandler = (state) => {
 
 export const authLogInCookieFinishedHandler = (state, data) => {
     return {
+        ...state,
+        language: data.userProfile.lang,
         authorized: true,
         authorization: {
             inProgress: false,
@@ -78,8 +82,9 @@ export const authLogInCookieFailedHandler = (state) => {
     };
 };
 
-export const logOutHandler = () => {
+export const logOutHandler = (state) => {
     return {
+        ...state,
         authorized: false,
         authorization: {
             inProgress: false,
@@ -109,6 +114,7 @@ export const getUserProfileStartedHandler = (state) => {
 export const getUserProfileFinishedHandler = (state, data) => {
     return {
         ...state,
+        language: data.lang,
         profileFetched: true,
         profileFetching: {
             inProgress: false,
@@ -127,6 +133,13 @@ export const getUserProfileFailedHandler = (state, error) => {
             error
         },
         profile: {}
+    };
+};
+
+export const changeProfileLanguage = (state, language) => {
+    return {
+        ...state,
+        language
     };
 };
 
