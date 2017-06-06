@@ -1,3 +1,4 @@
+import config from 'config';
 import {
     AUTH_LOG_IN_EMAIL_STARTED,
     AUTH_LOG_IN_EMAIL_FINISHED,
@@ -9,6 +10,7 @@ import {
     GET_USER_PROFILE_STARTED,
     GET_USER_PROFILE_FINISHED,
     GET_USER_PROFILE_FAILED,
+    CHANGE_PROFILE_LANGUAGE,
     CREATE_NEW_ACCOUNT_STARTED,
     CREATE_NEW_ACCOUNT_FINISHED,
     CREATE_NEW_ACCOUNT_FAILED
@@ -25,12 +27,14 @@ import {
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
     getUserProfileFailedHandler,
+    changeProfileLanguage,
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
 } from './authReducerMethods';
 
 const initialState = {
+    language: config.defaultLanguage,
     authorized: false,
     authorization: {
         inProgress: false,
@@ -59,13 +63,15 @@ export default function (state = initialState, action) {
         case AUTH_LOG_IN_COOKIE_FAILED:
             return authLogInCookieFailedHandler(state);
         case AUTH_LOG_OUT:
-            return logOutHandler();
+            return logOutHandler(state);
         case GET_USER_PROFILE_STARTED:
             return getUserProfileStartedHandler(state);
         case GET_USER_PROFILE_FINISHED:
             return getUserProfileFinishedHandler(state, action.data);
         case GET_USER_PROFILE_FAILED:
             return getUserProfileFailedHandler(state, action.error);
+        case CHANGE_PROFILE_LANGUAGE:
+            return changeProfileLanguage(state, action.language);
         case CREATE_NEW_ACCOUNT_STARTED:
             return createNewAccountStartedHandler(state);
         case CREATE_NEW_ACCOUNT_FINISHED:

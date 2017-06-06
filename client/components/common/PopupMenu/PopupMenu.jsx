@@ -17,7 +17,11 @@ class PopupMenu extends Component {
 
     static propTypes = {
         button: PropTypes.element,
-        children: PropTypes.element,
+        children: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.arrayOf(PropTypes.element),
+            PropTypes.string
+        ]),
         align: PropTypes.shape({
             horizontal: PropTypes.oneOf(['left', 'right'])
         })

@@ -15,6 +15,7 @@ export default Object.assign({
         clientId: 'MKWebAppV1',
         clientSecret: 'mbO2FdS451lEz0fM8FlSM3n1rbokBSyy'
     },
+    defaultLanguage: 'en',
     static: {
         avatars: '/avatars/'
     }

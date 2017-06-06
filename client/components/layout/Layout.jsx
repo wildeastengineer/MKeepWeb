@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavigationMenu, UserInfo } from '../layout';
+import { NavigationMenu, UserInfo, LanguageSelector } from '../layout';
 
 if (process.env.BROWSER) {
     require('./layout.scss');
@@ -15,6 +15,7 @@ function Layout ({ children, isAuthenticated }) {
     return (
         <div className='app-layout'>
             <div className='app-layout__header'>
+                <LanguageSelector/>
                 <UserInfo />
             </div>
             <div className='app-layout__body'>
