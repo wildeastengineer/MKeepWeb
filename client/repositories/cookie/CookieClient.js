@@ -1,3 +1,5 @@
+/*eslint-env browser*/
+
 export default class CookieClient {
     load(name) {
         const matches = document.cookie.match(new RegExp(

@@ -33,6 +33,7 @@ class Logger {
     }
 
     getLogMethod(level) {
+        /* eslint-disable no-alert, no-console, no-undef */
         if (typeof window !== 'undefined' && window.console) {
             switch (level) {
                 case logLevels.trace:
@@ -51,6 +52,7 @@ class Logger {
         } else {
             return console.log;
         }
+        /* eslint-enable no-alert, no-console, no-undef */
     }
 
     getMessage(text, level, name) {

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getLogger from 'logger';
-
-import { logInByEmail } from 'store/actions/authActions';
+import config from 'config';
 
 const logger = getLogger('PopupMenu');
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./popupMenu.scss');
 }
 

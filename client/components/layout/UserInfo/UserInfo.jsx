@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import config from 'config';
 import { isAuthenticated } from 'utils/auth';
 import AuthBlock from './AuthBlock';
 import UserInfoBlock from './UserInfoBlock';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./userInfo.scss');
 }
 

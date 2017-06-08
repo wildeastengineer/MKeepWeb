@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "start": "npm run build && NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
-        "dev": "NODE_ENV='development' BROWSER='true' webpack-dev-server --config webpack.config.js --progress --watch --hot",
-        "build": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js",
-        "build-help": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js --display-error-details",
+        "dev": "NODE_ENV='development' BUILDING='true' webpack-dev-server --config webpack.config.js --progress --watch --hot",
+        "build": "NODE_ENV='production' BUILDING='true' webpack --config webpack.config.js",
+        "build-help": "NODE_ENV='production' BUILDING='true' webpack --config webpack.config.js --display-error-details",
         "test": "jest",
         "nodemon": "NODE_PATH=./client nodemon server/server.js --exec babel-node --presets es2015,react,stage-0"
     },
