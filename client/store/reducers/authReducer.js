@@ -75,7 +75,7 @@ export default function (state = initialState, action) {
         case CREATE_NEW_ACCOUNT_STARTED:
             return createNewAccountStartedHandler(state);
         case CREATE_NEW_ACCOUNT_FINISHED:
-            return createNewAccountFinishedHandler(state, action.data);
+            return createNewAccountFinishedHandler(state);
         case CREATE_NEW_ACCOUNT_FAILED:
             return createNewAccountFailedHandler(state, action.error);
         default:

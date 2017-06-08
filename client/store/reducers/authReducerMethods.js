@@ -154,7 +154,7 @@ export const createNewAccountStartedHandler = (state) => {
     };
 };
 
-export const createNewAccountFinishedHandler = (state, data) => {
+export const createNewAccountFinishedHandler = (state) => {
     return {
         ...state,
         authorized: true,

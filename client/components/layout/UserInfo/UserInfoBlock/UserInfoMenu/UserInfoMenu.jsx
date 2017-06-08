@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import config from 'config';
 import { Avatar, FlatButton } from 'components/common';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./userInfoMenu.scss');
 }
 
@@ -39,5 +42,6 @@ function UserInfoMenu({userName, onLogoutClick, translations}) {
 }
 
 UserInfoMenu.propTypes = propTypes;
+UserInfoMenu.defaultProps = defaultProps;
 
 export default UserInfoMenu;

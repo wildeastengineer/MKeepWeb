@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavigationMenu, UserInfo, LanguageSelector } from '../layout';
+import config from 'config';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./layout.scss');
 }
 

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import config from 'config/config';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./avatar.scss');
 }
 

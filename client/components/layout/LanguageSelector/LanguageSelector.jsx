@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeProfileLanguage } from 'store/actions/authActions'
 import { FlagIcon, PopupMenu } from 'components/common';
+import config from 'config';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./languageSelector.scss');
 }
 

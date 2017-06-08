@@ -11,7 +11,7 @@ import HomePage from 'components/pages/Home';
 import LogOutPage from 'components/pages/LogOut';
 import { Page404 } from 'components/pages/ErrorPages'
 
-export default function (store) {
+export default function getRoutes(store) {
     function onEnter(nextState, replace) {
         const { getState } = store;
 
@@ -29,4 +29,4 @@ export default function (store) {
             <Route path='*'                         component={ Page404 }/>
         </Route>
     );
-};
+}

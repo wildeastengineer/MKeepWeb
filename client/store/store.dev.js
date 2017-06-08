@@ -18,6 +18,7 @@ export default function (initialState = {}) {
 
     if (module.hot) {
         module.hot.accept('./reducers', () =>
+            /*eslint-env node*/
             store.replaceReducer(require('./reducers').default)
         );
     }

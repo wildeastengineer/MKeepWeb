@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import config from 'config';
 import iconsMap from './iconsMap';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./icon.scss');
 }
 
