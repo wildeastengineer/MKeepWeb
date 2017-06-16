@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router'
 import { paths } from 'routes'
 
+import ProjectSelector from './ProjectSelector';
+
 const propTypes = {
     translations: PropTypes.object
 };
 
 const defaultProps = {
     translations: {
-        title: 'Navigation Menu',
         link: {
             home: 'Home',
             project: 'Project',
@@ -21,7 +22,7 @@ const defaultProps = {
 function NavigationMenu({ translations }) {
     return (
         <div>
-            {translations.title}
+            <ProjectSelector/>
             <ul>
                 <li>
                     <Link to={paths.home}>
@@ -29,13 +30,18 @@ function NavigationMenu({ translations }) {
                     </Link>
                 </li>
                 <li>
-                    <Link to={paths.projects.list}>
+                    <Link to={paths.project.list}>
                         {translations.link.project}
                     </Link>
                 </li>
                 <li>
-                    <Link to={paths.projects.currencies}>
+                    <Link to={paths.project.currencies}>
                         {translations.link.currencies}
+                    </Link>
+                </li>
+                <li>
+                    <Link to={paths.project.currencies}>
+                        {translations.link.settings}
                     </Link>
                 </li>
             </ul>

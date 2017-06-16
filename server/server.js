@@ -11,7 +11,7 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from 'store';
 import { getRoutes } from '../client/routes';
-import { logInByCookie } from '../client/store/actions/authActions';
+import { logInByCookie } from '../client/store/auth/actions';
 import getLogger from '../client/logger';
 
 const logger = getLogger('Server');

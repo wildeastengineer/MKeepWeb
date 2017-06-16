@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeProfileLanguage } from 'store/actions/authActions'
+import { changeProfileLanguage } from 'store/auth/actions'
 import { FlagIcon, PopupMenu } from 'components/common';
 import config from 'config';
 

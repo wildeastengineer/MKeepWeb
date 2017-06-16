@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { logInByEmail, runRegistrationFlow } from 'store/actions/authActions';
+import { logInByEmail, runRegistrationFlow } from 'store/auth/actions';
 
 import { Button, PopupMenu } from 'components/common';
 import AuthMenu from './AuthMenu';

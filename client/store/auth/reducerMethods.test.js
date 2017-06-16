@@ -13,7 +13,7 @@ import {
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
-} from './authReducerMethods';
+} from './reducerMethods';
 
 describe('reducers', () => {
     describe('authReducerMethods', () => {
