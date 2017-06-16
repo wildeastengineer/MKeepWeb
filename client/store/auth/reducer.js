@@ -14,7 +14,7 @@ import {
     CREATE_NEW_ACCOUNT_STARTED,
     CREATE_NEW_ACCOUNT_FINISHED,
     CREATE_NEW_ACCOUNT_FAILED
-} from 'store/actions/authActions';
+} from './actions';
 
 import {
     authLogInEmailStartedHandler,
@@ -31,7 +31,7 @@ import {
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
-} from './authReducerMethods';
+} from './reducerMethods';
 
 const initialState = {
     language: config.defaultLanguage,

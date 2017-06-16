@@ -1,8 +1,9 @@
 export default {
     home: '/',
     logout: '/logout',
-    projects: {
+    project: {
         list: '/projects',
-        currencies: '/projects/currencies'
+        dashboard: '/project/:projectId',
+        currencies: '/project/:projectId/currencies'
     }
 };

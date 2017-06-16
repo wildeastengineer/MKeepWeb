@@ -6,7 +6,13 @@
     "env": {
         "es6": true
     },
-    "rules": {},
+    "rules": {
+        "no-debugger": 0,
+        "no-console": 0
+    },
+    "globals": {
+        "console": true
+    },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"

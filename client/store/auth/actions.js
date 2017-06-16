@@ -1,4 +1,5 @@
 import { AuthRepository, profileRepository } from 'repositories';
+import { getProjectsListFinished } from '../projects/actions'
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
 export const AUTH_LOG_IN_EMAIL_FINISHED = 'AUTH_LOG_IN_EMAIL_FINISHED';
@@ -24,7 +25,7 @@ export const CHANGE_PROFILE_LANGUAGE = 'CHANGE_PROFILE_LANGUAGE';
 export function logInByEmail(email, password) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            dispatch(logInByEmailStarted(email, password));
+            dispatch(logInByEmailStarted());
 
             const authRepository = new AuthRepository({
                 type: 'client'
@@ -33,6 +34,7 @@ export function logInByEmail(email, password) {
             authRepository.logInByEmail(email, password)
                 .then((data) => {
                     dispatch(logInByEmailFinished(data));
+                    dispatch(getProjectsListFinished(data.userProfile.projects));
                     resolve();
                 })
                 .catch((error) => {
