@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+import { paths } from 'routes';
 import { ProjectsRepository } from 'repositories';
 
 export const CREATE_NEW_PROJECT_STARTED = 'CREATE_NEW_PROJECT_STARTED';
@@ -24,6 +26,7 @@ export function setCurrentProject(projectId) {
             projectsRepository.getById(projectId)
                 .then((data) => {
                     dispatch(setCurrentProjectFinished(data));
+                    dispatch(push(paths.project.dashboard.replace(':projectId', projectId)));
                     resolve(data);
                 })
                 .catch((error) => {

@@ -74,19 +74,14 @@ class ProjectSelector extends Component {
 }
 
 function mapStateToProps(state) {
-    // const projects = state.user.profile.projects.map((project) => ({
-    //     text: project.name,
-    //     value: project._id
-    // }));
-
-    const projects = state.user.profile.projects.map((project) => ({
+    const projects = state.projects.projectsList.map((project) => ({
         text: 'Temp Project Name',
         value: project
     }));
 
     return {
         projects,
-        currentProjectId: projects.length ? projects[0].value : ''
+        currentProjectId: state.projects.currentProject.data ? state.projects.currentProject.data._id : ''
     };
 }
 

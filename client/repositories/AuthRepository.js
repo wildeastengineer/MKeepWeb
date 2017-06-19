@@ -9,7 +9,9 @@ import { getErrorMessage } from './repositoryHelper';
 const { clientId, clientSecret } = config.auth;
 
 class AuthRepository {
-    constructor(params) {
+    constructor(params = {
+                    type: 'client'
+                }) {
         this.cookie = new Cookie(params);
     }
 
