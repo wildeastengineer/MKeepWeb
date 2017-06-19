@@ -1,5 +1,5 @@
 // App modules
-import authRepository from './AuthRepository';
+import AuthRepository from './AuthRepository';
 // Config
 import config from 'config';
 
@@ -7,13 +7,14 @@ class Repository {
     constructor() {
         this.protocol = config.api.protocol;
         this.apiUrl = config.api.url;
+        this.authRepository = new AuthRepository();
     }
 
     getUrl(endPoint) {
         return new Promise((resolve, reject) => {
-            authRepository.getAccessToken()
+            this.authRepository.getAccessToken()
                 .then((accessToken) => {
-                    const apiUrl = `${this.protocol}://${this.apiUrl}/`;
+                    const apiUrl = `${this.protocol}://${this.apiUrl}`;
 
                     resolve(`${apiUrl}/${endPoint}?access_token=${accessToken}`);
                 })
