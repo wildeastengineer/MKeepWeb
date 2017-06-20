@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import config from 'config';
-import { isAuthenticated } from 'utils/auth';
 import { Layout } from 'components/layout';
 
 if (config.isBuilding) {
@@ -13,29 +11,16 @@ if (config.isBuilding) {
 
 class App extends Component {
     static propTypes = {
-        isAuthenticated: PropTypes.bool,
         children: PropTypes.node
     };
 
-    static defaultProps = {
-        isAuthenticated: false
-    };
-
     render() {
-        const { isAuthenticated } = this.props;
-
         return (
-            <Layout isAuthenticated={isAuthenticated}>
+            <Layout>
                 {this.props.children}
             </Layout>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isAuthenticated: isAuthenticated(state)
-    };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

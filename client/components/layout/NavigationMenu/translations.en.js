@@ -1,7 +1,6 @@
 export default {
     link: {
         home: 'Home',
-        project: 'Projects',
-        currencies: 'Currencies',
+        settings: 'Settings'
     }
 };
