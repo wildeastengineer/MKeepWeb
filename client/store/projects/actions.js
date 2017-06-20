@@ -26,7 +26,7 @@ export function setCurrentProject(projectId) {
             projectsRepository.getById(projectId)
                 .then((data) => {
                     dispatch(setCurrentProjectFinished(data));
-                    dispatch(push(paths.project.dashboard.replace(':projectId', projectId)));
+                    dispatch(push(paths.project.url.replace(':projectId', projectId)));
                     resolve(data);
                 })
                 .catch((error) => {

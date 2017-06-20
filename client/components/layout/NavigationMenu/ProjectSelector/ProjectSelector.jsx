@@ -75,8 +75,8 @@ class ProjectSelector extends Component {
 
 function mapStateToProps(state) {
     const projects = state.projects.projectsList.map((project) => ({
-        text: 'Temp Project Name',
-        value: project
+        text: project.name,
+        value: project._id
     }));
 
     return {

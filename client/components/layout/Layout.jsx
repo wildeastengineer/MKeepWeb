@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavigationMenu, UserInfo, LanguageSelector } from '../layout';
+import { connect } from 'react-redux';
+
 import config from 'config';
+import { isAuthenticated } from 'utils/auth';
+import { NavigationMenu, UserInfo, LanguageSelector } from '../layout';
 
 if (config.isBuilding) {
     /*eslint-env node*/
@@ -10,10 +13,16 @@ if (config.isBuilding) {
 
 const propTypes = {
     isAuthenticated: PropTypes.bool,
+    currentProjectId: PropTypes.string,
     children: PropTypes.node
 };
 
-function Layout ({ children, isAuthenticated }) {
+const defaultProps = {
+    isAuthenticated: false,
+    currentProjectId: ''
+};
+
+function Layout ({ children, isAuthenticated, currentProjectId }) {
     return (
         <div className='app-layout'>
             <div className='app-layout__header'>
@@ -23,7 +32,9 @@ function Layout ({ children, isAuthenticated }) {
             <div className='app-layout__body'>
                 {isAuthenticated && (
                     <div className='app-layout__side-bar'>
-                        <NavigationMenu />
+                        <NavigationMenu
+                            currentProjectId={currentProjectId}
+                        />
                     </div>
                 )}
                 <div className='app-layout__content'>
@@ -36,5 +47,15 @@ function Layout ({ children, isAuthenticated }) {
 }
 
 Layout.propTypes = propTypes;
+Layout.defaultProps = defaultProps;
 
-export default Layout;
+function mapStateToProps(state) {
+    const currentProjectData = state.projects.currentProject.data;
+
+    return {
+        isAuthenticated: isAuthenticated(state),
+        currentProjectId: currentProjectData ? currentProjectData._id : ''
+    };
+}
+
+export default connect(mapStateToProps)(Layout);

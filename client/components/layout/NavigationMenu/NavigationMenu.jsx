@@ -1,50 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router'
-import { paths } from 'routes'
+import { paths } from 'routes';
 
 import ProjectSelector from './ProjectSelector';
 
 const propTypes = {
+    currentProjectId: PropTypes.string,
     translations: PropTypes.object
 };
 
 const defaultProps = {
+    currentProjectId: '',
     translations: {
         link: {
             home: 'Home',
-            project: 'Project',
-            currencies: 'Currencies',
+            settings: 'Project'
         }
     }
 };
 
-function NavigationMenu({ translations }) {
+function NavigationMenu({ translations, currentProjectId }) {
     return (
         <div>
             <ProjectSelector/>
-            <ul>
-                <li>
-                    <Link to={paths.home}>
-                        {translations.link.home}
-                    </Link>
-                </li>
-                <li>
-                    <Link to={paths.project.list}>
-                        {translations.link.project}
-                    </Link>
-                </li>
-                <li>
-                    <Link to={paths.project.currencies}>
-                        {translations.link.currencies}
-                    </Link>
-                </li>
-                <li>
-                    <Link to={paths.project.currencies}>
-                        {translations.link.settings}
-                    </Link>
-                </li>
-            </ul>
+            {currentProjectId && (
+                <ul>
+                    <li>
+                        <Link to={paths.project.getUrl(currentProjectId)}>
+                            {translations.link.home}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={paths.project.settings.getUrl(currentProjectId)}>
+                            {translations.link.settings}
+                        </Link>
+                    </li>
+                </ul>
+            )}
         </div>
     );
 }
