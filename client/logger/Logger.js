@@ -6,30 +6,39 @@ class Logger {
         this.level = level;
     }
 
-    error(text) {
-        this.print(text, logLevels.error);
+    error(...messages) {
+        this.print(logLevels.error, messages);
     }
 
-    warn(text) {
-        this.print(text, logLevels.warn);
+    warn(...messages) {
+        this.print(logLevels.warn, messages);
     }
 
-    info(text) {
-        this.print(text, logLevels.info);
+    info(...messages) {
+        this.print(logLevels.info, messages);
     }
 
-    debug(text) {
-        this.print(text, logLevels.debug);
+    debug(...messages) {
+        this.print(logLevels.debug, messages);
     }
 
-    trace(text) {
-        this.print(text, logLevels.trace);
+    trace(...messages) {
+        this.print(logLevels.trace, messages);
     }
 
-    print(text, level) {
-        const message = this.getMessage(text, level, this.name);
+    print(level, messages) {
+        const logMethod = this.getLogMethod(level);
 
-        this.getLogMethod(level)(message);
+
+        if (messages.length === 1 && (typeof messages[0] === 'string')) {
+            const message = this.getMessage(messages[0], level, this.name);
+
+            logMethod(message);
+        } else {
+            const title = this.getMessage('', level, this.name);
+
+            logMethod.apply(null, [title].concat(messages));
+        }
     }
 
     getLogMethod(level) {
@@ -56,7 +65,17 @@ class Logger {
     }
 
     getMessage(text, level, name) {
-        return `[${this.getTimeStamp()}] [${level}] [${name}] - ${text}`;
+        let formattedLevel;
+
+        if (level === logLevels.error) {
+            formattedLevel = level.toUpperCase();
+        } else if (level === logLevels.warn) {
+            formattedLevel = level.charAt(0).toUpperCase() + level.slice(1).toLowerCase();
+        } else {
+            formattedLevel = level.toLowerCase();
+        }
+
+        return `[${this.getTimeStamp()}] [${formattedLevel}] [${name}] - ${text}`;
     }
 
     getTimeStamp() {
