@@ -13,16 +13,14 @@ if (config.isBuilding) {
 
 const propTypes = {
     isAuthenticated: PropTypes.bool,
-    currentProjectId: PropTypes.string,
     children: PropTypes.node
 };
 
 const defaultProps = {
-    isAuthenticated: false,
-    currentProjectId: ''
+    isAuthenticated: false
 };
 
-function Layout ({ children, isAuthenticated, currentProjectId }) {
+function Layout ({ children, isAuthenticated }) {
     return (
         <div className='app-layout'>
             <div className='app-layout__header'>
@@ -32,9 +30,7 @@ function Layout ({ children, isAuthenticated, currentProjectId }) {
             <div className='app-layout__body'>
                 {isAuthenticated && (
                     <div className='app-layout__side-bar'>
-                        <NavigationMenu
-                            currentProjectId={currentProjectId}
-                        />
+                        <NavigationMenu/>
                     </div>
                 )}
                 <div className='app-layout__content'>
@@ -50,11 +46,8 @@ Layout.propTypes = propTypes;
 Layout.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-    const currentProjectData = state.projects.currentProject.data;
-
     return {
-        isAuthenticated: isAuthenticated(state),
-        currentProjectId: currentProjectData ? currentProjectData._id : ''
+        isAuthenticated: isAuthenticated(state)
     };
 }
 

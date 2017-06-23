@@ -4,7 +4,10 @@ import Cookie from './cookie';
 // App modules
 import {tokens} from 'dictionaries';
 import config from 'config';
+import getLogger from 'logger';
 import { getErrorMessage } from './repositoryHelper';
+
+const logger = getLogger('Auth Repository');
 
 const { clientId, clientSecret } = config.auth;
 
@@ -31,6 +34,8 @@ class AuthRepository {
 
     logInByEmail(email, password) {
         return new Promise((resolve, reject) => {
+            logger.trace('Log in by email started');
+
             request
                 .post(this.getUrl('logIn'))
                 .send({
@@ -56,6 +61,10 @@ class AuthRepository {
                     this.saveAccessToken(data.accessToken, data.tokenMaxAge);
                     this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
 
+                    logger.trace('Log in by email finished');
+                    logger.trace(`New refresh token: ${data.refreshToken}`);
+                    logger.trace(`New access token: ${data.accessToken}`);
+
                     resolve(data);
                 });
         });
@@ -68,7 +77,11 @@ class AuthRepository {
 
     refreshTokens() {
         return new Promise((resolve, reject) => {
+            logger.trace('Refresh tokens started');
+
             const refreshToken = this.getRefreshToken();
+
+            logger.trace(`refresh token: ${refreshToken}`);
 
             if (!refreshToken) {
                 return reject('Refresh token is not defined');
@@ -84,6 +97,8 @@ class AuthRepository {
                 })
                 .end((error, response) => {
                     if (error) {
+                        logger.trace('Refresh tokens request failed');
+
                         return reject(getErrorMessage(error, response));
                     }
 
@@ -96,6 +111,10 @@ class AuthRepository {
 
                     this.saveAccessToken(data.accessToken, data.tokenMaxAge);
                     this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
+
+                    logger.trace('Refresh tokens request finished');
+                    logger.trace(`New refresh token: ${data.refreshToken}`);
+                    logger.trace(`New access token: ${data.accessToken}`);
 
                     resolve(data);
                 });

@@ -80,6 +80,7 @@ export function logInByCookie(req, res) {
             authRepository.refreshTokens()
                 .then((data) => {
                     dispatch(logInByCookieFinished(data));
+                    dispatch(getProjectsListFinished(data.userProfile.projects));
                     resolve(data);
                 })
                 .catch((error) => {

@@ -5,7 +5,12 @@ export default class CookieServer {
     }
 
     load(name) {
-        return this.req.cookies[name];
+        const cookies = this.req.headers.cookie;
+        const startIndex = cookies.lastIndexOf(name);
+        const subString = cookies.substr(startIndex);
+        const endIndex = subString.indexOf(';') > -1 ? subString.indexOf(';') : subString.length;
+
+        return decodeURIComponent(subString.substring(subString.indexOf('=') + 1, endIndex));
     }
 
     save(name, value, options = {}) {
