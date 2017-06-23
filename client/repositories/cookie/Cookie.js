@@ -23,6 +23,8 @@ export default class Cookie {
     }
 
     save(name, value, options = {}) {
+        this.remove(name);
+
         return this.cookie.save(name, value, options);
     }
 

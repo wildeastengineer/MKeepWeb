@@ -31,8 +31,7 @@ app.use((req, res, next) => {
     const store = Store();
 
     store.dispatch(logInByCookie(req, res))
-        .catch((error) => {
-            logger.trace('Log in by Cookie error:', error);
+        .catch(() => {
             return Promise.resolve();
         })
         .then(() => {
@@ -40,7 +39,7 @@ app.use((req, res, next) => {
         })
         .catch((error) => {
             if (error.status === 301) {
-                logger.trace('Redirect to', error.location);
+                logger.trace(`Redirect to ${error.location}`);
                 res.redirect(error.location);
 
                 return Promise.reject('Redirect');
