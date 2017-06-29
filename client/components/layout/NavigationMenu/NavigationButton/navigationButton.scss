@@ -1,0 +1,27 @@
+.mk-navigation-button {
+    display: flex;
+    width: 100%;
+    border-bottom: solid 1px;
+    border-color: #eee;
+    outline: none;
+    text-decoration: none;
+    color: #9c9c9c;
+    padding: 6px;
+    box-sizing: border-box;
+
+    &:hover {
+        color: #333;
+    }
+
+    &.mk-navigation-button_active {
+        color: #333;
+    }
+
+    span {
+        flex-grow: 1;
+    }
+
+    i {
+        flex-grow: 0;
+    }
+}
