@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { paths } from 'routes';
-import { Link } from 'react-router'
+import { SettingsItemsList } from './SettingsNavigation';
 
 const propTypes = {
     currentProjectId: PropTypes.string,
@@ -14,24 +14,38 @@ const propTypes = {
 const defaultProps = {
     currentProjectId: '',
     translations: {
-        title: 'Project Settings',
-        link: {
+        links: {
+            accounts: 'Accounts',
+            categories: 'Categories',
             currencies: 'Currencies'
         }
     }
 };
 
 function ProjectSettings({ translations, currentProjectId, children }) {
+    const settingsItems = [
+        {
+            url: paths.project.settings.categories.getUrl(currentProjectId),
+            icon: 'folder',
+            label: translations.links.categories
+        },
+        {
+            url: paths.project.settings.accounts.getUrl(currentProjectId),
+            icon: 'account_balance_wallet',
+            label: translations.links.accounts
+        },
+        {
+            url: paths.project.settings.currencies.getUrl(currentProjectId),
+            icon: 'euro_symbol',
+            label: translations.links.currencies
+        }
+    ];
+
     return (
         <div>
-            <h1>
-                {translations.title}
-            </h1>
-            <div>
-                <Link to={paths.project.settings.currencies.getUrl(currentProjectId)}>
-                    {translations.link.currencies}
-                </Link>
-            </div>
+            <SettingsItemsList
+                items={settingsItems}
+            />
             <div>
                 { children }
             </div>

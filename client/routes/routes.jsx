@@ -11,7 +11,10 @@ import LogOutPage   from 'components/pages/LogOut';
 
 import ProjectsList         from 'components/pages/ProjectsList';
 import Dashboard            from 'components/pages/Dashboard';
+import Project              from 'components/pages/Project';
 import ProjectSettingsPage  from 'components/pages/ProjectSettings';
+import AccountsPage         from 'components/pages/ProjectSettings/Accounts';
+import CategoriesPage       from 'components/pages/ProjectSettings/Categories';
 import CurrenciesPage       from 'components/pages/ProjectSettings/Currencies';
 
 import { Page404 } from 'components/pages/ErrorPages'
@@ -42,6 +45,7 @@ export default function getRoutes(store) {
             />
             <Route
                 path={paths.project.url}
+                component={Project}
             >
                 <IndexRoute
                     component={Dashboard}
@@ -51,6 +55,16 @@ export default function getRoutes(store) {
                     path={paths.project.settings.url}
                     component={ProjectSettingsPage}
                     onEnter={onEnter}>
+                    <Route
+                        path={paths.project.settings.accounts.url}
+                        component={AccountsPage}
+                        onEnter={onEnter}
+                    />
+                    <Route
+                        path={paths.project.settings.categories.url}
+                        component={CategoriesPage}
+                        onEnter={onEnter}
+                    />
                     <Route
                         path={paths.project.settings.currencies.url}
                         component={CurrenciesPage}

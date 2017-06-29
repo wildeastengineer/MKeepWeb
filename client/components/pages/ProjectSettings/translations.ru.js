@@ -1,6 +1,7 @@
 export default {
-    title: 'Настройки проекта',
-    link: {
+    links: {
+        accounts: 'Счета',
+        categories: 'Категории',
         currencies: 'Валюты'
     }
 };

@@ -1,6 +1,7 @@
 export default {
-    title: 'Project Settings',
-    link: {
+    links: {
+        accounts: 'Accounts',
+        categories: 'Categories',
         currencies: 'Currencies'
     }
 };

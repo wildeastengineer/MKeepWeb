@@ -1,0 +1,36 @@
+.mk-settings-items-list {
+    display: flex;
+
+
+    .mk-settings-item {
+        display: block;
+        flex-grow: 1;
+        color: #9c9c9c;
+        cursor: pointer;
+        text-align: center;
+        border: solid 1px;
+        border-color: #eee #ddd #ddd #eee;
+        outline: none;
+        padding: 3px 0 15px;
+        text-decoration: none;
+        box-shadow: rgba(0, 0, 0, 0.117647) 0px 0px 4px;
+
+        .mk-icon {
+            font-size: 36px;
+            display: block;
+            margin: 5px;
+        }
+
+        &:hover {
+            color: #333;
+        }
+
+        &:active {
+            box-shadow: inset rgba(0, 0, 0, 0.117647) 0px 0px 4px;
+        }
+
+        &.mk-settings-item_active {
+            color: #333;
+        }
+    }
+}

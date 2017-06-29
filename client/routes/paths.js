@@ -14,6 +14,14 @@ const paths = {
         settings: {
             url: 'settings',
             getUrl: (projectId) => (`${paths.project.getUrl(projectId)}/settings`),
+            accounts: {
+                url: 'accounts',
+                getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/accounts`)
+            },
+            categories: {
+                url: 'categories',
+                getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/categories`)
+            },
             currencies: {
                 url: 'currencies',
                 getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/currencies`)

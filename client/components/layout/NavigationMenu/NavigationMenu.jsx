@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
-import { paths } from 'routes';
 
 import ProjectSelector from './ProjectSelector';
+import NavigationButton from './NavigationButton';
+
+import { paths } from 'routes';
 
 class NavigationMenu extends Component {
     static propTypes = {
@@ -34,18 +35,18 @@ class NavigationMenu extends Component {
             <div>
                 <ProjectSelector/>
                 {currentProjectId && (
-                    <ul>
-                        <li>
-                            <Link to={paths.project.getUrl(currentProjectId)}>
-                                {translations.link.home}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={paths.project.settings.getUrl(currentProjectId)}>
-                                {translations.link.settings}
-                            </Link>
-                        </li>
-                    </ul>
+                    <div>
+                        <NavigationButton
+                            name={translations.link.home}
+                            url={paths.project.getUrl(currentProjectId)}
+                            icon='dashboard'
+                        />
+                        <NavigationButton
+                            name={translations.link.settings}
+                            url={paths.project.settings.getUrl(currentProjectId)}
+                            icon='settings'
+                        />
+                    </div>
                 )}
             </div>
         );
