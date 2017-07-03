@@ -126,6 +126,8 @@ class AuthRepository {
             request
                 .post(this.getUrl('createAccount'))
                 .send({
+                    'client_id': clientId,
+                    'client_secret': clientSecret,
                     'username': email,
                     password
                 })
@@ -135,10 +137,17 @@ class AuthRepository {
                         return reject(getErrorMessage(error, response));
                     }
 
-                    resolve({
-                        name: response.body.username,
-                        created: response.body.created
-                    });
+                    const data = {
+                        accessToken: response.body.access_token,
+                        refreshToken: response.body.refresh_token,
+                        tokenMaxAge: response.body.expires_in * 1000,
+                        userProfile: response.body.userProfile
+                    };
+
+                    this.saveAccessToken(data.accessToken, data.tokenMaxAge);
+                    this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
+
+                    resolve(data);
                 });
         });
     }
