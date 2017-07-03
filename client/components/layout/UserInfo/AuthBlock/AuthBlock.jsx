@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { logInByEmail, runRegistrationFlow } from 'store/auth/actions';
+import { logInByEmail, createNewAccount } from 'store/auth/actions';
 
 import { Button, PopupMenu } from 'components/common';
 import AuthMenu from './AuthMenu';
@@ -43,7 +43,7 @@ class AuthBlock extends Component {
     handleCreateNewAccountClick = (event) => {
         event.preventDefault();
 
-        this.props.dispatch(runRegistrationFlow(this.state.email, this.state.password));
+        this.props.dispatch(createNewAccount(this.state.email, this.state.password));
     };
 
     render() {

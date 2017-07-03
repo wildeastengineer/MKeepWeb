@@ -1,15 +1,4 @@
-export const authLogInEmailStartedHandler = (state) => {
-    return {
-        ...state,
-        authorized: false,
-        authorization: {
-            inProgress: true,
-            error: ''
-        }
-    };
-};
-
-export const authLogInEmailFinishedHandler = (state, data) => {
+const authorizationFinishedHandler = (state, data) => {
     return {
         ...state,
         language: data.userProfile.lang,
@@ -27,6 +16,21 @@ export const authLogInEmailFinishedHandler = (state, data) => {
             ...data.userProfile
         }
     };
+};
+
+export const authLogInEmailStartedHandler = (state) => {
+    return {
+        ...state,
+        authorized: false,
+        authorization: {
+            inProgress: true,
+            error: ''
+        }
+    };
+};
+
+export const authLogInEmailFinishedHandler = (state, data) => {
+    return authorizationFinishedHandler(state, data);
 };
 
 export const authLogInEmailFailedHandler = (state, error) => {
@@ -52,23 +56,7 @@ export const authLogInCookieStartedHandler = (state) => {
 };
 
 export const authLogInCookieFinishedHandler = (state, data) => {
-    return {
-        ...state,
-        language: data.userProfile.lang,
-        authorized: true,
-        authorization: {
-            inProgress: false,
-            error: ''
-        },
-        profileFetched: true,
-        profileFetching: {
-            inProgress: false,
-            error: ''
-        },
-        profile: {
-            ...data.userProfile
-        }
-    };
+    return authorizationFinishedHandler(state, data);
 };
 
 export const authLogInCookieFailedHandler = (state) => {
@@ -154,15 +142,8 @@ export const createNewAccountStartedHandler = (state) => {
     };
 };
 
-export const createNewAccountFinishedHandler = (state) => {
-    return {
-        ...state,
-        authorized: true,
-        authorization: {
-            inProgress: false,
-            error: ''
-        }
-    };
+export const createNewAccountFinishedHandler = (state, data) => {
+    return authorizationFinishedHandler(state, data);
 };
 
 export const createNewAccountFailedHandler = (state, error) => {

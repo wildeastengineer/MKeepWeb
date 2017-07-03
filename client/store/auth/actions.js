@@ -217,25 +217,3 @@ function createNewAccountFailed(error) {
         error
     };
 }
-
-// ToDo: move and "runRegistrationFlow" to another file
-
-export function runRegistrationFlow(email, password) {
-    return (dispatch) => {
-        return new Promise((resolve, reject) => {
-            dispatch(createNewAccount(email, password))
-                .then(() => {
-                    return dispatch(logInByEmail(email, password))
-                })
-                .then(() => {
-                    return dispatch(getUserProfile());
-                })
-                .then(() => {
-                    resolve();
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
-    };
-}
