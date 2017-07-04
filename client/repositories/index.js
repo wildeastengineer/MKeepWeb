@@ -1,9 +1,9 @@
 import AuthRepository from './AuthRepository';
 import ProjectsRepository from './ProjectsRepository';
-import profileRepository from './ProfileRepository';
+import ProfileRepository from './ProfileRepository';
 
 export {
     AuthRepository,
     ProjectsRepository,
-    profileRepository
+    ProfileRepository
 };
