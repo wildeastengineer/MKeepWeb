@@ -9,7 +9,7 @@ import {
     getUserProfileStartedHandler,
     getUserProfileFinishedHandler,
     getUserProfileFailedHandler,
-    changeProfileLanguage,
+    changeProfileLanguageFinishedHandler,
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
@@ -771,9 +771,9 @@ describe('reducers', () => {
             });
         });
 
-        describe('"changeProfileLanguage" method', () => {
+        describe('"changeProfileLanguageFinishedHandler" method', () => {
             test('it should be defined', () => {
-                expect(typeof changeProfileLanguage).toBe('function');
+                expect(typeof changeProfileLanguageFinishedHandler).toBe('function');
             });
 
             test('it should return correct new state', () => {
@@ -796,7 +796,7 @@ describe('reducers', () => {
                     }
                 };
 
-                newState = changeProfileLanguage(state, 'ru');
+                newState = changeProfileLanguageFinishedHandler(state, 'ru');
 
                 expect(newState).toEqual({
                     language: 'ru',
@@ -836,7 +836,7 @@ describe('reducers', () => {
                     }
                 };
 
-                changeProfileLanguage(state, 'ru');
+                changeProfileLanguageFinishedHandler(state, 'ru');
 
                 expect(state).toEqual({
                     language: 'en',

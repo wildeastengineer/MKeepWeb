@@ -8,6 +8,7 @@ class ProfileRepository extends Repository {
     getUrl(action) {
         switch (action) {
             case 'getProfile':
+            case 'changeLanguage':
                 return super.getUrl('profile');
             default:
                 return null;
@@ -35,6 +36,29 @@ class ProfileRepository extends Repository {
                 });
         });
     }
+
+    changeLanguage(lang) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('changeLanguage')
+                .then((url) => {
+                    request
+                        .patch(url)
+                        .send({
+                            lang
+                        })
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            resolve({
+                                lang: response.body.lang
+                            });
+                        });
+                });
+        });
+    }
 }
 
-export default new ProfileRepository;
+export default ProfileRepository;

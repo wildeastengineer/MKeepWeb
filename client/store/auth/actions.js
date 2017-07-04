@@ -1,4 +1,4 @@
-import { AuthRepository, profileRepository } from 'repositories';
+import { AuthRepository, ProfileRepository } from 'repositories';
 import { getProjectsListFinished } from '../projects/actions'
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
@@ -19,7 +19,7 @@ export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
 export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
 export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
 
-export const CHANGE_PROFILE_LANGUAGE = 'CHANGE_PROFILE_LANGUAGE';
+export const CHANGE_PROFILE_LANGUAGE_FINISHED = 'CHANGE_PROFILE_LANGUAGE_FINISHED';
 
 /* Log in by email */
 export function logInByEmail(email, password) {
@@ -135,6 +135,8 @@ export function getUserProfile() {
         return new Promise((resolve, reject) => {
             dispatch(getUserProfileStart());
 
+            const profileRepository = new ProfileRepository();
+
             profileRepository.getProfile()
                 .then((data) => {
                     dispatch(getUserProfileFinished(data));
@@ -169,8 +171,18 @@ function getUserProfileFailed(error) {
 }
 
 export function changeProfileLanguage(language) {
+    return (dispatch) => {
+        const profileRepository = new ProfileRepository();
+
+        profileRepository.changeLanguage(language);
+
+        dispatch(changeProfileLanguageFinished(language));
+    };
+}
+
+function changeProfileLanguageFinished(language) {
     return {
-        type: CHANGE_PROFILE_LANGUAGE,
+        type: CHANGE_PROFILE_LANGUAGE_FINISHED,
         language
     };
 }

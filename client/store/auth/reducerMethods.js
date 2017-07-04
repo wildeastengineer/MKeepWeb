@@ -124,7 +124,7 @@ export const getUserProfileFailedHandler = (state, error) => {
     };
 };
 
-export const changeProfileLanguage = (state, language) => {
+export const changeProfileLanguageFinishedHandler = (state, language) => {
     return {
         ...state,
         language
