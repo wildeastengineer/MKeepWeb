@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeProfileLanguage } from 'store/auth/actions'
-import { FlagIcon, PopupMenu } from 'components/common';
+
 import config from 'config';
+import { changeProfileLanguage } from 'store/profile/actions'
+import { getLanguage } from 'store/profile/selectors';
+
+import { FlagIcon, PopupMenu } from 'components/common';
 
 if (config.isBuilding) {
     /*eslint-env node*/
@@ -17,10 +20,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    availableLanguages: [
-        'ru',
-        'en'
-    ]
+    availableLanguages: [ 'en' ]
 };
 
 function LanguageSelector ({ availableLanguages, currentLanguage, dispatch }) {
@@ -54,7 +54,7 @@ LanguageSelector.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
     return {
-        currentLanguage: state.user.language
+        currentLanguage: getLanguage(state)
     };
 }
 

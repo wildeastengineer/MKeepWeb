@@ -24,7 +24,9 @@ function Layout ({ children, isAuthenticated }) {
     return (
         <div className='app-layout'>
             <div className='app-layout__header'>
-                <LanguageSelector/>
+                <LanguageSelector
+                    availableLanguages={config.availableLanguages}
+                />
                 <UserInfo />
             </div>
             <div className='app-layout__body'>
