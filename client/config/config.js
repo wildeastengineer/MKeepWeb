@@ -21,6 +21,10 @@ export default Object.assign({
         clientSecret: 'mbO2FdS451lEz0fM8FlSM3n1rbokBSyy'
     },
     defaultLanguage: 'en',
+    availableLanguages: [
+        'en',
+        'ru'
+    ],
     static: {
         avatars: '/avatars/'
     }

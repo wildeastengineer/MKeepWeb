@@ -7,10 +7,6 @@ import {
     AUTH_LOG_IN_COOKIE_FINISHED,
     AUTH_LOG_IN_COOKIE_FAILED,
     AUTH_LOG_OUT,
-    GET_USER_PROFILE_STARTED,
-    GET_USER_PROFILE_FINISHED,
-    GET_USER_PROFILE_FAILED,
-    CHANGE_PROFILE_LANGUAGE_FINISHED,
     CREATE_NEW_ACCOUNT_STARTED,
     CREATE_NEW_ACCOUNT_FINISHED,
     CREATE_NEW_ACCOUNT_FAILED
@@ -24,10 +20,6 @@ import {
     authLogInCookieFinishedHandler,
     authLogInCookieFailedHandler,
     logOutHandler,
-    getUserProfileStartedHandler,
-    getUserProfileFinishedHandler,
-    getUserProfileFailedHandler,
-    changeProfileLanguageFinishedHandler,
     createNewAccountStartedHandler,
     createNewAccountFinishedHandler,
     createNewAccountFailedHandler
@@ -64,14 +56,6 @@ export default function (state = initialState, action) {
             return authLogInCookieFailedHandler(state);
         case AUTH_LOG_OUT:
             return logOutHandler(state);
-        case GET_USER_PROFILE_STARTED:
-            return getUserProfileStartedHandler(state);
-        case GET_USER_PROFILE_FINISHED:
-            return getUserProfileFinishedHandler(state, action.data);
-        case GET_USER_PROFILE_FAILED:
-            return getUserProfileFailedHandler(state, action.error);
-        case CHANGE_PROFILE_LANGUAGE_FINISHED:
-            return changeProfileLanguageFinishedHandler(state, action.language);
         case CREATE_NEW_ACCOUNT_STARTED:
             return createNewAccountStartedHandler(state);
         case CREATE_NEW_ACCOUNT_FINISHED:

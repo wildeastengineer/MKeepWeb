@@ -1,5 +1,5 @@
-import { AuthRepository, ProfileRepository } from 'repositories';
-import { getProjectsListFinished } from '../projects/actions'
+import { AuthRepository } from 'repositories';
+import { setUserProfile } from '../profile/actions'
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
 export const AUTH_LOG_IN_EMAIL_FINISHED = 'AUTH_LOG_IN_EMAIL_FINISHED';
@@ -15,12 +15,6 @@ export const CREATE_NEW_ACCOUNT_STARTED = 'CREATE_NEW_ACCOUNT_STARTED';
 export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
 export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
 
-export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
-export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
-export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
-
-export const CHANGE_PROFILE_LANGUAGE_FINISHED = 'CHANGE_PROFILE_LANGUAGE_FINISHED';
-
 /* Log in by email */
 export function logInByEmail(email, password) {
     return (dispatch) => {
@@ -34,7 +28,7 @@ export function logInByEmail(email, password) {
             authRepository.logInByEmail(email, password)
                 .then((data) => {
                     dispatch(logInByEmailFinished(data));
-                    dispatch(getProjectsListFinished(data.userProfile.projects));
+                    dispatch(setUserProfile(data.userProfile));
                     resolve();
                 })
                 .catch((error) => {
@@ -80,7 +74,7 @@ export function logInByCookie(req, res) {
             authRepository.refreshTokens()
                 .then((data) => {
                     dispatch(logInByCookieFinished(data));
-                    dispatch(getProjectsListFinished(data.userProfile.projects));
+                    dispatch(setUserProfile(data.userProfile));
                     resolve(data);
                 })
                 .catch((error) => {
@@ -126,64 +120,6 @@ export function logOut() {
 function logOutStart() {
     return {
         type: AUTH_LOG_OUT
-    };
-}
-
-/* Get user profile */
-export function getUserProfile() {
-    return (dispatch) => {
-        return new Promise((resolve, reject) => {
-            dispatch(getUserProfileStart());
-
-            const profileRepository = new ProfileRepository();
-
-            profileRepository.getProfile()
-                .then((data) => {
-                    dispatch(getUserProfileFinished(data));
-                    resolve();
-                })
-                .catch((error) => {
-                    dispatch(getUserProfileFailed(error.message));
-                    reject(error);
-                });
-        });
-    };
-}
-
-function getUserProfileStart() {
-    return {
-        type: GET_USER_PROFILE_STARTED
-    };
-}
-
-function getUserProfileFinished(data) {
-    return {
-        type: GET_USER_PROFILE_FINISHED,
-        data
-    };
-}
-
-function getUserProfileFailed(error) {
-    return {
-        type: GET_USER_PROFILE_FAILED,
-        error
-    };
-}
-
-export function changeProfileLanguage(language) {
-    return (dispatch) => {
-        const profileRepository = new ProfileRepository();
-
-        profileRepository.changeLanguage(language);
-
-        dispatch(changeProfileLanguageFinished(language));
-    };
-}
-
-function changeProfileLanguageFinished(language) {
-    return {
-        type: CHANGE_PROFILE_LANGUAGE_FINISHED,
-        language
     };
 }
 

@@ -87,50 +87,6 @@ export const logOutHandler = (state) => {
     };
 };
 
-export const getUserProfileStartedHandler = (state) => {
-    return {
-        ...state,
-        profileFetched: false,
-        profileFetching: {
-            inProgress: true,
-            error: ''
-        },
-        profile: {}
-    };
-};
-
-export const getUserProfileFinishedHandler = (state, data) => {
-    return {
-        ...state,
-        language: data.lang,
-        profileFetched: true,
-        profileFetching: {
-            inProgress: false,
-            error: ''
-        },
-        profile: data
-    };
-};
-
-export const getUserProfileFailedHandler = (state, error) => {
-    return {
-        ...state,
-        profileFetched: false,
-        profileFetching: {
-            inProgress: false,
-            error
-        },
-        profile: {}
-    };
-};
-
-export const changeProfileLanguageFinishedHandler = (state, language) => {
-    return {
-        ...state,
-        language
-    };
-};
-
 export const createNewAccountStartedHandler = (state) => {
     return {
         ...state,
