@@ -1,3 +1,6 @@
 export default {
-    title: 'Currencies Settings'
+    actions: {
+        add: 'Add',
+        remove: 'Remove'
+    }
 };
