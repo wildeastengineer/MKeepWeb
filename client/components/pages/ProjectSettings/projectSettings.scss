@@ -1,0 +1,16 @@
+.project-settings {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .mk-settings-items-list {
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    .project-settings-body {
+        flex-grow: 1;
+        flex-shrink: 0;
+        position: relative;
+    }
+}

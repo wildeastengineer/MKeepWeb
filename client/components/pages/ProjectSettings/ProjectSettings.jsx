@@ -2,8 +2,15 @@ import React  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import config from 'config/config';
+
 import { paths } from 'routes';
 import { SettingsItemsList } from './SettingsNavigation';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./projectSettings.scss');
+}
 
 const propTypes = {
     currentProjectId: PropTypes.string,
@@ -42,11 +49,11 @@ function ProjectSettings({ translations, currentProjectId, children }) {
     ];
 
     return (
-        <div>
+        <div className='project-settings'>
             <SettingsItemsList
                 items={settingsItems}
             />
-            <div>
+            <div className='project-settings-body'>
                 { children }
             </div>
         </div>

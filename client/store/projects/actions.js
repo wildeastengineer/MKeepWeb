@@ -2,6 +2,8 @@ import { push } from 'react-router-redux';
 import { paths } from 'routes';
 import { ProjectsRepository } from 'repositories';
 
+import { setProjectCurrencies } from '../currencies/actions';
+
 export const CREATE_NEW_PROJECT_STARTED = 'CREATE_NEW_PROJECT_STARTED';
 export const GET_PROJECTS_LIST_FINISHED = 'GET_PROJECTS_LIST_FINISHED';
 
@@ -26,6 +28,7 @@ export function setCurrentProject(projectId) {
             projectsRepository.getById(projectId)
                 .then((data) => {
                     dispatch(setCurrentProjectFinished(data));
+                    dispatch(setProjectCurrencies(data.currencies));
                     dispatch(push(paths.project.url.replace(':projectId', projectId)));
                     resolve(data);
                 })
