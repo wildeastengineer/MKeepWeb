@@ -1,8 +1,10 @@
-/*eslint-env browser*/
-
 export default class CookieClient {
+    constructor(document) {
+        this.document = document;
+    }
+
     load(name) {
-        const matches = document.cookie.match(new RegExp(
+        const matches = this.document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
         ));
 
@@ -37,12 +39,12 @@ export default class CookieClient {
             }
         }
 
-        document.cookie = updatedCookie;
+        this.document.cookie = updatedCookie;
     }
 
-    remove(name) {
-        this.save(name, '', {
+    remove(name, options = {}) {
+        this.save(name, '', Object.assign(options, {
             expires: -1
-        });
+        }));
     }
 }

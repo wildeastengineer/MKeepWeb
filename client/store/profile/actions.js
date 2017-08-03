@@ -1,4 +1,4 @@
-import { ProfileRepository } from 'repositories';
+import { ProfileRepository } from 'warehouse/repositories';
 import { getProjectsListFinished } from '../projects/actions'
 
 export const CHANGE_PROFILE_LANGUAGE_FINISHED = 'CHANGE_PROFILE_LANGUAGE_FINISHED';
@@ -7,9 +7,9 @@ export const GET_USER_PROFILE_STARTED = 'GET_USER_PROFILE_STARTED';
 export const GET_USER_PROFILE_FINISHED = 'GET_USER_PROFILE_FINISHED';
 export const GET_USER_PROFILE_FAILED = 'GET_USER_PROFILE_FAILED';
 
-export function changeProfileLanguage(language) {
+export function changeProfileLanguage(language, cookies) {
     return (dispatch) => {
-        const profileRepository = new ProfileRepository();
+        const profileRepository = new ProfileRepository(cookies);
 
         profileRepository.changeLanguage(language);
 
@@ -25,12 +25,12 @@ function changeProfileLanguageFinished(language) {
 }
 
 /* Get user profile */
-export function getUserProfile() {
+export function getUserProfile(cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(getUserProfileStart());
 
-            const profileRepository = new ProfileRepository();
+            const profileRepository = new ProfileRepository(cookies);
 
             profileRepository.getProfile()
                 .then((data) => {

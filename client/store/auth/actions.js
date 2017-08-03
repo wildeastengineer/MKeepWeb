@@ -1,4 +1,4 @@
-import { AuthRepository } from 'repositories';
+import { AuthRepository } from 'warehouse';
 import { setUserProfile } from '../profile/actions'
 
 export const AUTH_LOG_IN_EMAIL_STARTED = 'AUTH_LOG_IN_EMAIL_STARTED';
@@ -16,14 +16,12 @@ export const CREATE_NEW_ACCOUNT_FINISHED = 'CREATE_NEW_ACCOUNT_FINISHED';
 export const CREATE_NEW_ACCOUNT_FAILED = 'CREATE_NEW_ACCOUNT_FAILED';
 
 /* Log in by email */
-export function logInByEmail(email, password) {
+export function logInByEmail(email, password, cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(logInByEmailStarted());
 
-            const authRepository = new AuthRepository({
-                type: 'client'
-            });
+            const authRepository = new AuthRepository(cookies);
 
             authRepository.logInByEmail(email, password)
                 .then((data) => {
@@ -60,26 +58,22 @@ function logInByEmailFailed(error) {
 }
 
 /* Log in by cookie */
-export function logInByCookie(req, res) {
+export function logInByCookies(cookies) {
     return (dispatch) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             dispatch(logInByCookieStarted());
 
-            const authRepository = new AuthRepository({
-                type: 'server',
-                req,
-                res
-            });
+            const authRepository = new AuthRepository(cookies);
 
             authRepository.refreshTokens()
                 .then((data) => {
                     dispatch(logInByCookieFinished(data));
                     dispatch(setUserProfile(data.userProfile));
-                    resolve(data);
+                    resolve();
                 })
                 .catch((error) => {
                     dispatch(logInByCookieFailed(error));
-                    reject(error)
+                    resolve()
                 });
         });
     };
@@ -106,10 +100,8 @@ function logInByCookieFailed(error) {
 }
 
 /* Log out */
-export function logOut() {
-    const authRepository = new AuthRepository({
-        type: 'client'
-    });
+export function logOut(cookies) {
+    const authRepository = new AuthRepository(cookies);
 
     return (dispatch) => {
         authRepository.logOut();
@@ -124,14 +116,12 @@ function logOutStart() {
 }
 
 /* Create new account */
-export function createNewAccount(email, password) {
+export function createNewAccount(email, password, cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(createNewAccountStart(email, password));
 
-            const authRepository = new AuthRepository({
-                type: 'client'
-            });
+            const authRepository = new AuthRepository(cookies);
 
             authRepository.createNewAccount(email, password)
                 .then((data) => {

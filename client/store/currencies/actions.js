@@ -1,4 +1,4 @@
-import { CurrenciesRepository } from 'repositories';
+import { CurrenciesRepository } from 'warehouse/repositories';
 
 export const UPDATE_GLOBAL_CURRENCIES_STARTED = 'UPDATE_GLOBAL_CURRENCIES_STARTED';
 export const UPDATE_GLOBAL_CURRENCIES_FINISHED = 'UPDATE_GLOBAL_CURRENCIES_FINISHED';
@@ -10,12 +10,12 @@ export const UPDATE_PROJECT_CURRENCIES_FAILED = 'UPDATE_PROJECT_CURRENCIES_FAILE
 
 export const SET_PROJECT_CURRENCIES = 'SET_PROJECT_CURRENCIES';
 
-export function updateGlobalCurrencies() {
+export function updateGlobalCurrencies(cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(updateGlobalCurrenciesStarted());
 
-            const currenciesRepository = new CurrenciesRepository();
+            const currenciesRepository = new CurrenciesRepository(cookies);
 
             currenciesRepository.getGlobal()
                 .then((currencies) => {
@@ -30,12 +30,12 @@ export function updateGlobalCurrencies() {
     };
 }
 
-export function updateProjectCurrencies(projectId, currencies) {
+export function updateProjectCurrencies(projectId, currencies, cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(updateProjectCurrenciesStarted());
 
-            const currenciesRepository = new CurrenciesRepository();
+            const currenciesRepository = new CurrenciesRepository(cookies);
 
             currenciesRepository.updateProjectCurrencies(projectId, currencies)
                 .then((updatedCurrencies) => {

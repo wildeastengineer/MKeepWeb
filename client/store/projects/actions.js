@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import { paths } from 'routes';
-import { ProjectsRepository } from 'repositories';
+import { ProjectsRepository } from 'warehouse';
 
 import { setProjectCurrencies } from '../currencies/actions';
 
@@ -18,18 +18,21 @@ export function getProjectsListFinished(data) {
     };
 }
 
-export function setCurrentProject(projectId) {
+export function setCurrentProject(projectId, cookies, options = {}) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             dispatch(setCurrentProjectStarted());
 
-            const projectsRepository = new ProjectsRepository();
+            const projectsRepository = new ProjectsRepository(cookies);
 
             projectsRepository.getById(projectId)
                 .then((data) => {
+                    const redirectUrl = options.redirect || paths.project.url.replace(':projectId', projectId);
+
                     dispatch(setCurrentProjectFinished(data));
                     dispatch(setProjectCurrencies(data.currencies));
-                    dispatch(push(paths.project.url.replace(':projectId', projectId)));
+                    dispatch(push(redirectUrl));
+
                     resolve(data);
                 })
                 .catch((error) => {

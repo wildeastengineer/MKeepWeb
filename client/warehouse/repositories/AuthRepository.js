@@ -1,21 +1,18 @@
 // Libs
 import request from 'superagent';
-import Cookie from './cookie';
 // App modules
-import {tokens} from 'dictionaries';
+import { tokens } from 'dictionaries';
 import config from 'config';
 import getLogger from 'logger';
-import { getErrorMessage } from './repositoryHelper';
+import { getErrorMessage } from '../helpers/repositoryHelper';
 
 const logger = getLogger('Auth Repository');
 
 const { clientId, clientSecret } = config.auth;
 
 class AuthRepository {
-    constructor(params = {
-                    type: 'client'
-                }) {
-        this.cookie = new Cookie(params);
+    constructor(cookies) {
+        this.cookies = cookies;
     }
 
     getUrl(action) {
@@ -77,11 +74,7 @@ class AuthRepository {
 
     refreshTokens() {
         return new Promise((resolve, reject) => {
-            logger.trace('Refresh tokens started');
-
             const refreshToken = this.getRefreshToken();
-
-            logger.trace(`refresh token: ${refreshToken}`);
 
             if (!refreshToken) {
                 return reject('Refresh token is not defined');
@@ -109,12 +102,12 @@ class AuthRepository {
                         userProfile: response.body.userProfile
                     };
 
-                    this.saveAccessToken(data.accessToken, data.tokenMaxAge);
-                    this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
-
-                    logger.trace('Refresh tokens request finished');
+                    logger.trace(`Refresh tokens request finished`);
                     logger.trace(`New refresh token: ${data.refreshToken}`);
                     logger.trace(`New access token: ${data.accessToken}`);
+
+                    this.saveAccessToken(data.accessToken, data.tokenMaxAge);
+                    this.saveRefreshToken(data.refreshToken, data.tokenMaxAge);
 
                     resolve(data);
                 });
@@ -154,7 +147,7 @@ class AuthRepository {
 
     getAccessToken() {
         return new Promise((resolve, reject) => {
-            const accessToken = this.cookie.load(tokens.accessToken);
+            const accessToken = this.cookies.load(tokens.accessToken);
 
             if (accessToken) {
                 return resolve(accessToken);
@@ -165,27 +158,27 @@ class AuthRepository {
     }
 
     getRefreshToken() {
-        return this.cookie.load(tokens.refreshToken);
+        return this.cookies.load(tokens.refreshToken);
     }
 
     saveAccessToken(token, maxAge) {
-        this.cookie.save(tokens.accessToken, token, {
+        this.cookies.save(tokens.accessToken, token, {
             maxAge
         });
     }
 
     saveRefreshToken(token, maxAge) {
-        this.cookie.save(tokens.refreshToken, token, {
+        this.cookies.save(tokens.refreshToken, token, {
             maxAge
         });
     }
 
     removeAccessToken() {
-        this.cookie.remove(tokens.accessToken);
+        this.cookies.remove(tokens.accessToken);
     }
 
     removeRefreshToken() {
-        this.cookie.remove(tokens.refreshToken);
+        this.cookies.remove(tokens.refreshToken);
     }
 }
 

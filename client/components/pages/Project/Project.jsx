@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { withCookies } from 'warehouse';
 import { setCurrentProject } from 'store/projects/actions'
 
 class Project extends Component {
@@ -11,14 +12,21 @@ class Project extends Component {
             projectId: PropTypes.string
         }),
         children: PropTypes.node,
+        getCookies: PropTypes.func.isRequired,
+        location: PropTypes.object,
         dispatch: PropTypes.func
     };
 
-    componentWillMount() {
-        const urlProjectId = this.props.params.projectId;
+    componentDidMount() {
+        const projectId = this.props.params.projectId;
 
-        if (this.props.currentProjectId !== urlProjectId) {
-            this.props.dispatch(setCurrentProject(urlProjectId));
+        if (this.props.currentProjectId !== projectId) {
+            const cookies = this.props.getCookies();
+            const redirectUrl = this.props.location.pathname;
+
+            this.props.dispatch(setCurrentProject(projectId, cookies, {
+                redirect: redirectUrl
+            }));
         }
     }
 
@@ -35,4 +43,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Project);
+export default connect(mapStateToProps)(withCookies(Project));

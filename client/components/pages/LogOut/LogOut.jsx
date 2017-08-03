@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import { withCookies } from 'warehouse';
 import { logOut } from 'store/auth/actions';
 
 class LogOut extends Component {
     static propTypes = {
-        dispatch: PropTypes.func
+        getCookies: PropTypes.func.isRequired,
+        dispatch: PropTypes.func.isRequired
     };
 
     logOut = () => {
-        this.props.dispatch(logOut());
+        const cookies = this.props.getCookies();
+
+        this.props.dispatch(logOut(cookies));
         this.props.dispatch(push('/'));
     };
 
@@ -28,4 +32,4 @@ function mapStateToProps() {
     return {};
 }
 
-export default connect(mapStateToProps)(LogOut);
+export default connect(mapStateToProps)(withCookies(LogOut));
