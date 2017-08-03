@@ -2,7 +2,7 @@
 import request from 'superagent';
 // App modules
 import Repository from './Repository';
-import { getErrorMessage } from './repositoryHelper';
+import { getErrorMessage } from '../helpers/repositoryHelper';
 
 class ProfileRepository extends Repository {
     getUrl(action) {

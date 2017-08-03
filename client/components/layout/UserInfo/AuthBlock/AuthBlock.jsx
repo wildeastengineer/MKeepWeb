@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { withCookies } from 'warehouse';
 import { logInByEmail, createNewAccount } from 'store/auth/actions';
 
 import { Button, PopupMenu } from 'components/common';
@@ -17,6 +18,7 @@ class AuthBlock extends Component {
         authInProgress: PropTypes.bool,
         authError: PropTypes.string,
         translations: PropTypes.object,
+        getCookies: PropTypes.func.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -35,15 +37,23 @@ class AuthBlock extends Component {
     };
 
     handleLogInByPassClick = (event) => {
+        const { dispatch } = this.props;
+        const { email, password } = this.state;
+        const cookies = this.props.getCookies();
+
         event.preventDefault();
 
-        this.props.dispatch(logInByEmail(this.state.email, this.state.password));
+        dispatch(logInByEmail(email, password, cookies));
     };
 
     handleCreateNewAccountClick = (event) => {
+        const { dispatch } = this.props;
+        const { email, password } = this.state;
+        const cookies = this.props.getCookies();
+
         event.preventDefault();
 
-        this.props.dispatch(createNewAccount(this.state.email, this.state.password));
+        dispatch(createNewAccount(email, password, cookies));
     };
 
     render() {
@@ -78,4 +88,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(AuthBlock);
+export default connect(mapStateToProps)(withCookies(AuthBlock));

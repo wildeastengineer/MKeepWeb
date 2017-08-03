@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import config from 'config';
 import getLogger from 'logger';
+import { withCookies } from 'warehouse';
 import { setCurrentProject } from 'store/projects/actions'
 
 import { Button, Select } from 'components/common';
@@ -23,7 +24,8 @@ class ProjectSelector extends Component {
         })),
         currentProjectId: PropTypes.string,
         translations: PropTypes.object,
-        dispatch: PropTypes.func
+        getCookies: PropTypes.func.isRequired,
+        dispatch: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -39,10 +41,9 @@ class ProjectSelector extends Component {
     }
 
     handleProjectsListChange = (projectId) => {
-        logger.trace('Project changed');
-        logger.trace(projectId);
+        const cookies = this.props.getCookies();
 
-        this.props.dispatch(setCurrentProject(projectId));
+        this.props.dispatch(setCurrentProject(projectId, cookies));
     };
 
     handleCreateProjectButtonClick = () => {
@@ -50,9 +51,6 @@ class ProjectSelector extends Component {
     };
 
     render() {
-        logger.trace('Render projects:');
-        logger.trace(this.props.projects);
-
         return (
             <div
                 className='project-selector'
@@ -85,4 +83,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(ProjectSelector);
+export default connect(mapStateToProps)(withCookies(ProjectSelector));

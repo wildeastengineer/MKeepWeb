@@ -1,47 +1,24 @@
-//ProjectsRepository.js
-
 // Libs
 import request from 'superagent';
 // App modules
 import Repository from './Repository';
-import { getErrorMessage } from './repositoryHelper';
+import { getErrorMessage } from '../helpers/repositoryHelper';
 
-class ProjectsRepository extends Repository {
+class CurrenciesRepository extends Repository {
     getUrl(action, id) {
         switch (action) {
-            case 'create':
-                return super.getUrl('projects');
-            case 'getById':
-                return super.getUrl(`projects/${id}`);
+            case 'globalCurrencies':
+                return super.getUrl('currencies');
+            case 'projectCurrencies':
+                return super.getUrl(`projects/${id}/currencies`);
             default:
                 return null;
         }
     }
 
-    createNew(projectPrams) {
+    getGlobal() {
         return new Promise((resolve, reject) => {
-            this.getUrl('create')
-                .then((url) => {
-                    request
-                        .post(url)
-                        .send(projectPrams)
-                        .set('Accept', 'application/json')
-                        .end((error, response) => {
-                            if (error) {
-                                return reject(getErrorMessage(error, response));
-                            }
-
-                            const project = response.body;
-
-                            resolve(project);
-                        });
-                });
-        });
-    }
-
-    getById(projectId) {
-        return new Promise((resolve, reject) => {
-            this.getUrl('getById', projectId)
+            this.getUrl('globalCurrencies')
                 .then((url) => {
                     request
                         .get(url)
@@ -50,13 +27,34 @@ class ProjectsRepository extends Repository {
                                 return reject(getErrorMessage(error, response));
                             }
 
-                            const project = response.body;
+                            resolve(response.body);
+                        });
+                });
+        });
+    }
 
-                            resolve(project);
+    updateProjectCurrencies(projectId, currencies) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('projectCurrencies', projectId)
+                .then((url) => {
+                    request
+                        .patch(url)
+                        .send({
+                            currencies
+                        })
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            const updatedCurrencies = response.body;
+
+                            resolve(updatedCurrencies);
                         });
                 });
         });
     }
 }
 
-export default ProjectsRepository;
+export default CurrenciesRepository;

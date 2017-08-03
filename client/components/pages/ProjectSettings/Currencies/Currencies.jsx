@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import config from 'config/config';
+import { withCookies } from 'warehouse';
 
 import { updateGlobalCurrencies, updateProjectCurrencies } from 'store/currencies/actions';
 import { getGlobalCurrenciesList, getProjectCurrenciesList } from 'store/currencies/selectors';
@@ -34,6 +35,7 @@ class Currencies extends Component {
             country: PropTypes.string
         })),
         translations: PropTypes.object,
+        getCookies: PropTypes.func.isRequired,
         dispatch: PropTypes.func
     };
 
@@ -47,27 +49,31 @@ class Currencies extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(updateGlobalCurrencies());
+        const cookies = this.props.getCookies();
+
+        this.props.dispatch(updateGlobalCurrencies(cookies));
     }
 
     addCurrencyButtonClickHandler = (currencyId) => {
+        const cookies = this.props.getCookies();
         const {
             projectId,
             projectCurrencies
         } = this.props;
         const updatedProjectCurrencies = [...pick(projectCurrencies, '_id'), currencyId];
 
-        this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies));
+        this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies, cookies));
     };
 
     removeCurrencyButtonClickHandler = (currencyId) => {
+        const cookies = this.props.getCookies();
         const {
             projectId,
             projectCurrencies
         } = this.props;
         const updatedProjectCurrencies = without(pick(projectCurrencies, '_id'), [currencyId]);
 
-        this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies));
+        this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies, cookies));
     };
 
     render() {
@@ -106,4 +112,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Currencies);
+export default connect(mapStateToProps)(withCookies(Currencies));

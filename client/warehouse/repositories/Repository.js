@@ -4,10 +4,10 @@ import AuthRepository from './AuthRepository';
 import config from 'config';
 
 class Repository {
-    constructor() {
+    constructor(cookies) {
         this.protocol = config.api.protocol;
         this.apiUrl = config.api.url;
-        this.authRepository = new AuthRepository();
+        this.authRepository = new AuthRepository(cookies);
     }
 
     getUrl(endPoint) {

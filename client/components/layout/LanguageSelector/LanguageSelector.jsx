@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import config from 'config';
 import { changeProfileLanguage } from 'store/profile/actions'
 import { getLanguage } from 'store/profile/selectors';
+import { withCookies } from 'warehouse';
 
 import { FlagIcon, PopupMenu } from 'components/common';
 
@@ -16,6 +17,7 @@ if (config.isBuilding) {
 const propTypes = {
     availableLanguages: PropTypes.arrayOf(PropTypes.string),
     currentLanguage: PropTypes.string,
+    getCookies: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
 };
 
@@ -23,7 +25,9 @@ const defaultProps = {
     availableLanguages: [ 'en' ]
 };
 
-function LanguageSelector ({ availableLanguages, currentLanguage, dispatch }) {
+function LanguageSelector ({ availableLanguages, currentLanguage, getCookies, dispatch }) {
+    const cookies = getCookies();
+
     return (
         <div className='language-selector'>
             <PopupMenu
@@ -40,7 +44,7 @@ function LanguageSelector ({ availableLanguages, currentLanguage, dispatch }) {
                             key={language}
                             country={language}
                             className='language-selector_button'
-                            onClick={() => { dispatch(changeProfileLanguage(language)) }}
+                            onClick={() => { dispatch(changeProfileLanguage(language, cookies)) }}
                         />
                     ))}
                 </div>
@@ -58,4 +62,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(LanguageSelector);
+export default connect(mapStateToProps)(withCookies(LanguageSelector));
