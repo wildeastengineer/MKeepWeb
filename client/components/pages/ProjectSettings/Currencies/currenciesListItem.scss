@@ -1,0 +1,84 @@
+$font-size: 14px;
+$sign-font-size: $font-size * 1.5;
+$currency-name-font-size: $font-size + 4;
+
+$color: #777;
+$country-name-color: #ccc;
+$hovered-row-background: #fbfbfb;
+$used-currency-color: #88b04b;
+
+$default-control-size: 50px;
+$use-currency-control__size: $default-control-size;
+$set-default-control__size: $default-control-size;
+$currency-sign__size: $default-control-size;
+
+.currency-list-item {
+    color: $color;
+    display: flex;
+    font-size: $font-size;
+
+    &:hover {
+        background-color: $hovered-row-background;
+        cursor: pointer;
+    }
+}
+
+.currency-list-item__use-currency-control {
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: $use-currency-control__size;
+    width: $use-currency-control__size;
+}
+
+.currency-list-item__currency-sign {
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: $sign-font-size;
+    font-weight: bold;
+    height: $currency-sign__size;
+    width: $currency-sign__size;
+
+    & > div {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.currency-list-item__currency-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    padding: 0 16px;
+}
+
+.currency-list-item__currency-name {
+    font-size: $currency-name-font-size;
+    font-weight: bold;
+    padding: 0 0 2px 0;
+    width: 100%;
+}
+
+.currency-list-item__currency-name_used {
+    color: $used-currency-color;
+}
+
+.currency-list-item__country-name {
+    color: $country-name-color;
+    width: 100%;
+}
+
+.currency-list-item__set-default-control,
+.currency-list-item__set-default-control-stub {
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: $set-default-control__size;
+    width: $set-default-control__size;
+}

@@ -1,41 +1,70 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
 
-import { FlatButton } from 'components/common';
+import config from 'config/config';
+
+import { CheckControl, RadioButton } from 'components/common';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./currenciesListItem.scss');
+}
 
 const propTypes = {
-    _id: PropTypes.string,
-    sign: PropTypes.string,
-    iso: PropTypes.string,
+    _id: PropTypes.string.isRequired,
+    sign: PropTypes.string.isRequired,
     name: PropTypes.string,
     country: PropTypes.string,
-    translations: PropTypes.object,
-    actionTitle: PropTypes.string,
-    onButtonClick: PropTypes.func
+    isUsed: PropTypes.bool,
+    isDefault: PropTypes.bool
 };
 
 const defaultProps = {
-    actionTitle: '',
-    onButtonClick: () => {}
+    name: '',
+    country: '',
+    isUsed: false,
+    isDefault: false
 };
 
-function CurrenciesListItem({ _id, sign, iso, name, country, actionTitle, onButtonClick }) {
+function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault }) {
+    let currencyNameClass;
+
+    currencyNameClass = 'currency-list-item__currency-name';
+    currencyNameClass += isUsed ? ' currency-list-item__currency-name_used' : '';
+
     return (
         <li className='currency-list-item'>
-            <span className='sign'>
-                {sign}
-            </span>
-            <span className='iso'>
-                {iso}
-            </span>
-            <span className='name'>
-                {name} - {country}
-            </span>
-            <FlatButton
-                onClick={onButtonClick.bind(null, _id)}
-            >
-                {actionTitle}
-            </FlatButton>
+            <CheckControl
+                defaultChecked={isUsed}
+                className='currency-list-item__use-currency-control'
+                title='Use this currency'
+            />
+            <div className='currency-list-item__currency-sign'>
+                <div>
+                    {sign}
+                </div>
+            </div>
+            <div className='currency-list-item__currency-info'>
+                <div className={currencyNameClass}>
+                    {name}
+                </div>
+                <div className='currency-list-item__country-name'>
+                    {country}
+                </div>
+            </div>
+            {isUsed ? (
+                <RadioButton
+                    name='defaultCurrency'
+                    value={_id}
+                    defaultChecked={isDefault}
+                    className='currency-list-item__set-default-control'
+                    title='Set as default'
+                />
+            ) : (
+                <div
+                    className='currency-list-item__set-default-control-stub'
+                />
+            )}
         </li>
     );
 }

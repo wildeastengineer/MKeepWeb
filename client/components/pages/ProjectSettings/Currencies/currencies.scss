@@ -1,54 +1,6 @@
 .currencies-settings {
     height: 100%;
+    overflow-y: auto;
     position: absolute;
     width: 100%;
-
-    .currencies-list {
-        float: left;
-        height: 100%;
-        overflow-y: auto;
-        width: 50%;
-
-        .currency-list-item {
-            display: flex;
-            height: 45px;
-            width: 100%;
-
-            span {
-                box-sizing: border-box;
-                display: inline-block;
-                padding: 5px 10px;
-
-                &.sign {
-                    flex-grow: 0;
-                    flex-shrink: 0;
-                    text-align: center;
-                    width: 55px;
-                }
-
-                &.iso {
-                    flex-grow: 0;
-                    flex-shrink: 0;
-                    width: 60px;
-                }
-
-                &.name {
-                    flex-grow: 1;
-                }
-            }
-
-            button {
-                display: none;
-                flex-grow: 0;
-                flex-shrink: 0;
-                width: 100px;
-            }
-
-            &:hover {
-                button {
-                    display: block;
-                }
-            }
-        }
-    }
 }
