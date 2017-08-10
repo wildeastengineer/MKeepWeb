@@ -79,21 +79,16 @@ class Currencies extends Component {
     render() {
         const {
             globalCurrencies,
-            projectCurrencies,
-            translations
+            projectCurrencies
         } = this.props;
 
         return (
             <div className='currencies-settings'>
                 <CurrenciesList
                     currencies={projectCurrencies}
-                    actionTitle={translations.actions.remove}
-                    onButtonClick={this.removeCurrencyButtonClickHandler}
                 />
                 <CurrenciesList
                     currencies={globalCurrencies}
-                    actionTitle={translations.actions.add}
-                    onButtonClick={this.addCurrencyButtonClickHandler}
                 />
             </div>
         );
@@ -108,7 +103,10 @@ function mapStateToProps(state) {
     return {
         projectId,
         globalCurrencies,
-        projectCurrencies
+        projectCurrencies: projectCurrencies.map((currency) => (Object.assign(currency, {
+            isUsed: true,
+            isDefault: false
+        })))
     };
 }
 

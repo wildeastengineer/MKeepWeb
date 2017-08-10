@@ -1,7 +1,14 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
 
+import config from 'config/config';
+
 import CurrenciesListItem from './CurrenciesListItem';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./currenciesList.scss');
+}
 
 const propTypes = {
     currencies: PropTypes.arrayOf(PropTypes.shape({
@@ -9,27 +16,25 @@ const propTypes = {
         sign: PropTypes.string,
         iso: PropTypes.string,
         name: PropTypes.string,
-        country: PropTypes.string
-    })),
-    actionTitle: PropTypes.string,
-    onButtonClick: PropTypes.func
+        country: PropTypes.string,
+        isUsed: PropTypes.bool,
+        isDefault: PropTypes.bool
+    }))
 };
 
 const defaultProps = {
     currencies: [],
-    actionTitle: '',
-    onButtonClick: () => {}
+    isUsed: false,
+    isDefault: false
 };
 
-function CurrenciesList({ currencies, actionTitle, onButtonClick }) {
+function CurrenciesList({ currencies }) {
     return (
         <ul className='currencies-list'>
             {currencies.map((currency) => (
                 <CurrenciesListItem
                     key={currency._id}
                     {...currency}
-                    actionTitle={actionTitle}
-                    onButtonClick={onButtonClick}
                 />
             ))}
         </ul>
