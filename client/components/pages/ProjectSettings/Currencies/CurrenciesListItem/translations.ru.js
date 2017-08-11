@@ -1,7 +1,7 @@
 export default {
-    actions: {
-        add: 'Добавить',
-        remove: 'Удалить'
+    titles: {
+        use_currency: 'Использовать валюту',
+        set_default_currency: 'Выбрать валютой по умолчанию'
     },
     currencies: {
         baht: 'Бат',

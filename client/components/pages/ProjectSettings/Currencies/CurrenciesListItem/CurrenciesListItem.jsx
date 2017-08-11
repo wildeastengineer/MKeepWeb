@@ -16,17 +16,33 @@ const propTypes = {
     name: PropTypes.string,
     country: PropTypes.string,
     isUsed: PropTypes.bool,
-    isDefault: PropTypes.bool
+    isDefault: PropTypes.bool,
+    translations: PropTypes.object
 };
 
 const defaultProps = {
     name: '',
     country: '',
     isUsed: false,
-    isDefault: false
+    isDefault: false,
+    translations: {
+        currencies: {},
+        countries: {}
+    }
 };
 
-function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault }) {
+const normalizeFieldName = (name) => name.toLowerCase().replace(/ /g, '_');
+
+const translate = (translations, value) => {
+    const normalizedValue = normalizeFieldName(value);
+
+    return translations[normalizedValue] ? translations[normalizedValue] : value;
+};
+
+function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault, translations }) {
+    const translateCountry = translate.bind(null, translations.countries);
+    const translateName = translate.bind(null, translations.currencies);
+
     let currencyNameClass;
 
     currencyNameClass = 'currency-list-item__currency-name';
@@ -37,7 +53,7 @@ function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault }) {
             <CheckControl
                 defaultChecked={isUsed}
                 className='currency-list-item__use-currency-control'
-                title='Use this currency'
+                title={translations.titles.use_currency}
             />
             <div className='currency-list-item__currency-sign'>
                 <div>
@@ -46,10 +62,10 @@ function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault }) {
             </div>
             <div className='currency-list-item__currency-info'>
                 <div className={currencyNameClass}>
-                    {name}
+                    {translateName(name)}
                 </div>
                 <div className='currency-list-item__country-name'>
-                    {country}
+                    {translateCountry(country)}
                 </div>
             </div>
             {isUsed ? (
@@ -58,7 +74,7 @@ function CurrenciesListItem({ _id, sign, name, country, isUsed, isDefault }) {
                     value={_id}
                     defaultChecked={isDefault}
                     className='currency-list-item__set-default-control'
-                    title='Set as default'
+                    title={translations.titles.set_default_currency}
                 />
             ) : (
                 <div

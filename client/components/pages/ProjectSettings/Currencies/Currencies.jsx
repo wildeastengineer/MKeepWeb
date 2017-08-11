@@ -97,16 +97,21 @@ class Currencies extends Component {
 
 function mapStateToProps(state) {
     const projectId = getCurrentProjectId(state);
-    const projectCurrencies = mapObjectToArray(getProjectCurrenciesList(state));
-    const globalCurrencies = without(mapObjectToArray(getGlobalCurrenciesList(state)), projectCurrencies, '_id');
+    let projectCurrencies;
+    let globalCurrencies;
+
+    projectCurrencies = mapObjectToArray(getProjectCurrenciesList(state));
+    projectCurrencies = projectCurrencies.map((currency) => (Object.assign(currency, {
+        isUsed: true,
+        isDefault: false
+    })));
+
+    globalCurrencies = without(mapObjectToArray(getGlobalCurrenciesList(state)), projectCurrencies, '_id');
 
     return {
         projectId,
-        globalCurrencies,
-        projectCurrencies: projectCurrencies.map((currency) => (Object.assign(currency, {
-            isUsed: true,
-            isDefault: false
-        })))
+        projectCurrencies,
+        globalCurrencies
     };
 }
 
