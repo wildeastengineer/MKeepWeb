@@ -10,6 +10,12 @@ export const UPDATE_PROJECT_CURRENCIES_FAILED = 'UPDATE_PROJECT_CURRENCIES_FAILE
 
 export const SET_PROJECT_CURRENCIES = 'SET_PROJECT_CURRENCIES';
 
+export const UPDATE_PROJECT_MAIN_CURRENCY_STARTED = 'UPDATE_PROJECT_MAIN_CURRENCY_STARTED';
+export const UPDATE_PROJECT_MAIN_CURRENCY_FINISHED = 'UPDATE_PROJECT_MAIN_CURRENCY_FINISHED';
+export const UPDATE_PROJECT_MAIN_CURRENCY_FAILED = 'UPDATE_PROJECT_MAIN_CURRENCY_FAILED';
+
+export const SET_PROJECT_MAIN_CURRENCY = 'SET_PROJECT_MAIN_CURRENCY';
+
 export function updateGlobalCurrencies(cookies) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
@@ -47,6 +53,33 @@ export function updateProjectCurrencies(projectId, currencies, cookies) {
                     reject(error);
                 });
         });
+    };
+}
+
+export function updateProjectMainCurrency(projectId, currencyId, cookies) {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(updateProjectMainCurrencyStarted());
+
+            const currenciesRepository = new CurrenciesRepository(cookies);
+
+            currenciesRepository.updateMainCurrency(projectId, currencyId)
+                .then((mainCurrency) => {
+                    dispatch(updateProjectMainCurrencyFinished(mainCurrency));
+                    resolve(mainCurrency);
+                })
+                .catch((error) => {
+                    dispatch(updateProjectMainCurrencyFailed(error));
+                    reject(error);
+                });
+        });
+    };
+}
+
+export function setProjectMainCurrency(currency) {
+    return {
+        type: SET_PROJECT_MAIN_CURRENCY,
+        currency
     };
 }
 
@@ -93,6 +126,26 @@ function updateProjectCurrenciesFinished(currencies) {
 function updateProjectCurrenciesFailed(error) {
     return {
         type: UPDATE_PROJECT_CURRENCIES_FAILED,
+        error
+    };
+}
+
+function updateProjectMainCurrencyStarted() {
+    return {
+        type: UPDATE_PROJECT_MAIN_CURRENCY_STARTED
+    };
+}
+
+function updateProjectMainCurrencyFinished(currency) {
+    return {
+        type: UPDATE_PROJECT_MAIN_CURRENCY_FINISHED,
+        currency
+    };
+}
+
+function updateProjectMainCurrencyFailed(error) {
+    return {
+        type: UPDATE_PROJECT_MAIN_CURRENCY_FAILED,
         error
     };
 }

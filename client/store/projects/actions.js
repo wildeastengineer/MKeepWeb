@@ -2,7 +2,10 @@ import { push } from 'react-router-redux';
 import { paths } from 'routes';
 import { ProjectsRepository } from 'warehouse';
 
-import { setProjectCurrencies } from '../currencies/actions';
+import {
+    setProjectCurrencies,
+    setProjectMainCurrency
+} from '../currencies/actions';
 
 export const CREATE_NEW_PROJECT_STARTED = 'CREATE_NEW_PROJECT_STARTED';
 export const GET_PROJECTS_LIST_FINISHED = 'GET_PROJECTS_LIST_FINISHED';
@@ -31,6 +34,7 @@ export function setCurrentProject(projectId, cookies, options = {}) {
 
                     dispatch(setCurrentProjectFinished(data));
                     dispatch(setProjectCurrencies(data.currencies));
+                    dispatch(setProjectMainCurrency(data.mainCurrency));
                     dispatch(push(redirectUrl));
 
                     resolve(data);

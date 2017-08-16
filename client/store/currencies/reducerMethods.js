@@ -91,3 +91,51 @@ export const updateProjectCurrenciesFailedHandler = (state, error) => {
 export const setProjectCurrenciesHandler = (state, currencies) => {
     return updateProjectCurrenciesFinishedHandler(state, currencies);
 };
+
+export const updateProjectMainCurrencyStartedHandler = (state) => {
+    return {
+        ...state,
+        mainCurrency: {
+            ...state.mainCurrency,
+            fetchState: {
+                fetched: false,
+                inProgress: true,
+                error: ''
+            }
+        }
+    };
+};
+
+export const updateProjectMainCurrencyFinishedHandler = (state, currency) => {
+    console.info('updateProjectMainCurrencyFinishedHandler', currency);
+
+    return {
+        ...state,
+        mainCurrency: {
+            fetchState: {
+                fetched: true,
+                inProgress: false,
+                error: ''
+            },
+            data: currency
+        }
+    };
+};
+
+export const updateProjectMainCurrencyFailedHandler = (state, error) => {
+    return {
+        ...state,
+        mainCurrency: {
+            ...state.mainCurrency,
+            fetchState: {
+                fetched: false,
+                inProgress: false,
+                error
+            }
+        }
+    };
+};
+
+export const setProjectMainCurrencyHandler = (state, currency) => {
+    return updateProjectMainCurrencyFinishedHandler(state, currency);
+};
