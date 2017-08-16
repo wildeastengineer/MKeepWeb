@@ -12,6 +12,8 @@ const propTypes = {
     value: PropTypes.string,
     name: PropTypes.string,
     className: PropTypes.string,
+    checked: PropTypes.bool,
+    defaultChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func
 };

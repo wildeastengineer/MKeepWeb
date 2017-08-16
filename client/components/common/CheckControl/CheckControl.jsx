@@ -9,6 +9,7 @@ if (config.isBuilding) {
 
 const propTypes = {
     id: PropTypes.string,
+    checked: PropTypes.bool,
     defaultChecked: PropTypes.bool,
     className: PropTypes.string,
     disabled: PropTypes.bool,

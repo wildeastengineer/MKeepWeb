@@ -19,7 +19,9 @@ const propTypes = {
         country: PropTypes.string,
         isUsed: PropTypes.bool,
         isDefault: PropTypes.bool
-    }))
+    })),
+    onUseControlChange: PropTypes.func,
+    onSetDefaultControlChange: PropTypes.func,
 };
 
 const defaultProps = {
@@ -28,13 +30,19 @@ const defaultProps = {
     isDefault: false
 };
 
-function CurrenciesList({ currencies }) {
+function CurrenciesList({
+                            currencies,
+                            onUseControlChange,
+                            onSetDefaultControlChange
+                        }) {
     return (
         <ul className='currencies-list'>
             {currencies.map((currency) => (
                 <CurrenciesListItem
                     key={currency._id}
                     {...currency}
+                    onUseControlChange={onUseControlChange}
+                    onSetDefaultControlChange={onSetDefaultControlChange}
                 />
             ))}
         </ul>

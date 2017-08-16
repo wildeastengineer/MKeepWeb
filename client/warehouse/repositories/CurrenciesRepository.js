@@ -11,6 +11,8 @@ class CurrenciesRepository extends Repository {
                 return super.getUrl('currencies');
             case 'projectCurrencies':
                 return super.getUrl(`projects/${id}/currencies`);
+            case 'mainCurrency':
+                return super.getUrl(`projects/${id}/currencies/main`);
             default:
                 return null;
         }
@@ -51,6 +53,29 @@ class CurrenciesRepository extends Repository {
                             const updatedCurrencies = response.body;
 
                             resolve(updatedCurrencies);
+                        });
+                });
+        });
+    }
+
+    updateMainCurrency(projectId, currencyId) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('mainCurrency', projectId)
+                .then((url) => {
+                    request
+                        .patch(url)
+                        .send({
+                            mainCurrency: currencyId
+                        })
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            const newMainCurrency = response.body;
+
+                            resolve(newMainCurrency);
                         });
                 });
         });

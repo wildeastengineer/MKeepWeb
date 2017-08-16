@@ -1,14 +1,31 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import config from 'config/config';
 import { withCookies } from 'warehouse';
 
-import { updateGlobalCurrencies, updateProjectCurrencies } from 'store/currencies/actions';
-import { getGlobalCurrenciesList, getProjectCurrenciesList } from 'store/currencies/selectors';
-import { getCurrentProjectId } from 'store/projects/selectors';
-import { mapObjectToArray, without, pick } from 'store/helpers';
+import {
+    updateGlobalCurrencies,
+    updateProjectCurrencies,
+    updateProjectMainCurrency
+} from 'store/currencies/actions';
+
+import {
+    getGlobalCurrenciesList,
+    getProjectCurrenciesList,
+    getMainCurrencyId
+} from 'store/currencies/selectors';
+
+import {
+    getCurrentProjectId
+} from 'store/projects/selectors';
+
+import {
+    mapObjectToArray,
+    without,
+    pick
+} from 'store/helpers';
 
 import CurrenciesList from './CurrenciesList';
 
@@ -54,7 +71,19 @@ class Currencies extends Component {
         this.props.dispatch(updateGlobalCurrencies(cookies));
     }
 
-    addCurrencyButtonClickHandler = (currencyId) => {
+    handleUseControlChange = (id, isUsed) => {
+        if (isUsed) {
+            this.removeCurrency(id);
+        } else {
+            this.addCurrency(id);
+        }
+    };
+
+    handleSetDefaultControlChange = (id) => {
+        this.setMainCurrency(id);
+    };
+
+    addCurrency(currencyId) {
         const cookies = this.props.getCookies();
         const {
             projectId,
@@ -63,18 +92,29 @@ class Currencies extends Component {
         const updatedProjectCurrencies = [...pick(projectCurrencies, '_id'), currencyId];
 
         this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies, cookies));
-    };
+    }
 
-    removeCurrencyButtonClickHandler = (currencyId) => {
+    removeCurrency(currencyId) {
         const cookies = this.props.getCookies();
         const {
             projectId,
-            projectCurrencies
+            projectCurrencies,
+            dispatch
         } = this.props;
         const updatedProjectCurrencies = without(pick(projectCurrencies, '_id'), [currencyId]);
 
-        this.props.dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies, cookies));
-    };
+        dispatch(updateProjectCurrencies(projectId, updatedProjectCurrencies, cookies));
+    }
+
+    setMainCurrency(currencyId) {
+        const cookies = this.props.getCookies();
+        const {
+            projectId,
+            dispatch
+        } = this.props;
+
+        dispatch(updateProjectMainCurrency(projectId, currencyId, cookies));
+    }
 
     render() {
         const {
@@ -86,9 +126,12 @@ class Currencies extends Component {
             <div className='currencies-settings'>
                 <CurrenciesList
                     currencies={projectCurrencies}
+                    onUseControlChange={this.handleUseControlChange}
+                    onSetDefaultControlChange={this.handleSetDefaultControlChange}
                 />
                 <CurrenciesList
                     currencies={globalCurrencies}
+                    onUseControlChange={this.handleUseControlChange}
                 />
             </div>
         );
@@ -97,13 +140,14 @@ class Currencies extends Component {
 
 function mapStateToProps(state) {
     const projectId = getCurrentProjectId(state);
+    const mainCurrencyId = getMainCurrencyId(state);
     let projectCurrencies;
     let globalCurrencies;
 
     projectCurrencies = mapObjectToArray(getProjectCurrenciesList(state));
-    projectCurrencies = projectCurrencies.map((currency) => (Object.assign(currency, {
+    projectCurrencies = projectCurrencies.map((currency) => (Object.assign({}, currency, {
         isUsed: true,
-        isDefault: false
+        isDefault: currency._id === mainCurrencyId
     })));
 
     globalCurrencies = without(mapObjectToArray(getGlobalCurrenciesList(state)), projectCurrencies, '_id');

@@ -5,7 +5,11 @@ import {
     UPDATE_PROJECT_CURRENCIES_STARTED,
     UPDATE_PROJECT_CURRENCIES_FINISHED,
     UPDATE_PROJECT_CURRENCIES_FAILED,
-    SET_PROJECT_CURRENCIES
+    SET_PROJECT_CURRENCIES,
+    UPDATE_PROJECT_MAIN_CURRENCY_STARTED,
+    UPDATE_PROJECT_MAIN_CURRENCY_FINISHED,
+    UPDATE_PROJECT_MAIN_CURRENCY_FAILED,
+    SET_PROJECT_MAIN_CURRENCY
 } from './actions';
 
 import {
@@ -15,7 +19,11 @@ import {
     updateProjectCurrenciesStartedHandler,
     updateProjectCurrenciesFinishedHandler,
     updateProjectCurrenciesFailedHandler,
-    setProjectCurrenciesHandler
+    setProjectCurrenciesHandler,
+    updateProjectMainCurrencyStartedHandler,
+    updateProjectMainCurrencyFinishedHandler,
+    updateProjectMainCurrencyFailedHandler,
+    setProjectMainCurrencyHandler
 } from './reducerMethods';
 
 const initialState = {
@@ -34,6 +42,14 @@ const initialState = {
             error: ''
         },
         data: {}
+    },
+    mainCurrency: {
+        fetchState: {
+            fetched: false,
+            inProgress: false,
+            error: ''
+        },
+        data: null
     }
 };
 
@@ -53,6 +69,14 @@ export default function (state = initialState, action) {
             return updateProjectCurrenciesFailedHandler(state, action.error);
         case SET_PROJECT_CURRENCIES:
             return setProjectCurrenciesHandler(state, action.currencies);
+        case UPDATE_PROJECT_MAIN_CURRENCY_STARTED:
+            return updateProjectMainCurrencyStartedHandler(state);
+        case UPDATE_PROJECT_MAIN_CURRENCY_FINISHED:
+            return updateProjectMainCurrencyFinishedHandler(state, action.currency);
+        case UPDATE_PROJECT_MAIN_CURRENCY_FAILED:
+            return updateProjectMainCurrencyFailedHandler(state, action.error);
+        case SET_PROJECT_MAIN_CURRENCY:
+            return setProjectMainCurrencyHandler(state, action.currency);
         default:
             return state;
     }
