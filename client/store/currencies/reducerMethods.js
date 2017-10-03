@@ -23,11 +23,7 @@ export const getGlobalCurrenciesFinishedHandler = (state, currencies) => {
                 inProgress: false,
                 error: ''
             },
-            data: currencies.reduce((data, currency) => {
-                data[currency._id] = currency;
-
-                return data;
-            }, {})
+            data: mapArrayToObject(currencies)
         }
     };
 };
@@ -107,8 +103,6 @@ export const updateProjectMainCurrencyStartedHandler = (state) => {
 };
 
 export const updateProjectMainCurrencyFinishedHandler = (state, currency) => {
-    console.info('updateProjectMainCurrencyFinishedHandler', currency);
-
     return {
         ...state,
         mainCurrency: {

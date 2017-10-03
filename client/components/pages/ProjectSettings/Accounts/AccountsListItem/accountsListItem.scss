@@ -1,0 +1,22 @@
+$font-size: 14px;
+
+$color: #777;
+$hovered-row-background: #fbfbfb;
+
+.account-list-item {
+    color: $color;
+    font-size: $font-size;
+
+    &:hover {
+        background-color: $hovered-row-background;
+        cursor: pointer;
+    }
+}
+
+.account-list-item__account-value {
+    text-align: right;
+}
+
+.account-list-item__account-currency {
+    text-align: center;
+}

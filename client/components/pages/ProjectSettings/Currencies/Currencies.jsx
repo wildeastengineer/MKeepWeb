@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import config from 'config/config';
 import { withCookies } from 'warehouse';
+import CurrencyModel from 'entities/Currency';
 
 import {
     updateGlobalCurrencies,
@@ -37,26 +38,17 @@ if (config.isBuilding) {
 class Currencies extends Component {
     static propTypes = {
         projectId: PropTypes.string,
-        globalCurrencies: PropTypes.arrayOf(PropTypes.shape({
-            _id: PropTypes.string,
-            sign: PropTypes.string,
-            iso: PropTypes.string,
-            name: PropTypes.string,
-            country: PropTypes.string
-        })),
-        projectCurrencies: PropTypes.arrayOf(PropTypes.shape({
-            _id: PropTypes.string,
-            sign: PropTypes.string,
-            iso: PropTypes.string,
-            name: PropTypes.string,
-            country: PropTypes.string
-        })),
+        globalCurrencies: PropTypes.arrayOf(PropTypes.shape(CurrencyModel.propTypes)),
+        projectCurrencies: PropTypes.arrayOf(PropTypes.shape(CurrencyModel.propTypes)),
         translations: PropTypes.object,
         getCookies: PropTypes.func.isRequired,
-        dispatch: PropTypes.func
+        dispatch: PropTypes.func.isRequired
     };
 
     static defaultProps = {
+        projectId: null,
+        globalCurrencies: [],
+        projectCurrencies: [],
         translations: {
             actions: {
                 add: 'Add',
