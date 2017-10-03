@@ -1,25 +1,70 @@
-import React  from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import config from 'config/config';
+import { withCookies } from 'warehouse';
+import AccountModel from 'entities/Account';
 
-const propTypes = {
-    translations: PropTypes.object
-};
+import AccountsList from './AccountsList';
 
-const defaultProps = {
-    translations: {
-        title: 'Accounts'
-    }
-};
+import {
+    getAccountsData
+} from 'store/accounts/selectors';
 
-function Accounts({ translations }) {
-    return (
-        <div>
-            {translations.title}
-        </div>
-    );
+import {
+    mapObjectToArray
+} from 'store/helpers';
+
+import {
+    getAccountsList
+} from 'store/accounts/actions';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./accounts.scss');
 }
 
-Accounts.propTypes = propTypes;
-Accounts.defaultProps = defaultProps;
+class Accounts extends Component {
+    static propTypes = {
+        accounts: PropTypes.arrayOf(PropTypes.shape(AccountModel.propTypes)),
+        translations: PropTypes.object,
+        getCookies: PropTypes.func.isRequired,
+        dispatch: PropTypes.func.isRequired
+    };
 
-export default Accounts;
+    static defaultProps = {
+        translations: {
+            title: 'Accounts'
+        }
+    };
+
+    componentDidMount() {
+        const cookies = this.props.getCookies();
+
+        this.props.dispatch(getAccountsList(cookies));
+    }
+
+    render() {
+        const {
+            accounts
+        } = this.props;
+
+        return (
+            <div className='accounts-settings'>
+                <AccountsList
+                    accounts={accounts}
+                />
+            </div>
+        );
+    }
+}
+
+function mapStateToProps(state) {
+    const accounts = mapObjectToArray(getAccountsData(state));
+
+    return {
+        accounts
+    };
+}
+
+export default connect(mapStateToProps)(withCookies(Accounts));

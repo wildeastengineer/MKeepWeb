@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import config from 'config/config';
+import CurrencyModel from 'entities/Currency';
 
 import { CheckControl, RadioButton } from 'components/common';
 
@@ -19,30 +20,30 @@ const translate = (translations, value) => {
 };
 
 class CurrenciesListItem extends Component {
-    static propTypes = {
-        _id: PropTypes.string.isRequired,
-        sign: PropTypes.string.isRequired,
-        name: PropTypes.string,
-        country: PropTypes.string,
-        isUsed: PropTypes.bool,
-        isDefault: PropTypes.bool,
-        onUseControlChange: PropTypes.func,
-        onSetDefaultControlChange: PropTypes.func,
-        translations: PropTypes.object
-    };
+    static propTypes = Object.assign({},
+        CurrencyModel.propTypes,
+        {
+            isUsed: PropTypes.bool,
+            isDefault: PropTypes.bool,
+            onUseControlChange: PropTypes.func,
+            onSetDefaultControlChange: PropTypes.func,
+            translations: PropTypes.object
+        }
+    );
 
-    static defaultProps = {
-        name: '',
-        country: '',
-        isUsed: false,
-        isDefault: false,
-        translations: {
-            currencies: {},
-            countries: {}
-        },
-        onUseControlChange: () => {},
-        onSetDefaultControlChange: () => {}
-    };
+    static defaultProps = Object.assign({},
+        CurrencyModel.defaultProps,
+        {
+            isUsed: false,
+            isDefault: false,
+            onUseControlChange: () => {},
+            onSetDefaultControlChange: () => {},
+            translations: {
+                currencies: {},
+                countries: {}
+            }
+        }
+    );
 
     handleUseControlChange = () => {
         const {
