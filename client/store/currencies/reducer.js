@@ -31,7 +31,7 @@ const initialState = {
         fetchState: {
             fetched: false,
             inProgress: false,
-            error: ''
+            error: null
         },
         data: {}
     },
@@ -39,7 +39,7 @@ const initialState = {
         fetchState: {
             fetched: false,
             inProgress: false,
-            error: ''
+            error: null
         },
         data: {}
     },
@@ -47,7 +47,7 @@ const initialState = {
         fetchState: {
             fetched: false,
             inProgress: false,
-            error: ''
+            error: null
         },
         data: null
     }

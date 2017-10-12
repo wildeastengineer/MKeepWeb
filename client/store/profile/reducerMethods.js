@@ -3,7 +3,7 @@ export const getUserProfileStartedHandler = (state) => {
         fetchState: {
             fetched: false,
             inProgress: true,
-            error: ''
+            error: null
         },
         data: {
             lang: state.data.lang
@@ -16,7 +16,7 @@ export const getUserProfileFinishedHandler = (state, data) => {
         fetchState: {
             fetched: true,
             inProgress: false,
-            error: ''
+            error: null
         },
         data
     };

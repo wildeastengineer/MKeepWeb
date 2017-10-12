@@ -24,12 +24,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -40,12 +40,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -56,12 +56,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -72,12 +72,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -100,12 +100,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -116,12 +116,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -139,12 +139,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -155,12 +155,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -178,12 +178,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -199,7 +199,7 @@ describe('reducers', () => {
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -210,12 +210,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -226,12 +226,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -249,12 +249,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -265,12 +265,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -281,12 +281,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -297,12 +297,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -325,12 +325,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -341,12 +341,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -364,12 +364,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -380,12 +380,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -403,12 +403,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -419,12 +419,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -435,12 +435,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -451,12 +451,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -474,12 +474,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -492,12 +492,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -508,12 +508,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -526,12 +526,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -551,12 +551,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -567,12 +567,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -583,12 +583,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -599,12 +599,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -627,12 +627,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -643,12 +643,12 @@ describe('reducers', () => {
                     authorized: true,
                     authorization: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profileFetched: true,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {
                         name: 'User Name'
@@ -666,12 +666,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -682,12 +682,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -705,12 +705,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -726,7 +726,7 @@ describe('reducers', () => {
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });
@@ -737,12 +737,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 };
@@ -753,12 +753,12 @@ describe('reducers', () => {
                     authorized: false,
                     authorization: {
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     profileFetched: false,
                     profileFetching: {
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     profile: {}
                 });

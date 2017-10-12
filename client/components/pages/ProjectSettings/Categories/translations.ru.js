@@ -1,3 +1,7 @@
 export default {
-    title: 'Настройка категорий'
+    title: 'Настройка категорий',
+    types: {
+        income: 'Доходы',
+        expense: 'Расходы'
+    }
 };

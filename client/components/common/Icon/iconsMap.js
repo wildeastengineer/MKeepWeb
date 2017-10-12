@@ -3,7 +3,10 @@
 export default {
     'account_balance': 'E84F',
     'account_balance_wallet': 'E850',
+    'close': 'E5CD',
     'dashboard': 'E871',
+    'delete': 'E872',
+    'edit': 'E869',
     'euro_symbol': 'E926',
     'exit': 'E879',
     'folder': 'E2C7',

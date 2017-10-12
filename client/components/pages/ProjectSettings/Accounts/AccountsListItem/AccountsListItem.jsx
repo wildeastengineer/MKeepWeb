@@ -1,7 +1,7 @@
 import React  from 'react';
+import PropTypes from 'prop-types';
 
 import config from 'config/config';
-import AccountModel from 'entities/Account';
 
 import { Money } from 'components/common';
 
@@ -10,8 +10,20 @@ if (config.isBuilding) {
     require('./accountsListItem.scss');
 }
 
-const propTypes = AccountModel.propTypes;
-const defaultProps = AccountModel.defaultProps;
+const propTypes = {
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    value: PropTypes.number,
+    initValue: PropTypes.number,
+    currency: PropTypes.shape({
+        sign: PropTypes.isRequired
+    }).isRequired
+};
+const defaultProps = {
+    name: 'New Account',
+    value: 0,
+    initValue: 0,
+};
 
 function AccountsListItem({
                               name,

@@ -6,7 +6,7 @@ export const getAccountListStartedHandler = (state) => {
         fetchState: {
             fetched: false,
             inProgress: true,
-            error: ''
+            error: null
         }
     };
 };
@@ -17,7 +17,7 @@ export const getAccountListFinishedHandler = (state, accounts) => {
         fetchState: {
             fetched: true,
             inProgress: false,
-            error: ''
+            error: null
         },
         data: mapArrayToObject(accounts)
     };
