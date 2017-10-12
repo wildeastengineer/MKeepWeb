@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from 'config/config';
 import { withCookies } from 'warehouse';
-import AccountModel from 'entities/Account';
 
 import AccountsList from './AccountsList';
 
@@ -26,7 +25,15 @@ if (config.isBuilding) {
 
 class Accounts extends Component {
     static propTypes = {
-        accounts: PropTypes.arrayOf(PropTypes.shape(AccountModel.propTypes)),
+        accounts: PropTypes.arrayOf(PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string,
+            value: PropTypes.number,
+            initValue: PropTypes.number,
+            currency: PropTypes.shape({
+                sign: PropTypes.isRequired
+            }).isRequired
+        })),
         translations: PropTypes.object,
         getCookies: PropTypes.func.isRequired,
         dispatch: PropTypes.func.isRequired

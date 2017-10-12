@@ -21,7 +21,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -29,7 +29,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -42,7 +42,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -50,7 +50,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -63,7 +63,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -71,7 +71,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -84,7 +84,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -92,7 +92,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -132,7 +132,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -140,7 +140,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -153,7 +153,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: true,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {
                             '58b0224f6cb3d82317129618': {
@@ -180,7 +180,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -213,7 +213,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -221,7 +221,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -234,7 +234,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -242,7 +242,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -262,7 +262,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -270,7 +270,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -291,7 +291,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -304,7 +304,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -312,7 +312,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -325,7 +325,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -333,7 +333,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -353,7 +353,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -361,7 +361,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -374,7 +374,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -382,7 +382,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -395,7 +395,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -403,7 +403,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -416,7 +416,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -424,7 +424,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -464,7 +464,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -472,7 +472,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -485,7 +485,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -493,7 +493,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: true,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {
                             '58b0224f6cb3d8231712961e': {
@@ -545,7 +545,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -553,7 +553,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -566,7 +566,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -574,7 +574,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -594,7 +594,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -602,7 +602,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -615,7 +615,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -636,7 +636,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -644,7 +644,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }
@@ -657,7 +657,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: false,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     },
@@ -665,7 +665,7 @@ describe('reducers', () => {
                         fetchState: {
                             fetched: false,
                             inProgress: true,
-                            error: ''
+                            error: null
                         },
                         data: {}
                     }

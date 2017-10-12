@@ -1,0 +1,12 @@
+.categories-settings {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+
+    .category-types-tabs {
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+}

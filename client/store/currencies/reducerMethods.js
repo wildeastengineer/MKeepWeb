@@ -7,7 +7,7 @@ export const getGlobalCurrenciesStartedHandler = (state) => {
             fetchState: {
                 fetched: false,
                 inProgress: true,
-                error: ''
+                error: null
             },
             data: {}
         }
@@ -21,7 +21,7 @@ export const getGlobalCurrenciesFinishedHandler = (state, currencies) => {
             fetchState: {
                 fetched: true,
                 inProgress: false,
-                error: ''
+                error: null
             },
             data: mapArrayToObject(currencies)
         }
@@ -49,7 +49,7 @@ export const updateProjectCurrenciesStartedHandler = (state) => {
             fetchState: {
                 fetched: false,
                 inProgress: true,
-                error: ''
+                error: null
             },
             data: {}
         }
@@ -63,7 +63,7 @@ export const updateProjectCurrenciesFinishedHandler = (state, currencies) => {
             fetchState: {
                 fetched: true,
                 inProgress: false,
-                error: ''
+                error: null
             },
             data: mapArrayToObject(currencies)
         }
@@ -96,7 +96,7 @@ export const updateProjectMainCurrencyStartedHandler = (state) => {
             fetchState: {
                 fetched: false,
                 inProgress: true,
-                error: ''
+                error: null
             }
         }
     };
@@ -109,7 +109,7 @@ export const updateProjectMainCurrencyFinishedHandler = (state, currency) => {
             fetchState: {
                 fetched: true,
                 inProgress: false,
-                error: ''
+                error: null
             },
             data: currency
         }

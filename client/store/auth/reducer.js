@@ -30,12 +30,12 @@ const initialState = {
     authorized: false,
     authorization: {
         inProgress: false,
-        error: ''
+        error: null
     },
     profileFetched: false,
     profileFetching: {
         inProgress: false,
-        error: ''
+        error: null
     },
     profile: {}
 };

@@ -18,7 +18,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -31,7 +31,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -44,7 +44,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -57,7 +57,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -81,7 +81,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -94,7 +94,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: true,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         name: 'User Name',
@@ -111,7 +111,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -124,7 +124,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -144,7 +144,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -170,7 +170,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -183,7 +183,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: false,
                         inProgress: true,
-                        error: ''
+                        error: null
                     },
                     data: {
                         lang: 'en'
@@ -203,7 +203,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: true,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         name: 'User Name',
@@ -217,7 +217,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: true,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         name: 'User Name',
@@ -231,7 +231,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: true,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         name: 'User Name',
@@ -245,7 +245,7 @@ describe('reducers', () => {
                     fetchState: {
                         fetched: true,
                         inProgress: false,
-                        error: ''
+                        error: null
                     },
                     data: {
                         name: 'User Name',

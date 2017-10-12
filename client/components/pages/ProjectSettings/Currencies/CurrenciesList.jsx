@@ -2,7 +2,6 @@ import React  from 'react';
 import PropTypes from 'prop-types';
 
 import config from 'config/config';
-import CurrencyModel from 'entities/Currency';
 
 import CurrenciesListItem from './CurrenciesListItem';
 
@@ -12,13 +11,15 @@ if (config.isBuilding) {
 }
 
 const propTypes = {
-    currencies: PropTypes.arrayOf(PropTypes.shape(Object.assign({},
-        CurrencyModel.propTypes,
-        {
-            isUsed: PropTypes.bool,
-            isDefault: PropTypes.bool
-        }
-    ))),
+    currencies: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        sign: PropTypes.isRequired,
+        name: PropTypes.isRequired,
+        iso: PropTypes.string,
+        country: PropTypes.string,
+        isUsed: PropTypes.bool,
+        isDefault: PropTypes.bool
+    })),
     onUseControlChange: PropTypes.func,
     onSetDefaultControlChange: PropTypes.func,
 };

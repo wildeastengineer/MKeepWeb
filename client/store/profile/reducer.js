@@ -18,7 +18,7 @@ const initialState = {
     fetchState: {
         fetched: false,
         inProgress: false,
-        error: ''
+        error: null
     },
     data: {
         lang: config.defaultLanguage

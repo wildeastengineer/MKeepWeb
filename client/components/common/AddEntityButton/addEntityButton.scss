@@ -1,0 +1,13 @@
+.mk-flat-button {
+    &.mk-add-entity-button {
+        color: #88b04b;
+        font-size: 16px;
+        font-weight: bold;
+
+        &:hover {
+            color: #fff;
+            background-color: #88b04b;
+        }
+    }
+
+}

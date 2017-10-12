@@ -12,6 +12,7 @@ const propTypes = {
     type: PropTypes.string,
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    size: PropTypes.string,
     onClick: PropTypes.func,
     children: PropTypes.node
 };
@@ -19,13 +20,19 @@ const propTypes = {
 const defaultProps = {
     type: 'button',
     className: '',
-    disabled: false
+    disabled: false,
+    size: 'medium'
 };
 
 function Button(props) {
     const properties = Object.assign({}, props, {
         className: `mk-button ${props.className}`.trim()
     });
+
+    switch (properties.size) {
+        case 'small':
+            properties.className += ' mk-button-small';
+    }
 
     return (
         <button {...properties}>

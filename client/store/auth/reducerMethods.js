@@ -5,12 +5,12 @@ const authorizationFinishedHandler = (state, data) => {
         authorized: true,
         authorization: {
             inProgress: false,
-            error: ''
+            error: null
         },
         profileFetched: true,
         profileFetching: {
             inProgress: false,
-            error: ''
+            error: null
         },
         profile: {
             ...data.userProfile
@@ -24,7 +24,7 @@ export const authLogInEmailStartedHandler = (state) => {
         authorized: false,
         authorization: {
             inProgress: true,
-            error: ''
+            error: null
         }
     };
 };
@@ -50,7 +50,7 @@ export const authLogInCookieStartedHandler = (state) => {
         authorized: false,
         authorization: {
             inProgress: true,
-            error: ''
+            error: null
         }
     };
 };
@@ -65,7 +65,7 @@ export const authLogInCookieFailedHandler = (state) => {
         authorized: false,
         authorization: {
             inProgress: false,
-            error: ''
+            error: null
         }
     };
 };
@@ -76,12 +76,12 @@ export const logOutHandler = (state) => {
         authorized: false,
         authorization: {
             inProgress: false,
-            error: ''
+            error: null
         },
         profileFetched: false,
         profileFetching: {
             inProgress: false,
-            error: ''
+            error: null
         },
         profile: {}
     };
@@ -93,7 +93,7 @@ export const createNewAccountStartedHandler = (state) => {
         authorized: false,
         authorization: {
             inProgress: true,
-            error: ''
+            error: null
         }
     };
 };

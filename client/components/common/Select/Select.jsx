@@ -30,7 +30,9 @@ const defaultProps = {
     className: '',
     disabled: false,
     items: [],
-    emptyTitle: ''
+    value: '',
+    emptyTitle: '',
+    onChange: () => {}
 };
 
 const selectChangedHandler = (onChange, e) => {
@@ -57,7 +59,9 @@ function Select(props) {
                 </option>
             ))}
             {isEmpty && (
-                <option>
+                <option
+                    value=''
+                >
                     {props.emptyTitle}
                 </option>
             )}

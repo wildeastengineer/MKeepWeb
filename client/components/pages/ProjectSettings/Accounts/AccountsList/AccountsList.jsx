@@ -2,7 +2,6 @@ import React  from 'react';
 import PropTypes from 'prop-types';
 
 import config from 'config/config';
-import AccountModel from 'entities/Account';
 
 import AccountsListItem from '../AccountsListItem';
 
@@ -12,7 +11,15 @@ if (config.isBuilding) {
 }
 
 const propTypes = {
-    accounts: PropTypes.arrayOf(PropTypes.shape(AccountModel.propTypes)),
+    accounts: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        value: PropTypes.number,
+        initValue: PropTypes.number,
+        currency: PropTypes.shape({
+            sign: PropTypes.isRequired
+        }).isRequired
+    })),
     translations: PropTypes.object
 };
 
