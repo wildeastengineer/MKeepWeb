@@ -1,97 +1,98 @@
 // Libs
-//import request from 'superagent';
+import request from 'superagent';
 // App modules
 import Repository from './Repository';
-//import { getErrorMessage } from '../helpers/repositoryHelper';
+import { getErrorMessage } from '../helpers/repositoryHelper';
 
 class CurrenciesRepository extends Repository {
-    getUrl(action) {
+    getUrl(action, projectId, accountId) {
         switch (action) {
-            case 'accountsList':
-                return super.getUrl('accounts');
+            case 'list':
+                return super.getUrl(`projects/${projectId}/accounts`);
+            case 'create':
+                return super.getUrl(`projects/${projectId}/accounts`);
+            case 'update':
+                return super.getUrl(`projects/${projectId}/accounts/${accountId}`);
+            case 'remove':
+                return super.getUrl(`projects/${projectId}/accounts/${accountId}`);
             default:
                 return null;
         }
     }
 
-    getList() {
-        return new Promise((resolve) => {
-            this.getUrl('accountsList')
-                .then((/*url*/) => {
-                    resolve([
-                        {
-                            _id: '58b0224f6cb3d82317129001',
-                            name: 'Wallet',
-                            value: 5345.55,
-                            initValue: 0,
-                            currency: {
-                                _id: '58b0224f6cb3d8231712962b',
-                                iso: 'RUB',
-                                created: '2017-02-24T12:08:47.131Z',
-                                sign: '₽',
-                                name: 'Ruble',
-                                country: 'Russia',
-                                modified: '2017-02-24T12:08:47.131Z'
+    getList(projectId) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('list', projectId)
+                .then((url) => {
+                    request
+                        .get(url)
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
                             }
-                        },
-                        {
-                            _id: '58b0224f6cb3d82317129002',
-                            name: 'Bank account',
-                            value: 1200500.0,
-                            initValue: 0,
-                            currency: {
-                                _id: '58b0224f6cb3d8231712962b',
-                                iso: 'RUB',
-                                created: '2017-02-24T12:08:47.131Z',
-                                sign: '₽',
-                                name: 'Ruble',
-                                country: 'Russia',
-                                modified: '2017-02-24T12:08:47.131Z'
-                            }
-                        },
-                        {
-                            _id: '58b0224f6cb3d82317129003',
-                            name: 'Bank account 2',
-                            value: 2500.63,
-                            initValue: 0,
-                            currency: {
-                                _id: '58b0224f6cb3d8231712961e',
-                                iso: 'EUR',
-                                created: '2017-02-24T12:08:47.131Z',
-                                sign: '€',
-                                name: 'Euro',
-                                country: 'Euro Member',
-                                modified: '2017-02-24T12:08:47.131Z'
-                            }
-                        },
-                        {
-                            _id: '58b0224f6cb3d82317129004',
-                            name: 'Broker account',
-                            value: 100023.05,
-                            initValue: 0,
-                            currency: {
-                                _id: '58b0224f6cb3d8231712962b',
-                                iso: 'RUB',
-                                created: '2017-02-24T12:08:47.131Z',
-                                sign: '₽',
-                                name: 'Ruble',
-                                country: 'Russia',
-                                modified: '2017-02-24T12:08:47.131Z'
-                            }
-                        }
-                    ]);
 
-                    // request
-                    //     .get(url)
-                    //     .end((error, response) => {
-                    //         Temp stub
-                    //
-                    //         if (error) {
-                    //             return reject(getErrorMessage(error, response));
-                    //         }
-                    //
-                    //         resolve(response.body);
-                    //     });
+                            resolve(response.body);
+                        });
+                });
+        });
+    }
+
+    create(projectId, account) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('create', projectId)
+                .then((url) => {
+                    request
+                        .put(url)
+                        .send(account)
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            const account = response.body;
+
+                            resolve(account);
+                        });
+                });
+        });
+    }
+
+    update(projectId, accountId, accountData) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('update', projectId, accountId)
+                .then((url) => {
+                    request
+                        .patch(url)
+                        .send(accountData)
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            const account = response.body;
+
+                            resolve(account);
+                        });
+                });
+        });
+    }
+
+    remove(projectId, accountId) {
+        return new Promise((resolve, reject) => {
+            this.getUrl('remove', projectId, accountId)
+                .then((url) => {
+                    request
+                        .delete(url)
+                        .set('Accept', 'application/json')
+                        .end((error, response) => {
+                            if (error) {
+                                return reject(getErrorMessage(error, response));
+                            }
+
+                            resolve(response.body);
+                        });
                 });
         });
     }

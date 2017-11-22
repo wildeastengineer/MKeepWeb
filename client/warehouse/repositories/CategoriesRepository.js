@@ -7,7 +7,7 @@ import { getErrorMessage } from '../helpers/repositoryHelper';
 class CategoriesRepository extends Repository {
     getUrl(action, projectId, categoryId) {
         switch (action) {
-            case 'projectCategories':
+            case 'list':
                 return super.getUrl(`projects/${projectId}/categories`);
             case 'create':
                 return super.getUrl(`projects/${projectId}/categories`);
@@ -22,7 +22,7 @@ class CategoriesRepository extends Repository {
 
     getList(projectId) {
         return new Promise((resolve, reject) => {
-            this.getUrl('projectCategories', projectId)
+            this.getUrl('list', projectId)
                 .then((url) => {
                     request
                         .get(url)
@@ -101,9 +101,7 @@ class CategoriesRepository extends Repository {
                                 return reject(getErrorMessage(error, response));
                             }
 
-                            const category = response.body;
-
-                            resolve(category);
+                            resolve(response.body);
                         });
                 });
         });

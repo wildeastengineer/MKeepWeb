@@ -18,11 +18,11 @@ class Categories extends Component {
         params: PropTypes.shape({
             projectId: PropTypes.string
         }),
-        dispatch: PropTypes.func.isRequired,
         translations: PropTypes.object
     };
 
     static defaultProps = {
+        params: {},
         translations: {}
     };
 
