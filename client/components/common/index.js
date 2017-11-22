@@ -7,6 +7,7 @@ import FlatButton from './FlatButton/FlatButton';
 import Icon from './Icon/Icon';
 import Modal from './Modal/Modal';
 import Money from './Money/Money';
+import NumberInput from './NumberInput/NumberInput';
 import PopupMenu from './PopupMenu/PopupMenu';
 import RadioButton from './RadioButton/RadioButton';
 import Select from './Select/Select';
@@ -24,6 +25,7 @@ export {
     Icon,
     Modal,
     Money,
+    NumberInput,
     PopupMenu,
     RadioButton,
     Select,

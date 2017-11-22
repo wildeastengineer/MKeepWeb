@@ -13,7 +13,8 @@ $hovered-row-background: #fbfbfb;
     }
 }
 
-.account-list-item__account-value {
+.account-list-item__account-value,
+.account-list-item__account-initValue{
     text-align: right;
 }
 

@@ -1,8 +1,12 @@
 export default {
     header: {
         name: 'Name',
-        currentValue: 'Current Value',
+        value: 'Current Value',
         initValue: 'Initial Value',
         currency: 'Currency'
+    },
+    modal: {
+        create: 'Add New Account',
+        update: 'Edit Account'
     }
 };

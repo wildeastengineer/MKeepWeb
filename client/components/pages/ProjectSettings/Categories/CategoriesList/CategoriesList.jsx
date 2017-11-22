@@ -59,7 +59,7 @@ class CategoriesList extends Component {
             },
             modal: {
                 create: 'Add New Category',
-                update: 'Edit New Category'
+                update: 'Edit Category'
             }
         }
     };
