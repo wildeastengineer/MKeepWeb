@@ -60,7 +60,8 @@ class CategoryForm extends Component {
                 income: 'Income',
                 expense: 'Expense'
             },
-            noParentCategory: 'No parent category'
+            noParentCategory: 'No parent category',
+            save: 'Save'
         }
     };
 
@@ -157,7 +158,7 @@ class CategoryForm extends Component {
                 <Button
                     onClick={this.handleSaveCategoryClick}
                 >
-                    Save
+                    {translations.save}
                 </Button>
             </form>
         );

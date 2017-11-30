@@ -21,8 +21,8 @@ const translate = (translations, value) => {
 class CurrenciesListItem extends Component {
     static propTypes = {
         _id: PropTypes.string.isRequired,
-        sign: PropTypes.isRequired,
-        name: PropTypes.isRequired,
+        sign: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         iso: PropTypes.string,
         country: PropTypes.string,
         isUsed: PropTypes.bool,

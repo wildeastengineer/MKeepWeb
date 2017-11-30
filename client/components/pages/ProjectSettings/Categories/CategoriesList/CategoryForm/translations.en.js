@@ -4,5 +4,6 @@ export default {
         income: 'Income',
         expense: 'Expense'
     },
-    noParentCategory: 'No parent category'
+    noParentCategory: 'No parent category',
+    save: 'Save'
 };

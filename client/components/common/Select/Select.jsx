@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import config from 'config';
 
@@ -7,69 +7,85 @@ if (config.isBuilding) {
     require('./select.scss');
 }
 
-const propTypes = {
-    id: PropTypes.string,
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    onChange: PropTypes.func,
-    items: PropTypes.arrayOf(PropTypes.shape({
-        text: PropTypes.string,
+class Select extends Component {
+    static propTypes = {
+        id: PropTypes.string,
+        className: PropTypes.string,
+        disabled: PropTypes.bool,
+        onChange: PropTypes.func,
+        items: PropTypes.arrayOf(PropTypes.shape({
+            text: PropTypes.string,
+            value: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number
+            ])
+        })),
         value: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number
-        ])
-    })),
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
-    emptyTitle: PropTypes.string
-};
+        ]),
+        emptyTitle: PropTypes.string
+    };
 
-const defaultProps = {
-    className: '',
-    disabled: false,
-    items: [],
-    value: '',
-    emptyTitle: '',
-    onChange: () => {}
-};
+    static defaultProps = {
+        className: '',
+        disabled: false,
+        items: [],
+        value: '',
+        emptyTitle: '',
+        onChange: () => {}
+    };
 
-const selectChangedHandler = (onChange, e) => {
-    onChange(e.target.value);
-};
+    constructor(props) {
+        super(props);
+    }
 
-function Select(props) {
-    const className = `mk-select ${props.className}`.trim();
-    const isEmpty = !props.items.length;
+    selectChangedHandler = (event) => {
+        const value = event.target.value;
 
-    return (
-        <select
-            value={props.value}
-            className={className}
-            disabled={props.disabled || isEmpty}
-            onChange={selectChangedHandler.bind(null, props.onChange)}
-        >
-            {!isEmpty && props.items.map((item) => (
-                <option
-                    key={item.value}
-                    value={item.value}
-                >
-                    {item.text}
-                </option>
-            ))}
-            {isEmpty && (
-                <option
-                    value=''
-                >
-                    {props.emptyTitle}
-                </option>
-            )}
-        </select>
-    );
+        if (!value) {
+            return;
+        }
+
+        this.props.onChange(value);
+    };
+
+    render() {
+        const {
+            value,
+            items,
+            disabled,
+            emptyTitle
+        } = this.props;
+
+        const className = `mk-select ${this.props.className}`.trim();
+        const isEmpty = !items.length;
+
+        return (
+            <select
+                value={value}
+                className={className}
+                disabled={disabled || isEmpty}
+                onChange={this.selectChangedHandler}
+            >
+                {items.map((item) => (
+                    <option
+                        key={item.value}
+                        value={item.value}
+                    >
+                        {item.text}
+                    </option>
+                ))}
+                {isEmpty && (
+                    <option
+                        value=''
+                    >
+                        {emptyTitle}
+                    </option>
+                )}
+            </select>
+        );
+    }
 }
-
-Select.propTypes = propTypes;
-Select.defaultProps = defaultProps;
 
 export default Select;

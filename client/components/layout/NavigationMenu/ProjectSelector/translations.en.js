@@ -1,4 +1,5 @@
 export default {
     create: 'New',
-    emptyList: 'No Projects'
+    emptyList: 'No Projects',
+    modalTitle: 'Create New Project'
 };

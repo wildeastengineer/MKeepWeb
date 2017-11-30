@@ -7,12 +7,17 @@ import {
     setProjectMainCurrency
 } from '../currencies/actions';
 
-export const CREATE_NEW_PROJECT_STARTED = 'CREATE_NEW_PROJECT_STARTED';
+export const GET_PROJECTS_LIST_STARTED = 'GET_PROJECTS_LIST_STARTED';
 export const GET_PROJECTS_LIST_FINISHED = 'GET_PROJECTS_LIST_FINISHED';
+export const GET_PROJECTS_LIST_FAILED = 'GET_PROJECTS_LIST_FAILED';
 
 export const SET_CURRENT_PROJECT_STARTED = 'SET_CURRENT_PROJECT_STARTED';
 export const SET_CURRENT_PROJECT_FINISHED = 'SET_CURRENT_PROJECT_FINISHED';
 export const SET_CURRENT_PROJECT_FAILED = 'SET_CURRENT_PROJECT_FAILED';
+
+export const CREATE_PROJECT_STARTED = 'CREATE_PROJECT_STARTED';
+export const CREATE_PROJECT_FINISHED = 'CREATE_PROJECT_FINISHED';
+export const CREATE_PROJECT_FAILED = 'CREATE_PROJECT_FAILED';
 
 export function getProjectsListFinished(data) {
     return {
@@ -47,6 +52,27 @@ export function setCurrentProject(projectId, cookies, options = {}) {
     };
 }
 
+export function createProject(projectData, cookies) {
+    return (dispatch) => {
+        return new Promise((resolve, reject) => {
+            dispatch(createProjectStarted());
+
+            const projectsRepository = new ProjectsRepository(cookies);
+
+            projectsRepository.create(projectData)
+                .then((project) => {
+                    dispatch(createProjectFinished(project));
+                    dispatch(setCurrentProject(project._id, cookies))
+                        .then(resolve);
+                })
+                .catch((error) => {
+                    dispatch(createProjectFailed(error));
+                    reject(error);
+                });
+        });
+    };
+}
+
 function setCurrentProjectStarted() {
     return {
         type: SET_CURRENT_PROJECT_STARTED
@@ -60,9 +86,29 @@ function setCurrentProjectFinished(data) {
     };
 }
 
-function setCurrentProjectFailed(error) {
+function setCurrentProjectFailed(data) {
     return {
         type: SET_CURRENT_PROJECT_FAILED,
-        error
+        data
+    };
+}
+
+function createProjectStarted() {
+    return {
+        type: CREATE_PROJECT_STARTED
+    };
+}
+
+function createProjectFinished(data) {
+    return {
+        type: CREATE_PROJECT_FINISHED,
+        data
+    };
+}
+
+function createProjectFailed(data) {
+    return {
+        type: CREATE_PROJECT_FAILED,
+        data
     };
 }
