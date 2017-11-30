@@ -1,13 +1,42 @@
-export const createNewProjectStartedHandler = (state) => {
+import { mapArrayToObject } from '../helpers';
+
+export const getProjectsListStartedHandler = (state) => {
     return {
-        ...state
+        ...state,
+        projectsList: {
+            ...state.projectsList,
+            fetchState: {
+                ...state.projectsList.fetchState,
+                fetching: true
+            }
+        }
     };
 };
 
 export const getProjectsListFinishedHandler = (state, projectsList) => {
     return {
         ...state,
-        projectsList
+        projectsList: {
+            fetchState: {
+                fetching: false,
+                error: null
+            },
+            ids: projectsList.map(project => project._id),
+            data: mapArrayToObject(projectsList)
+        }
+    };
+};
+
+export const getProjectsListFailedHandler = (state, error) => {
+    return {
+        ...state,
+        projectsList: {
+            ...state.projectsList,
+            fetchState: {
+                fetching: false,
+                error
+            }
+        }
     };
 };
 
@@ -15,35 +44,80 @@ export const setCurrentProjectStartedHandler = (state) => {
     return {
         ...state,
         currentProject: {
-            data: null,
-            fetching: {
-                inProgress: true,
-                error: null
+            ...state.currentProject,
+            fetchState: {
+                ...state.currentProject.fetchState,
+                fetching: true
             }
         }
     };
 };
 
-export const setCurrentProjectStartedFinished = (state, project) => {
+export const setCurrentProjectFinishedHandler = (state, project) => {
     return {
         ...state,
         currentProject: {
-            data: project,
-            fetching: {
-                inProgress: false,
+            fetchState: {
+                fetching: false,
                 error: null
+            },
+            data: project
+        }
+    };
+};
+
+export const setCurrentProjectFailedHandler = (state, error) => {
+    return {
+        ...state,
+        currentProject: {
+            ...state.currentProject,
+            fetchState: {
+                fetching: false,
+                error
             }
         }
     };
 };
 
-export const setCurrentProjectStartedFailed = (state, error) => {
+export const createProjectStartedHandler = (state) => {
     return {
         ...state,
-        currentProject: {
-            data: null,
-            fetching: {
-                inProgress: false,
+        projectsList: {
+            ...state.projectsList,
+            fetchState: {
+                ...state.projectsList.fetchState,
+                fetching: true
+            }
+        }
+    };
+};
+
+export const createProjectFinishedHandler = (state, project) => {
+    return {
+        ...state,
+        projectsList: {
+            fetchState: {
+                fetching: false,
+                error: null
+            },
+            ids: [...state.projectsList.ids, project._id],
+            data: {
+                ...state.projectsList.data,
+                [project._id]: {
+                    ...project
+                }
+            }
+        }
+    };
+};
+
+export const createProjectFailedHandler = (state, error) => {
+    return {
+        ...state,
+        projectsList: {
+            ...state.projectsList,
+            fetchState: {
+                fetching: false,
                 error
             }
         }

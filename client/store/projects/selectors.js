@@ -1,11 +1,7 @@
-const getProjectsState = (state) => (state.projects);
-const getCurrentProject = (state) => (getProjectsState(state).currentProject);
-const getCurrentProjectData = (state) => (getCurrentProject(state).data);
+const getProjectsState = state => state.projects;
+const getCurrentProjectState = state => getProjectsState(state).currentProject;
+const getProjectsListState = state => getProjectsState(state).projectsList;
 
-export const getCurrentProjectId = (state) => {
-    const currentProjectData = getCurrentProjectData(state);
-
-    return currentProjectData ?
-        currentProjectData._id :
-        null;
-};
+export const getCurrentProjectData = state => getCurrentProjectState(state).data;
+export const getCurrentProjectId = state => getCurrentProjectData(state)._id || null;
+export const getProjectsList = state => getProjectsListState(state).data;

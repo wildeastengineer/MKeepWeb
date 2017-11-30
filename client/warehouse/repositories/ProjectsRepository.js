@@ -18,13 +18,13 @@ class ProjectsRepository extends Repository {
         }
     }
 
-    createNew(projectPrams) {
+    create(project) {
         return new Promise((resolve, reject) => {
             this.getUrl('create')
                 .then((url) => {
                     request
                         .post(url)
-                        .send(projectPrams)
+                        .send(project)
                         .set('Accept', 'application/json')
                         .end((error, response) => {
                             if (error) {

@@ -2,12 +2,10 @@ $padding: 10px;
 
 .modal-window {
     width: 60%;
-    min-height: 200px;
 
     position: fixed;
     top: 10%;
     left: 20%;
-
 
     color: #9c9c9c;
     border: solid 1px;
@@ -15,6 +13,8 @@ $padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 0px 4px;
 
     background-color: #fff;
+
+    z-index: 1000;
 
     .modal-window__header {
         color: #88b04b;

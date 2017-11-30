@@ -4,5 +4,6 @@ export default {
         income: 'Доходы',
         expense: 'Расходы'
     },
-    noParentCategory: 'Без родительской категории'
+    noParentCategory: 'Без родительской категории',
+    save: 'Сохранить'
 };

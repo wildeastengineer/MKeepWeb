@@ -3,13 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import config from 'config';
-import getLogger from 'logger';
 import { withCookies } from 'warehouse';
-import { setCurrentProject } from 'store/projects/actions'
+import {
+    mapObjectToArray
+} from 'store/helpers';
+import {
+    setCurrentProject,
+    createProject
+} from 'store/projects/actions'
+import {
+    getCurrentProjectId,
+    getProjectsList
+} from 'store/projects/selectors'
 
-import { Button, Select } from 'components/common';
-
-const logger = getLogger('ProjectSelector');
+import {
+    Modal,
+    Select
+} from 'components/common';
+import ProjectForm from './ProjectForm';
 
 if (config.isBuilding) {
     /*eslint-env node*/
@@ -19,8 +30,8 @@ if (config.isBuilding) {
 class ProjectSelector extends Component {
     static propTypes = {
         projects: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string,
-            name: PropTypes.string
+            text: PropTypes.string,
+            value: PropTypes.string
         })),
         currentProjectId: PropTypes.string,
         translations: PropTypes.object,
@@ -32,54 +43,115 @@ class ProjectSelector extends Component {
         projects: [],
         translations: {
             create: 'New',
-            emptyList: 'No Projects'
+            emptyList: 'No Projects',
+            modalTitle: 'Create New Project'
         }
     };
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            modalIsOpen: false,
+            selectItems: this.getSelectItems(props)
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            selectItems: this.getSelectItems(nextProps)
+        })
+    }
+
+    getSelectItems(props) {
+        return props.projects.concat([{
+            text: props.translations.create,
+            value: 'create_new_project'
+        }])
     }
 
     handleProjectsListChange = (projectId) => {
+        if (projectId === 'create_new_project') {
+            return this.handleCreateProjectButtonClick();
+        }
+
         const cookies = this.props.getCookies();
 
         this.props.dispatch(setCurrentProject(projectId, cookies));
     };
 
     handleCreateProjectButtonClick = () => {
-        logger.trace('Create new project');
+        this.setState({
+            modalIsOpen: true
+        });
+    };
+
+    handleModalCloseClick = () => {
+        this.setState({
+            modalIsOpen: false
+        });
+    };
+
+    handleSaveClick = (projectParams) => {
+        const {
+            dispatch,
+            getCookies
+        } = this.props;
+        const cookies = getCookies();
+
+        dispatch(createProject(projectParams, cookies));
+
+        this.setState({
+            modalIsOpen: false
+        });
     };
 
     render() {
+        const {
+            currentProjectId,
+            translations
+        } = this.props;
+        const {
+            modalIsOpen,
+            selectItems
+        } = this.state;
+
         return (
             <div
                 className='project-selector'
             >
                 <Select
-                    items={this.props.projects}
-                    value={this.props.currentProjectId}
-                    emptyTitle={this.props.translations.emptyList}
+                    items={selectItems}
+                    value={currentProjectId}
+                    emptyTitle={translations.emptyList}
                     onChange={this.handleProjectsListChange}
                 />
-                <Button
-                    onClick={this.handleCreateProjectButtonClick}
-                >
-                    {this.props.translations.create}
-                </Button>
+                {modalIsOpen && (
+                    <Modal
+                        title={translations.modalTitle}
+                        onCloseClick={this.handleModalCloseClick}
+                    >
+                        <ProjectForm
+                            onSaveClick={this.handleSaveClick}
+                        />
+                    </Modal>
+                )}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const projects = state.projects.projectsList.map((project) => ({
+    const projects = mapObjectToArray(getProjectsList(state));
+    const projectsList = projects.map((project) => ({
         text: project.name,
         value: project._id
     }));
+    const currentProjectId = getCurrentProjectId(state) || '';
 
     return {
-        projects,
-        currentProjectId: state.projects.currentProject.data ? state.projects.currentProject.data._id : ''
+        projects: projectsList,
+        currentProjectId
     };
 }
 
