@@ -30,10 +30,10 @@ import {
 
 const initialState = {
     fetchState: {
-        fetched: false,
-        inProgress: false,
+        fetching: false,
         error: null
     },
+    ids: [],
     data: {}
 };
 

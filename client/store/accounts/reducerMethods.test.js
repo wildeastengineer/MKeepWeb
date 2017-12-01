@@ -24,10 +24,10 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -35,10 +35,10 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 });
             });
@@ -46,10 +46,10 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -57,10 +57,10 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 });
             });
@@ -105,10 +105,10 @@ describe('reducers', () => {
                 ];
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -116,10 +116,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -174,10 +179,10 @@ describe('reducers', () => {
                 ];
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -185,10 +190,10 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 });
             });
@@ -203,10 +208,10 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -214,10 +219,10 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: 'Some Error'
                     },
+                    ids: [],
                     data: {}
                 });
             });
@@ -225,10 +230,10 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 };
 
@@ -236,10 +241,10 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [],
                     data: {}
                 });
             });
@@ -254,10 +259,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -294,10 +304,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -334,10 +349,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -369,22 +389,20 @@ describe('reducers', () => {
                         }
                     }
                 };
-                let newAccount = {
-                    _id: '58b0224f6cb3d82317129005',
-                    name: 'Mutual Fund',
-                    initValue: 20000,
-                    value: 20000,
-                    currency: '58b0224f6cb3d82317129619'
-                };
 
-                createAccountStartedHandler(state, newAccount);
+                createAccountStartedHandler(state);
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -428,10 +446,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -475,10 +498,16 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004',
+                        '58b0224f6cb3d82317129005'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -522,10 +551,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -569,10 +603,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -616,10 +655,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -656,10 +700,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: 'Some Error'
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -696,10 +745,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -736,10 +790,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -783,10 +842,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -823,10 +887,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -863,10 +932,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -903,10 +977,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -950,10 +1029,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -997,10 +1081,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1037,10 +1126,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1084,10 +1178,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1131,10 +1230,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1171,10 +1275,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: 'Some error'
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1211,10 +1320,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1251,10 +1365,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1298,10 +1417,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1338,10 +1462,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1378,10 +1507,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1418,10 +1552,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1465,10 +1604,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1512,10 +1656,14 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: true,
-                        inProgress: false,
+                        fetching: false,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1545,10 +1693,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1592,10 +1745,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1639,10 +1797,15 @@ describe('reducers', () => {
                 let newState;
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1679,10 +1842,15 @@ describe('reducers', () => {
 
                 expect(newState).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: false,
+                        fetching: false,
                         error: 'Some Error'
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1719,10 +1887,15 @@ describe('reducers', () => {
             test('it should not mutate original state', () => {
                 let state = {
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',
@@ -1759,10 +1932,15 @@ describe('reducers', () => {
 
                 expect(state).toEqual({
                     fetchState: {
-                        fetched: false,
-                        inProgress: true,
+                        fetching: true,
                         error: null
                     },
+                    ids: [
+                        '58b0224f6cb3d82317129001',
+                        '58b0224f6cb3d82317129002',
+                        '58b0224f6cb3d82317129003',
+                        '58b0224f6cb3d82317129004'
+                    ],
                     data: {
                         '58b0224f6cb3d82317129001': {
                             _id: '58b0224f6cb3d82317129001',

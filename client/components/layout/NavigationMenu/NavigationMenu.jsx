@@ -4,8 +4,18 @@ import { connect } from 'react-redux';
 
 import ProjectSelector from './ProjectSelector';
 import NavigationButton from './NavigationButton';
+import {
+    AccountsInformer
+} from 'components/entities/accounts';
 
 import { paths } from 'routes';
+
+import config from 'config';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./navigationMenu.scss');
+}
 
 class NavigationMenu extends Component {
     static propTypes = {
@@ -29,10 +39,12 @@ class NavigationMenu extends Component {
             currentProjectId
         } = this.props;
 
-        // ToDo: Set current propject data from URL when page refreshing
+        // ToDo: Set current project data from URL when page refreshing
 
         return (
-            <div>
+            <div
+                className='navigation-menu'
+            >
                 <ProjectSelector/>
                 {currentProjectId && (
                     <div>
@@ -41,6 +53,11 @@ class NavigationMenu extends Component {
                             url={paths.project.getUrl(currentProjectId)}
                             icon='dashboard'
                         />
+                        <hr/>
+                        <AccountsInformer
+                            projectId={currentProjectId}
+                        />
+                        <hr/>
                         <NavigationButton
                             name={translations.link.settings}
                             url={paths.project.settings.getUrl(currentProjectId)}
