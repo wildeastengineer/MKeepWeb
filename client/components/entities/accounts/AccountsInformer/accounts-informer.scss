@@ -1,0 +1,27 @@
+.accounts-informer {
+    font-size: 14px;
+
+    .accounts-informer__row {
+        box-sizing: border-box;
+        display: flex;
+        line-height: 16px;
+        padding: 5px;
+        width: 100%;
+
+        .accounts-informer__account-name {
+            flex-grow: 1;
+        }
+
+        .accounts-informer__account-value {
+            flex-grow: 0;
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .accounts-informer__account-currency {
+            color: #88b04b;
+            padding: 0 0 0 5px;
+        }
+    }
+}

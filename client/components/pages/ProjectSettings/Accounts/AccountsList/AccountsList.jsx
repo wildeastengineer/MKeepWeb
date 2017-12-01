@@ -20,7 +20,7 @@ import {
 } from 'store/accounts/actions';
 
 import {
-    getAccounts
+    getAccountsData
 } from 'store/accounts/selectors';
 
 import {
@@ -216,7 +216,7 @@ class AccountsList extends Component {
 }
 
 function mapStateToProps(state) {
-    let accounts = getAccounts(state);
+    let accounts = getAccountsData(state);
 
     return {
         accounts: mapObjectToArray(accounts)

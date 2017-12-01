@@ -30,10 +30,10 @@ function NavigationButton({name, url, icon}) {
             className='mk-navigation-button'
             activeClassName='mk-navigation-button_active'
         >
+            <Icon icon={icon}/>
             <span>
                 {name}
             </span>
-            <Icon icon={icon}/>
         </Link>
     );
 }
