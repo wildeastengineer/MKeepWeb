@@ -10,7 +10,10 @@ if (config.isBuilding) {
 class NumberInput extends Component {
     static propTypes = {
         id: PropTypes.string,
-        value: PropTypes.number,
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
         type: PropTypes.oneOf([
             'number',
             'float'
@@ -22,7 +25,7 @@ class NumberInput extends Component {
     };
 
     static defaultProps = {
-        value: 0,
+        value: '',
         className: '',
         type: 'float',
         disabled: false,
@@ -47,7 +50,7 @@ class NumberInput extends Component {
                 break;
         }
 
-        this.props.onChange(value);
+        this.props.onChange(value || null);
     };
 
     render() {
@@ -60,11 +63,13 @@ class NumberInput extends Component {
 
         const className = `mk-input-number ${this.props.className}`.trim();
 
+        const parsedValue = typeof value === 'number' ? value : '';
+
         return (
             <input
                 type='number'
                 id={id}
-                value={value}
+                value={parsedValue}
                 placeholder={placeholder}
                 disabled={disabled}
                 className={className}

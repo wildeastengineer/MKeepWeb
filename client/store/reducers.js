@@ -7,6 +7,7 @@ import categoriesReducer from './categories/reducer';
 import currenciesReducer from './currencies/reducer';
 import profileReducer from './profile/reducer';
 import projectsReducer from './projects/reducer';
+import transactionsReducer from './transactions/reducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
     currencies: currenciesReducer,
     profile: profileReducer,
     projects: projectsReducer,
+    transactions: transactionsReducer,
     user: authReducer
 });

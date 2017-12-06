@@ -10,21 +10,25 @@ const paths = {
     },
     project: {
         url: '/project/:projectId',
-        getUrl: (projectId) => (paths.project.url.replace(':projectId', projectId)),
+        getUrl: projectId => paths.project.url.replace(':projectId', projectId),
+        transactions: {
+            url: 'transactions',
+            getUrl: projectId => `${paths.project.getUrl(projectId)}/transactions`
+        },
         settings: {
             url: 'settings',
-            getUrl: (projectId) => (`${paths.project.getUrl(projectId)}/settings`),
+            getUrl: projectId => `${paths.project.getUrl(projectId)}/settings`,
             accounts: {
                 url: 'accounts',
-                getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/accounts`)
+                getUrl: projectId => `${paths.project.settings.getUrl(projectId)}/accounts`
             },
             categories: {
                 url: 'categories',
-                getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/categories`)
+                getUrl: projectId => `${paths.project.settings.getUrl(projectId)}/categories`
             },
             currencies: {
                 url: 'currencies',
-                getUrl: (projectId) => (`${paths.project.settings.getUrl(projectId)}/currencies`)
+                getUrl: projectId => `${paths.project.settings.getUrl(projectId)}/currencies`
             },
         }
     }

@@ -3,7 +3,7 @@ import ReactDom from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 
-import Store from './store';
+import { Store } from './store';
 import { logInByCookies } from 'store/auth/actions';
 import { getRoutes } from './routes';
 import { CookiesProvider, Cookies } from './warehouse';

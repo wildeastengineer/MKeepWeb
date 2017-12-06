@@ -1,0 +1,61 @@
+.transaction-edit-form {
+    text-align: right;
+
+    .transaction-form-input {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .transaction-save-button {
+        margin-top: 10px;
+    }
+
+    .calendar-wrapper {
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 0 10px;
+
+        .Cal__Container__root {
+            width: 100% !important;
+
+            .Cal__Weekdays__day {
+                padding: 5px 0;
+            }
+
+            .Cal__Day__root {
+                &.Cal__Day__selected {
+                    .Cal__Day__selection {
+                        height: 40px;
+                        width: 40px;
+
+                        margin-top: -20px;
+                        margin-left: -20px;
+
+                        .Cal__Day__month {
+                            display: none;
+                        }
+
+                        .Cal__Day__day {
+                            top: -8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dv-row {
+    display: flex;
+    width: 100%;
+
+    .dv-column {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    .dv-column-6 {
+        @extend .dv-column;
+
+        width: 50%;
+    }
+}

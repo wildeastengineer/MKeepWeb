@@ -28,6 +28,7 @@ class NavigationMenu extends Component {
         translations: {
             link: {
                 home: 'Home',
+                transactions: 'Transactions',
                 settings: 'Project'
             }
         }
@@ -52,6 +53,11 @@ class NavigationMenu extends Component {
                             name={translations.link.home}
                             url={paths.project.getUrl(currentProjectId)}
                             icon='dashboard'
+                        />
+                        <NavigationButton
+                            name={translations.link.transactions}
+                            url={paths.project.transactions.getUrl(currentProjectId)}
+                            icon='list'
                         />
                         <hr/>
                         <AccountsInformer
