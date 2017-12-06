@@ -9,6 +9,9 @@ $font-size-step: 8px;
     height: $button-height-step * 4;
     padding: 0;
 
+    color: #5b5b5b;
+    font-weight: bold;
+
     border: solid 1px ;
     border-color: #eee #ddd #ddd #eee;
     outline: none;
@@ -33,5 +36,10 @@ $font-size-step: 8px;
         .material-icons {
             font-size: $font-size-step * 2;
         }
+    }
+
+    &.mk-button-active {
+        background-color: #c9c8c8;
+        color: #323232;
     }
 }

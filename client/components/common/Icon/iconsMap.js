@@ -11,6 +11,7 @@ export default {
     'exit': 'E879',
     'folder': 'E2C7',
     'format_list_bulleted': 'E241',
+    'list': 'E8EF',
     'not_interested': 'E033',
     'person': 'E7FD',
     'settings': 'E8B8'

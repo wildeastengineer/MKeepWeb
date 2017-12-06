@@ -11,6 +11,7 @@ const propTypes = {
     id: PropTypes.string,
     type: PropTypes.string,
     className: PropTypes.string,
+    active: PropTypes.bool,
     disabled: PropTypes.bool,
     size: PropTypes.string,
     onClick: PropTypes.func,
@@ -20,6 +21,7 @@ const propTypes = {
 const defaultProps = {
     type: 'button',
     className: '',
+    active: false,
     disabled: false,
     size: 'medium'
 };
@@ -33,6 +35,12 @@ function Button(props) {
         case 'small':
             properties.className += ' mk-button-small';
     }
+
+    if (properties.active) {
+        properties.className += ' mk-button-active';
+    }
+
+    delete properties.active;
 
     return (
         <button {...properties}>

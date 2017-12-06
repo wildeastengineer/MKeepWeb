@@ -7,7 +7,7 @@ import { browserHistory, Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import { getRoutes } from 'routes';
-import Store from 'store';
+import { Store } from 'store';
 import { CookiesProvider, Cookies } from '../client/warehouse';
 
 const store = Store(window.REDUX_INITIAL_STATE || {});

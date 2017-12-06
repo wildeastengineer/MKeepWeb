@@ -1,6 +1,7 @@
 export default {
     link: {
-        home: 'Проект',
+        home: 'Главная',
+        transactions: 'Операции',
         settings: 'Настройки'
     }
 };

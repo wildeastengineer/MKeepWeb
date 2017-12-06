@@ -12,6 +12,7 @@ import LogOutPage   from 'components/pages/LogOut';
 import ProjectsList         from 'components/pages/ProjectsList';
 import Dashboard            from 'components/pages/Dashboard';
 import Project              from 'components/pages/Project';
+import TransactionsPage     from 'components/pages/Transactions';
 import ProjectSettingsPage  from 'components/pages/ProjectSettings';
 import AccountsPage         from 'components/pages/ProjectSettings/Accounts';
 import CategoriesPage       from 'components/pages/ProjectSettings/Categories';
@@ -49,6 +50,11 @@ export default function getRoutes(store) {
             >
                 <IndexRoute
                     component={Dashboard}
+                    onEnter={onEnter}
+                />
+                <Route
+                    path={paths.project.transactions.url}
+                    component={TransactionsPage}
                     onEnter={onEnter}
                 />
                 <Route
