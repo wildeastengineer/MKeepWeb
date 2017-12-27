@@ -42,7 +42,7 @@ class CurrenciesRepository extends Repository {
             this.getUrl('create', projectId)
                 .then((url) => {
                     request
-                        .put(url)
+                        .post(url)
                         .send(transaction)
                         .set('Accept', 'application/json')
                         .end((error, response) => {
