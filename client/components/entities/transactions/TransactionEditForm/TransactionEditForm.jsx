@@ -53,7 +53,7 @@ class TransactionEditForm extends Component {
             accountDestination: PropTypes.string,
             category: PropTypes.string,
             note: PropTypes.string,
-            date: PropTypes.object
+            date: PropTypes.string
         }),
         accounts: PropTypes.arrayOf(PropTypes.shape({
             text: PropTypes.string,
@@ -77,8 +77,7 @@ class TransactionEditForm extends Component {
     static defaultProps = {
         onCloseRequest: () => {},
         transaction: {
-            type: 'expense',
-            value: 9
+            type: 'expense'
         },
         translations: {
             types: {
@@ -101,12 +100,17 @@ class TransactionEditForm extends Component {
     constructor(props) {
         super(props);
 
+        const transaction = {
+            type: 'expense',
+            ...props.transaction
+        };
+
+        transaction.date = props.transaction.date ?
+                new Date(props.transaction.date) :
+                new Date();
+
         this.state = {
-            transaction: {
-                type: 'expense',
-                date: new Date(),
-                ...props.transaction
-            }
+            transaction
         }
     }
 
@@ -120,6 +124,61 @@ class TransactionEditForm extends Component {
 
         dispatch(getAccountsList(projectId, cookies));
         dispatch(getCategoriesList(projectId, cookies));
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {
+            accounts,
+            incomeCategories,
+            expenseCategories
+        } = nextProps;
+
+        const {
+            transaction
+        } = this.state;
+
+        if (!transaction.accountSource && accounts.length) {
+            this.setState({
+                transaction: {
+                    ...this.state.transaction,
+                    accountSource: accounts[0].value
+                }
+            });
+        }
+
+        switch (transaction.type) {
+            case 'income':
+                if (!transaction.category && incomeCategories.length) {
+                    this.setState({
+                        transaction: {
+                            ...this.state.transaction,
+                            category: incomeCategories[0].value
+                        }
+                    });
+                }
+
+                break;
+            case 'expense':
+                if (!transaction.category && expenseCategories.length) {
+                    this.setState({
+                        transaction: {
+                            ...this.state.transaction,
+                            category: expenseCategories[0].value
+                        }
+                    });
+                }
+
+                if (!transaction.accountDestination && accounts.length) {
+                    this.setState({
+                        transaction: {
+                            ...this.state.transaction,
+                            accountDestination: accounts[0].value
+                        }
+                    });
+                }
+
+                break;
+        }
     }
 
     handleSaveClick = () => {
@@ -282,6 +341,7 @@ class TransactionEditForm extends Component {
                             className='calendar-wrapper'
                         >
                             <Calendar
+                                date={transaction.date}
                                 onChange={this.handleDateChanged}
                             />
                         </div>

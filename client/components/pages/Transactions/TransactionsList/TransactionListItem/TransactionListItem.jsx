@@ -47,7 +47,7 @@ class TransactionListItem extends Component {
             accountDestination: PropTypes.string,
             category: PropTypes.string,
             note: PropTypes.string,
-            date: PropTypes.object
+            date: PropTypes.string
         }),
         category: PropTypes.shape({
             name: PropTypes.string
@@ -114,7 +114,7 @@ class TransactionListItem extends Component {
             case 'date':
                 field = (
                     <DateDisplay
-                        value={transaction[fieldName]}
+                        value={new Date(transaction[fieldName])}
                     />
                 );
                 break;
