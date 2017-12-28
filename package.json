@@ -1,13 +1,17 @@
 {
     "name": "mkeepweb",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Web client for MoneyKeeper",
     "main": "index.js",
+    "engines": {
+        "node": "8.8.1",
+        "npm": "5.2.0"
+    },
     "scripts": {
-        "start": "npm run build && NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
-        "dev": "NODE_ENV='development' BUILDING='true' webpack-dev-server --config webpack.config.js --progress --watch",
-        "build": "NODE_ENV='production' BUILDING='true' webpack --config webpack.config.js",
-        "build-help": "NODE_ENV='production' BUILDING='true' webpack --config webpack.config.js --display-error-details",
+        "start": "NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
+        "dev": "NODE_ENV='development' BROWSER='true' webpack-dev-server --config webpack.config.js --progress --watch --hot",
+        "build": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js",
+        "build-help": "NODE_ENV='production' BROWSER='true' webpack --config webpack.config.js --display-error-details",
         "test": "jest",
         "nodemon": "NODE_PATH=./client nodemon server/server.js --exec babel-node --presets es2015,react,stage-0",
         "server": "NODE_PATH=./client nodemon server/server.js --ignore client/ --exec babel-node --presets es2015,react,stage-0"
