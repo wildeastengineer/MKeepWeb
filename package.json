@@ -3,6 +3,10 @@
     "version": "0.2.0",
     "description": "Web client for MoneyKeeper",
     "main": "index.js",
+    "engines": {
+        "node": "8.8.1",
+        "npm": "5.2.0"
+    },
     "scripts": {
         "start": "NODE_ENV='production' NODE_PATH=./client ./node_modules/.bin/babel-node --presets es2015,react,stage-0 server/server.js",
         "dev": "NODE_ENV='development' BROWSER='true' webpack-dev-server --config webpack.config.js --progress --watch --hot",
