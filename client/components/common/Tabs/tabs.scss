@@ -1,0 +1,32 @@
+.mk-tabs {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .mk-tabs-list {
+        display: flex;
+        flex-grow: 0;
+        width: 100%;
+
+        .mk-tabs-list-item {
+            flex-grow: 1;
+            padding: 8px;
+            text-align: center;
+
+            &:hover {
+                background-color: #f1ffdb;
+                cursor: pointer;
+            }
+
+            &.active {
+                border-bottom: solid 2px #88b04b;
+            }
+        }
+    }
+
+    .mk-tab {
+        flex-grow: 1;
+        flex-shrink: 1;
+        position: relative;
+    }
+}

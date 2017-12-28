@@ -1,0 +1,83 @@
+$text-color: #9c9c9c;
+$text-color_hovered: #333;
+$header-text-color: #333;
+$border-color: #eaeaea;
+$color: #777;
+
+$font-size: 16px;
+
+$padding: 10px 15px;
+
+.accounts-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+
+    .accounts-list {
+        flex-grow: 1;
+        overflow: auto;
+
+        table {
+            font-size: $font-size;
+            width: 100%;
+
+            thead {
+                color: $header-text-color;
+                cursor: default;
+                font-weight: bold;
+
+                tr {
+                    border-bottom: solid 1px $border-color;
+
+                    th {
+                        padding: $padding;
+                        text-align: left;
+
+                        &.button-column {
+                            padding-left: 0;
+                            width: 32px;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    border-bottom: dashed 1px $border-color;
+                    color: $text-color;
+
+                    &:hover {
+                        color: $text-color_hovered;
+                    }
+
+                    td {
+                        padding: $padding;
+
+                        &.button-cell {
+                            padding-left: 0;
+
+                            .mk-button {
+                                & > span {
+                                    line-height: 16px;
+                                    padding: 0 8px;
+                                }
+
+                                .mk-icon {
+                                    color: $color;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .add-account-button {
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}

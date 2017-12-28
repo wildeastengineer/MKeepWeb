@@ -1,0 +1,15 @@
+.mk-check-control {
+    cursor: pointer;
+}
+
+.mk-check-control__wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    input {
+        margin: 0;
+    }
+}

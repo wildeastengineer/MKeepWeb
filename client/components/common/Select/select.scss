@@ -1,0 +1,15 @@
+.mk-select {
+    background-color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 36px;
+    min-width: 36px;
+    padding: 0;
+    border: solid 1px;
+    border-color: #eee #ddd #ddd #eee;
+    outline: none;
+
+    &:disabled {
+        cursor: default;
+    }
+}

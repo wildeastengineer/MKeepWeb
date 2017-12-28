@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React  from 'react';
+import PropTypes from 'prop-types';
 
-class ProjectsList extends Component {
-    render() {
-        return (
-            <div>
-                Projects List
-            </div>
-        );
+const propTypes = {
+    translations: PropTypes.object
+};
+
+const defaultProps = {
+    translations: {
+        title: 'Projects List'
     }
+};
+
+function ProjectsList({ translations }) {
+    return (
+        <div>
+            {translations.title}
+        </div>
+    );
 }
+
+ProjectsList.propTypes = propTypes;
+ProjectsList.defaultProps = defaultProps;
 
 export default ProjectsList;

@@ -1,16 +1,29 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import config from 'config';
 import { Avatar, FlatButton } from 'components/common';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./userInfoMenu.scss');
 }
 
 const propTypes = {
     userName: PropTypes.string,
-    onLogoutClick: PropTypes.func.isRequired
+    onLogoutClick: PropTypes.func.isRequired,
+    translations: PropTypes.object
 };
 
-function UserInfoMenu({userName, onLogoutClick}) {
+const defaultProps = {
+    translations: {
+        button: {
+            logOut: 'Log Out'
+        }
+    }
+};
+
+function UserInfoMenu({userName, onLogoutClick, translations}) {
     return (
         <div className='user-info-menu'>
             <div className='user-info-menu__contacts'>
@@ -21,7 +34,7 @@ function UserInfoMenu({userName, onLogoutClick}) {
             </div>
             <div className='user-info-menu__actions'>
                 <FlatButton onClick={onLogoutClick}>
-                    Logout
+                    {translations.button.logOut}
                 </FlatButton>
             </div>
         </div>
@@ -29,5 +42,6 @@ function UserInfoMenu({userName, onLogoutClick}) {
 }
 
 UserInfoMenu.propTypes = propTypes;
+UserInfoMenu.defaultProps = defaultProps;
 
 export default UserInfoMenu;

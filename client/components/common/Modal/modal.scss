@@ -1,0 +1,40 @@
+$padding: 10px;
+
+.modal-window {
+    width: 60%;
+
+    position: fixed;
+    top: 10%;
+    left: 20%;
+
+    color: #9c9c9c;
+    border: solid 1px;
+    border-color: #eee #ddd #ddd #eee;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 0px 4px;
+
+    background-color: #fff;
+
+    z-index: 1000;
+
+    .modal-window__header {
+        color: #88b04b;
+        display: flex;
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: dashed 1px #ddd;
+        padding: $padding;
+
+        .modal-window__title {
+            flex-grow: 1;
+            line-height: 24px;
+        }
+
+        .modal-window__close-button {
+            flex-grow: 0;
+        }
+    }
+
+    .modal-window__body {
+        padding: $padding;
+    }
+}

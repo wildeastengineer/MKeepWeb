@@ -1,33 +1,87 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import ProjectSelector from './ProjectSelector';
+import NavigationButton from './NavigationButton';
+import {
+    AccountsInformer
+} from 'components/entities/accounts';
 
 import { paths } from 'routes';
 
+import config from 'config';
+
+if (config.isBuilding) {
+    /*eslint-env node*/
+    require('./navigationMenu.scss');
+}
+
 class NavigationMenu extends Component {
+    static propTypes = {
+        currentProjectId: PropTypes.string,
+        translations: PropTypes.object
+    };
+
+    static defaultProps = {
+        currentProjectId: '',
+        translations: {
+            link: {
+                home: 'Home',
+                transactions: 'Transactions',
+                settings: 'Project'
+            }
+        }
+    };
+
     render() {
+        const {
+            translations,
+            currentProjectId
+        } = this.props;
+
+        // ToDo: Set current project data from URL when page refreshing
+
         return (
-            <div>
-                Navigation Menu
-                <ul>
-                    <li>
-                        <Link to={paths.home}>
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={paths.projects.list}>
-                            Project
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={paths.projects.currencies}>
-                            Currencies
-                        </Link>
-                    </li>
-                </ul>
+            <div
+                className='navigation-menu'
+            >
+                <ProjectSelector/>
+                {currentProjectId && (
+                    <div>
+                        <NavigationButton
+                            name={translations.link.home}
+                            url={paths.project.getUrl(currentProjectId)}
+                            icon='dashboard'
+                        />
+                        <NavigationButton
+                            name={translations.link.transactions}
+                            url={paths.project.transactions.getUrl(currentProjectId)}
+                            icon='list'
+                        />
+                        <hr/>
+                        <AccountsInformer
+                            projectId={currentProjectId}
+                        />
+                        <hr/>
+                        <NavigationButton
+                            name={translations.link.settings}
+                            url={paths.project.settings.getUrl(currentProjectId)}
+                            icon='settings'
+                        />
+                    </div>
+                )}
             </div>
         );
     }
 }
 
-export default NavigationMenu;
+function mapStateToProps(state) {
+    const currentProjectData = state.projects.currentProject.data;
+
+    return {
+        currentProjectId: currentProjectData ? currentProjectData._id : ''
+    };
+}
+
+export default connect(mapStateToProps)(NavigationMenu);

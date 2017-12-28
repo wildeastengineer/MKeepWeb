@@ -1,38 +1,27 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { isAuthenticated } from 'utils/auth';
+import config from 'config';
+
 import { Layout } from 'components/layout';
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./app.scss');
 }
 
 class App extends Component {
     static propTypes = {
-        isAuthenticated: PropTypes.bool,
         children: PropTypes.node
     };
 
-    static defaultProps = {
-        isAuthenticated: false
-    };
-
     render() {
-        const { isAuthenticated } = this.props;
-
         return (
-            <Layout isAuthenticated={isAuthenticated}>
+            <Layout>
                 {this.props.children}
             </Layout>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isAuthenticated: isAuthenticated(state)
-    };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

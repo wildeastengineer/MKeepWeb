@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { paths } from 'routes';
 
 import { isAuthenticated } from 'utils/auth';
-import Landing from './Landing';
+import Landing from './Landing/';
 
 class Home extends Component {
+    static propTypes = {
+        translations: PropTypes.object,
+        isAuthenticated: PropTypes.bool,
+        redirect: PropTypes.string,
+        dispatch: PropTypes.func.isRequired
+    };
+
+    static defaultProps = {
+        translations: {
+            title: 'Home'
+        }
+    };
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.isAuthenticated && nextProps.redirect) {
             nextProps.dispatch(push(nextProps.redirect));
@@ -20,7 +33,7 @@ class Home extends Component {
 
         return (
             <div>
-                Home
+                { this.props.translations.title }
             </div>
         );
     }

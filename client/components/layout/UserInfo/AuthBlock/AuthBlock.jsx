@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { logInByEmail, runRegistrationFlow } from 'store/actions/authActions';
+import { withCookies } from 'warehouse';
+import { logInByEmail, createNewAccount } from 'store/auth/actions';
 
 import { Button, PopupMenu } from 'components/common';
 import AuthMenu from './AuthMenu';
@@ -15,12 +17,17 @@ class AuthBlock extends Component {
     static propTypes = {
         authInProgress: PropTypes.bool,
         authError: PropTypes.string,
+        translations: PropTypes.object,
+        getCookies: PropTypes.func.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         authInProgress: false,
-        authError: ''
+        authError: '',
+        translations: {
+            logIn: 'Log In'
+        }
     };
 
     handleCredentialsChange = (param, event) => {
@@ -30,22 +37,34 @@ class AuthBlock extends Component {
     };
 
     handleLogInByPassClick = (event) => {
+        const { dispatch } = this.props;
+        const { email, password } = this.state;
+        const cookies = this.props.getCookies();
+
         event.preventDefault();
 
-        this.props.dispatch(logInByEmail(this.state.email, this.state.password));
+        dispatch(logInByEmail(email, password, cookies));
     };
 
     handleCreateNewAccountClick = (event) => {
+        const { dispatch } = this.props;
+        const { email, password } = this.state;
+        const cookies = this.props.getCookies();
+
         event.preventDefault();
 
-        this.props.dispatch(runRegistrationFlow(this.state.email, this.state.password));
+        dispatch(createNewAccount(email, password, cookies));
     };
 
     render() {
         return (
             <div className='auth-block'>
                 <PopupMenu
-                    button={<Button>Log In</Button>}
+                    button={(
+                        <Button>
+                            { this.props.translations.logIn }
+                        </Button>
+                    )}
                 >
                     <AuthMenu
                         email={this.state.email}
@@ -69,4 +88,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(AuthBlock);
+export default connect(mapStateToProps)(withCookies(AuthBlock));

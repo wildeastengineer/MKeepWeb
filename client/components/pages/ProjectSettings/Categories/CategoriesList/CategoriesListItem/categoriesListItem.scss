@@ -1,0 +1,14 @@
+$font-size: 14px;
+
+$color: #777;
+$hovered-row-background: #fbfbfb;
+
+.categories-list-item {
+    color: $color;
+    font-size: $font-size;
+
+    &:hover {
+        background-color: $hovered-row-background;
+        cursor: pointer;
+    }
+}

@@ -4,8 +4,8 @@ $footer-color: $color-back-secondary;
 $footer-height: 56px;
 $header-color: $color-main;
 $header-height: 56px;
-$side-bar-color: $color-back-primary;
-$side-bar-width: 200px;
+$side-bar-color: #fff;
+$side-bar-width: 280px;
 
 .app-layout {
     box-sizing: border-box;
@@ -20,6 +20,7 @@ $side-bar-width: 200px;
     box-sizing: border-box;
     flex-grow: 0;
     height: $header-height;
+    text-align: right;
     width: 100%;
 }
 
@@ -32,8 +33,10 @@ $side-bar-width: 200px;
 
 .app-layout__side-bar {
     background-color: $side-bar-color;
+    box-shadow: 0 2px 7px #6f6f6f;
     flex-grow: 0;
     width: $side-bar-width;
+    z-index: 10;
 }
 
 .app-layout__content {

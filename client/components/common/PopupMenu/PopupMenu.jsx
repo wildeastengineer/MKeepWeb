@@ -1,8 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import getLogger from 'logger';
+import config from 'config';
 
-import { logInByEmail } from 'store/actions/authActions';
+const logger = getLogger('PopupMenu');
 
-if (process.env.BROWSER) {
+if (config.isBuilding) {
+    /*eslint-env node*/
     require('./popupMenu.scss');
 }
 
@@ -13,7 +17,11 @@ class PopupMenu extends Component {
 
     static propTypes = {
         button: PropTypes.element,
-        children: PropTypes.element,
+        children: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.arrayOf(PropTypes.element),
+            PropTypes.string
+        ]),
         align: PropTypes.shape({
             horizontal: PropTypes.oneOf(['left', 'right'])
         })
@@ -43,7 +51,7 @@ class PopupMenu extends Component {
                 menuStyle.right = 0;
                 break;
             default:
-                console.error(`Unknown horizontal alignment "${align.horizontal}" for "PopupMenu" component`);
+                logger.error(`Unknown horizontal alignment "${align.horizontal}" for "PopupMenu" component`);
         }
 
         return (

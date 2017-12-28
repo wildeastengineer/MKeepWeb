@@ -1,9 +1,16 @@
+$button-padding-step: 4px;
+$button-height-step: 8px;
+$font-size-step: 8px;
+
 .mk-button {
+    background-color: #fff;
     border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     cursor: pointer;
-    height: 36px;
+    height: $button-height-step * 4;
     padding: 0;
+
+    color: #5b5b5b;
+    font-weight: bold;
 
     border: solid 1px ;
     border-color: #eee #ddd #ddd #eee;
@@ -14,7 +21,25 @@
     }
 
     & > span {
-        line-height: 32px;
-        padding: 0 16px;
+        line-height: $button-height-step * 4;
+        padding: 0 $button-padding-step * 4;
+    }
+
+    &.mk-button-small {
+        height: $button-height-step * 3;
+
+        & > span {
+            line-height: $button-height-step * 3;
+            padding: 0 $button-padding-step * 2;
+        }
+
+        .material-icons {
+            font-size: $font-size-step * 2;
+        }
+    }
+
+    &.mk-button-active {
+        background-color: #c9c8c8;
+        color: #323232;
     }
 }
