@@ -1,6 +1,6 @@
 {
-    "name": "mkeepweb1",
-    "version": "0.1.0",
+    "name": "mkeepweb",
+    "version": "0.2.0",
     "description": "Web client for MoneyKeeper",
     "main": "index.js",
     "scripts": {
